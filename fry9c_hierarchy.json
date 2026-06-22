@@ -1591,6 +1591,37 @@
 "item": "M.8",
 "depth": 1,
 "header": false
+},
+{
+"mdrm": "",
+"caption": "Loans to nondepository financial institutions, included in Schedule HC-N, item 7",
+"item": "M.9",
+"depth": 1,
+"header": true
+},
+{
+"mdrm": "BHCKPV23",
+"caption": "Past due 30 through 89 days and still accruing",
+"item": "M.9.A",
+"depth": 2,
+"header": false,
+"col": true
+},
+{
+"mdrm": "BHCKPV24",
+"caption": "Past due 90 days or more and still accruing",
+"item": "M.9.B",
+"depth": 2,
+"header": false,
+"col": true
+},
+{
+"mdrm": "BHCKPV25",
+"caption": "Nonaccrual",
+"item": "M.9.C",
+"depth": 2,
+"header": false,
+"col": true
 }
 ],
 "HC-C": [
@@ -1611,11 +1642,10 @@
 },
 {
 "mdrm": "BHDM1410",
-"caption": "In domestic offices",
+"caption": "Loans secured by real estate — domestic offices",
 "item": "1.B",
-"depth": 2,
-"header": false,
-"col": true
+"depth": 1,
+"header": false
 },
 {
 "mdrm": "",
@@ -1725,11 +1755,10 @@
 },
 {
 "mdrm": "BHDM1288",
-"caption": "In domestic offices",
+"caption": "Loans to depository institutions and acceptances of other banks — domestic offices",
 "item": "2.B",
-"depth": 2,
-"header": false,
-"col": true
+"depth": 1,
+"header": false
 },
 {
 "mdrm": "BHCK1292",
@@ -1785,11 +1814,10 @@
 },
 {
 "mdrm": "BHDM1766",
-"caption": "In domestic offices",
+"caption": "Commercial and industrial loans — domestic offices",
 "item": "4.B",
-"depth": 2,
-"header": false,
-"col": true
+"depth": 1,
+"header": false
 },
 {
 "mdrm": "BHCK1763",
@@ -1829,11 +1857,10 @@
 },
 {
 "mdrm": "BHDM1975",
-"caption": "In domestic offices",
+"caption": "Loans to individuals for household, family, and other personal expenditures — domestic offices",
 "item": "6.B",
-"depth": 2,
-"header": false,
-"col": true
+"depth": 1,
+"header": false
 },
 {
 "mdrm": "BHCKB538",
@@ -1880,11 +1907,10 @@
 },
 {
 "mdrm": "BHDM2081",
-"caption": "In domestic offices",
+"caption": "Loans to foreign governments and official institutions — domestic offices",
 "item": "7.B",
-"depth": 2,
-"header": false,
-"col": true
+"depth": 1,
+"header": false
 },
 {
 "mdrm": "",
@@ -1986,11 +2012,10 @@
 },
 {
 "mdrm": "BHDMKX57",
-"caption": "In domestic offices",
+"caption": "Loans for purchasing or carrying securities and all other loans — domestic offices",
 "item": "9.b.(3).B",
-"depth": 4,
-"header": false,
-"col": true
+"depth": 3,
+"header": false
 },
 {
 "mdrm": "",
@@ -2000,20 +2025,19 @@
 "header": true
 },
 {
-"mdrm": "BHCK2165",
-"caption": "Consolidated",
-"item": "10.A",
-"depth": 2,
-"header": false,
-"col": true
-},
-{
 "mdrm": "BHDM2165",
 "caption": "In domestic offices",
 "item": "10.B",
 "depth": 2,
 "header": false,
 "col": true
+},
+{
+"mdrm": "BHCK2165",
+"caption": "Lease financing receivables (net of unearned income) — consolidated",
+"item": "10.A",
+"depth": 1,
+"header": false
 },
 {
 "mdrm": "BHCKF162",
@@ -5039,20 +5063,6 @@
 "depth": 4,
 "header": false,
 "col": true
-},
-{
-"mdrm": "",
-"caption": "Memoranda",
-"item": "M",
-"depth": 1,
-"header": true
-},
-{
-"mdrm": "BHCKA251",
-"caption": "Credit losses on off-balance-sheet derivatives",
-"item": "M.1",
-"depth": 1,
-"header": false
 }
 ],
 "HC-Q": [
@@ -13609,48 +13619,6 @@
 "header": true
 },
 {
-"mdrm": "BHCKC886",
-"caption": "FEES AND COMMISSIONS FROM SECURITIES BROKERAGE",
-"item": "5.(1)",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKC888",
-"caption": "INVESTMENT BANKING; ADVISORY; AND UNDERWRITING FEES AND COMMISSIONS",
-"item": "5.(2)",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKC887",
-"caption": "FEES AND COMMISSIONS FROM ANNUITY SALES",
-"item": "5.(3)",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKC386",
-"caption": "INSURANCE AND REINSURANCE UNDERWRITING INCOME",
-"item": "5.(4)",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKC387",
-"caption": "INCOME FROM OTHER INSURANCE AND REINSURANCE ACTIVITIES",
-"item": "5.(5)",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKKX47",
-"caption": "Income from insurance activities",
-"item": "5.(7)",
-"depth": 2,
-"header": false
-},
-{
 "mdrm": "BHCK4070",
 "caption": "INCOME FROM FIDUCIARY ACTIVITIES",
 "item": "5.a",
@@ -13673,15 +13641,57 @@
 },
 {
 "mdrm": "",
-"caption": "Fees and commissions from securities brokerage, investment advisory, and related services",
+"caption": "Income from securities-related and insurance activities",
 "item": "5.d",
 "depth": 2,
 "header": true
 },
 {
+"mdrm": "BHCKC886",
+"caption": "Fees and commissions from securities brokerage",
+"item": "5.d.(1)",
+"depth": 3,
+"header": false
+},
+{
+"mdrm": "BHCKC888",
+"caption": "Investment banking, advisory, and underwriting fees and commissions",
+"item": "5.d.(2)",
+"depth": 3,
+"header": false
+},
+{
+"mdrm": "BHCKC887",
+"caption": "Fees and commissions from annuity sales",
+"item": "5.d.(3)",
+"depth": 3,
+"header": false
+},
+{
+"mdrm": "BHCKC386",
+"caption": "Underwriting income from insurance and reinsurance activities",
+"item": "5.d.(4)",
+"depth": 3,
+"header": false
+},
+{
+"mdrm": "BHCKC387",
+"caption": "Income from other insurance activities",
+"item": "5.d.(5)",
+"depth": 3,
+"header": false
+},
+{
 "mdrm": "BHCKKX46",
 "caption": "Fees and commissions from securities brokerage, investment banking, advisory, and underwriting",
 "item": "5.d.(6)",
+"depth": 3,
+"header": false
+},
+{
+"mdrm": "BHCKKX47",
+"caption": "Income from insurance activities",
+"item": "5.d.(7)",
 "depth": 3,
 "header": false
 },
@@ -13784,10 +13794,17 @@
 "header": false
 },
 {
-"mdrm": "BHCKC216",
-"caption": "GOODWILL IMPAIRMENT LOSSES",
+"mdrm": "",
+"caption": "Goodwill impairment losses",
 "item": "7.c",
 "depth": 2,
+"header": true
+},
+{
+"mdrm": "BHCKC216",
+"caption": "Goodwill impairment losses",
+"item": "7.c.(1)",
+"depth": 3,
 "header": false
 },
 {
@@ -14206,52 +14223,31 @@
 "header": false
 },
 {
+"mdrm": "",
+"caption": "Net gains (losses) recognized in earnings on credit derivatives that economically hedge credit exposures held outside the trading account",
+"item": "10",
+"depth": 1,
+"header": true
+},
+{
 "mdrm": "BHCKC889",
 "caption": "Net gains (losses) on credit derivatives held for trading",
-"item": "9.h",
+"item": "10.a",
 "depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCKC890",
 "caption": "Net gains (losses) on credit derivatives held for purposes other than trading",
-"item": "9.i",
+"item": "10.b",
 "depth": 2,
 "header": false
 },
 {
-"mdrm": "",
-"caption": "Insurance premiums",
-"item": "10",
-"depth": 1,
-"header": true
-},
-{
-"mdrm": "BHCKC242",
-"caption": "Premiums on insurance related to the extension of credit",
-"item": "10.a",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKC243",
-"caption": "All other premiums",
-"item": "10.a.(2)",
-"depth": 3,
-"header": false
-},
-{
-"mdrm": "",
-"caption": "Insurance benefits, losses, and expenses",
+"mdrm": "BHCKA251",
+"caption": "Credit losses on derivatives",
 "item": "11",
 "depth": 1,
-"header": true
-},
-{
-"mdrm": "BHCKB983",
-"caption": "Benefits, losses, and expenses from insurance-related activities",
-"item": "11.a",
-"depth": 2,
 "header": false
 },
 {
@@ -14265,6 +14261,34 @@
 "mdrm": "BHCK8431",
 "caption": "Income from the sale and servicing of mutual funds and annuities (in domestic offices)",
 "item": "12.a",
+"depth": 2,
+"header": false
+},
+{
+"mdrm": "",
+"caption": "Insurance premiums",
+"item": "12.b",
+"depth": 2,
+"header": true
+},
+{
+"mdrm": "BHCKC242",
+"caption": "Premiums on insurance related to the extension of credit",
+"item": "12.b.(1)",
+"depth": 3,
+"header": false
+},
+{
+"mdrm": "BHCKC243",
+"caption": "All other insurance premiums",
+"item": "12.b.(2)",
+"depth": 3,
+"header": false
+},
+{
+"mdrm": "BHCKB983",
+"caption": "Benefits, losses, and expenses from insurance-related activities",
+"item": "12.c",
 "depth": 2,
 "header": false
 },
@@ -14609,48 +14633,6 @@
 "header": false
 },
 {
-"mdrm": "",
-"caption": "In domestic offices (from Schedule HC-E)",
-"item": "9.a",
-"depth": 2,
-"header": true
-},
-{
-"mdrm": "BHDM6631",
-"caption": "DEPOSITS: NONINTEREST-BEARING",
-"item": "9.a.(1)",
-"depth": 3,
-"header": false
-},
-{
-"mdrm": "BHDM6636",
-"caption": "TOTAL INTEREST-BEARING DEPOSITS IN FOREIGN AND DOMESTIC OFFICES",
-"item": "9.a.(2)",
-"depth": 3,
-"header": false
-},
-{
-"mdrm": "",
-"caption": "In foreign offices",
-"item": "9.b",
-"depth": 2,
-"header": true
-},
-{
-"mdrm": "BHFN6631",
-"caption": "Deposits: noninterest-bearing (in foreign offices)",
-"item": "9.b.(1)",
-"depth": 3,
-"header": false
-},
-{
-"mdrm": "BHFN6636",
-"caption": "Total interest-bearing deposits in foreign offices",
-"item": "9.b.(2)",
-"depth": 3,
-"header": false
-},
-{
 "mdrm": "BHCK2143",
 "caption": "INTANGIBLE ASSETS",
 "item": "10",
@@ -14669,6 +14651,55 @@
 "caption": "TOTAL ASSETS",
 "item": "12",
 "depth": 1,
+"header": false
+},
+{
+"mdrm": "",
+"caption": "Deposits",
+"item": "13",
+"depth": 1,
+"header": true
+},
+{
+"mdrm": "",
+"caption": "In domestic offices (from Schedule HC-E)",
+"item": "13.a",
+"depth": 2,
+"header": true
+},
+{
+"mdrm": "BHDM6631",
+"caption": "Noninterest-bearing",
+"item": "13.a.(1)",
+"depth": 3,
+"header": false
+},
+{
+"mdrm": "BHDM6636",
+"caption": "Interest-bearing",
+"item": "13.a.(2)",
+"depth": 3,
+"header": false
+},
+{
+"mdrm": "",
+"caption": "In foreign offices, Edge and Agreement subsidiaries, and IBFs",
+"item": "13.b",
+"depth": 2,
+"header": true
+},
+{
+"mdrm": "BHFN6631",
+"caption": "Noninterest-bearing (in foreign offices)",
+"item": "13.b.(1)",
+"depth": 3,
+"header": false
+},
+{
+"mdrm": "BHFN6636",
+"caption": "Interest-bearing (in foreign offices)",
+"item": "13.b.(2)",
+"depth": 3,
 "header": false
 },
 {
