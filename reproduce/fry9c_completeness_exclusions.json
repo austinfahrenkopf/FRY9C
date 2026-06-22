@@ -1,0 +1,3250 @@
+{
+  "_description": "Completeness exclusion list for FR Y-9C validate_build.py. excluded_codes: panel codes legitimately absent from the hierarchy (not chart-worthy, discontinued, or administrative). sequence_exclusions: per-schedule item-number gaps that are documented known gaps; the gate accepts these while rejecting any NEW unexcused gap. All entries added 2026-06-21 after systematic triage. Gate threshold: MAX(quarter_end) >= 2022-01-01 AND n_filers >= 50.",
+  "_gate_threshold": {
+    "min_quarter": "2022-01-01",
+    "min_filers": 50
+  },
+  "excluded_codes": {
+    "BHCK1616": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCK1635": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2005-12-31; removed from form before 2015"
+    },
+    "BHCK1651": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK1659": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCK1715": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK3429": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK3812": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK5306": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2008-12-31; removed from form before 2015"
+    },
+    "BHCK5617": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCK8774": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB541": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB578": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKB588": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHDM1480": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2007-12-31; removed from form before 2015"
+    },
+    "BHDMA164": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-12-31; removed from form before 2020"
+    },
+    "BHCK0010": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKC867": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKF598": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF664": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF070": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF073": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF248": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF617": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKF651": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF674": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK051": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK176": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKG337": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKJ319": {
+      "category": "otti_discontinued",
+      "reason": "Other-than-temporary impairment (OTTI) codes superseded by CECL; last panel entry 2016-12-31"
+    },
+    "BHCKK002": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK018": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK028": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK034": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK088": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKK097": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKK101": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKK179": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK284": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKD966": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2017-12-31; removed from form before 2020"
+    },
+    "BHCAQ257": {
+      "category": "afs_equity_pre_asu2016_01",
+      "reason": "AFS preferred stock unrealized G/L superseded by ASU 2016-01; last panel entry 2020-09-30"
+    },
+    "BHCK3536": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKB034": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB037": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHDMG334": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKM721": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM729": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM744": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCAH312": {
+      "category": "low_filer_coverage",
+      "reason": "28 filers; too rare for systematic hierarchy inclusion; last panel entry 2020-09-30"
+    },
+    "BHCKG328": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCWKX78": {
+      "category": "low_filer_coverage",
+      "reason": "1 filers; too rare for systematic hierarchy inclusion; last panel entry 2020-03-31"
+    },
+    "BHCKC447": {
+      "category": "admin_metadata",
+      "reason": "Confidential treatment request flag — operational metadata, not a financial measure"
+    },
+    "BHCK1295": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCK1701": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK1702": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK1714": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK1731": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK2182": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2006-12-31; removed from form before 2015"
+    },
+    "BHCK2221": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK3809": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK3815": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-12-31; removed from form before 2015"
+    },
+    "BHCK5524": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2017-12-31; removed from form before 2020"
+    },
+    "BHCK7206": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK8434": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK8779": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKA221": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKA518": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-12-31; removed from form before 2020"
+    },
+    "BHCKB516": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKB716": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB765": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKC009": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKC401": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHBC4302": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
+    },
+    "BHCKC980": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHDMF578": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF724": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-12-31; removed from form before 2015"
+    },
+    "BHCKF259": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF683": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF690": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHDMF612": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF677": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK046": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK061": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK062": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK174": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKJ462": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKK017": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK020": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK167": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKK272": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCK3537": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK5360": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB042": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB051": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB055": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHDMG386": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMG387": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG419": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG424": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKM725": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKA522": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-03-31; removed from form before 2015"
+    },
+    "BHCK8718": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-03-31; removed from form before 2015"
+    },
+    "BHCKLL57": {
+      "category": "pandemic_relief_temporary",
+      "reason": "COVID-19 PPP temporary disclosure; last panel entry 2021-12-31"
+    },
+    "BHCK1705": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK1717": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK1719": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK2745": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK3428": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2005-12-31; removed from form before 2015"
+    },
+    "BHCK4659": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2006-12-31; removed from form before 2015"
+    },
+    "BHCK5311": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK5356": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCK5507": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-06-30; removed from form before 2020"
+    },
+    "BHCKA000": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKA224": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB502": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB589": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2008-12-31; removed from form before 2015"
+    },
+    "BHCKB591": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB596": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB718": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHBC4093": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
+    },
+    "BHCKC984": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF668": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF579": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF615": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF633": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF604": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF681": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK058": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKG339": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG343": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKJ987": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKJ994": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKJ996": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK006": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK011": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK019": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK024": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK031": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK083": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK085": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK135": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHDMK195": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB032": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB041": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCK3574": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKK210": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMG333": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKM715": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM728": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM737": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCK4815": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-12-31; removed from form before 2015"
+    },
+    "BHCKA524": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-03-31; removed from form before 2015"
+    },
+    "BHCWKX83": {
+      "category": "low_filer_coverage",
+      "reason": "1 filers; too rare for systematic hierarchy inclusion; last panel entry 2020-03-31"
+    },
+    "BHCKLG28": {
+      "category": "pandemic_relief_temporary",
+      "reason": "COVID-19 PPP temporary disclosure; last panel entry 2021-12-31"
+    },
+    "BHCK1291": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCK1661": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCK1734": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK1736": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK3492": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2007-12-31; removed from form before 2015"
+    },
+    "BHCK3502": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2007-12-31; removed from form before 2015"
+    },
+    "BHCK3515": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCK5484": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK5990": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK8772": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB712": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB761": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKC399": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKC405": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKC406": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHOD6648": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-12-31; removed from form before 2020"
+    },
+    "BHBC4135": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
+    },
+    "BHCK1227": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2006-12-31; removed from form before 2015"
+    },
+    "BHCKF608": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF667": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDM1564": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-12-31; removed from form before 2015"
+    },
+    "BHCKF610": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDM3545": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDM3546": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2008-12-31; removed from form before 2015"
+    },
+    "BHDM3547": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF615": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF616": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK054": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK059": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK071": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKG215": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKG217": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKG601": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKJ320": {
+      "category": "otti_discontinued",
+      "reason": "Other-than-temporary impairment (OTTI) codes superseded by CECL; last panel entry 2016-12-31"
+    },
+    "BHCKK003": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK021": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK027": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK032": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK136": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKM962": {
+      "category": "admin_metadata",
+      "reason": "Line-item confidentiality indicator — operational metadata, not a financial measure"
+    },
+    "BHCK3542": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2007-12-31; removed from form before 2015"
+    },
+    "BHCKB035": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB046": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCK3576": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHDMG211": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMG332": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMG388": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG439": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG449": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKM709": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM719": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKA521": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-03-31; removed from form before 2015"
+    },
+    "BHCK8834": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-03-31; removed from form before 2015"
+    },
+    "BHCKA124": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-03-31; removed from form before 2015"
+    },
+    "BHBCJJ33": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
+    },
+    "BHCK1733": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK3591": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2007-12-31; removed from form before 2015"
+    },
+    "BHCK7204": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK8778": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKA001": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKA517": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-12-31; removed from form before 2020"
+    },
+    "BHCKA535": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2005-12-31; removed from form before 2015"
+    },
+    "BHCKB026": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB698": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB702": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKC227": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHDMA243": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-12-31; removed from form before 2020"
+    },
+    "BHOD2604": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-12-31; removed from form before 2020"
+    },
+    "BHDMF587": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF589": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF247": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF691": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHDMF633": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF670": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF673": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK066": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK191": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKG219": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKG221": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKJ982": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKJ999": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK014": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK015": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK023": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK074": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK079": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK091": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKK092": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKK185": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2016-06-30"
+    },
+    "BHCKK195": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK271": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKK283": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCK5359": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB045": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB047": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB052": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKC050": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCK3575": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHDMG652": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKM746": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKG329": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKG914": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKJ453": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2010-12-31"
+    },
+    "BHCKA123": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-03-31; removed from form before 2015"
+    },
+    "BHCK1395": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2013-03-31; removed from form before 2015"
+    },
+    "BHCK2155": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2005-12-31; removed from form before 2015"
+    },
+    "BHCK3504": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2007-12-31; removed from form before 2015"
+    },
+    "BHCK3582": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2007-12-31; removed from form before 2015"
+    },
+    "BHCK3583": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2007-12-31; removed from form before 2015"
+    },
+    "BHCK4658": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2006-12-31; removed from form before 2015"
+    },
+    "BHCK8762": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2005-12-31; removed from form before 2015"
+    },
+    "BHCKA510": {
+      "category": "afs_equity_pre_asu2016_01",
+      "reason": "AFS mutual fund equity disclosure removed by ASU 2016-01; last panel entry 2020-09-30"
+    },
+    "BHCKB490": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2006-12-31; removed from form before 2015"
+    },
+    "BHCKB594": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB681": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB713": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDM1415": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2007-12-31; removed from form before 2015"
+    },
+    "BHCKC498": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHDMF592": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF260": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF641": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHDM3548": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF607": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF630": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF636": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF640": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK049": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK056": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK169": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK175": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKF838": {
+      "category": "admin_metadata",
+      "reason": "Reporting entity code — operational metadata, not a financial measure"
+    },
+    "BHCKG216": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKG341": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG345": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG346": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG347": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG600": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKJ988": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKJ992": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKJ995": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK012": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK209": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK212": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKL185": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKB031": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKG383": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMG209": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMG384": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMG385": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKM708": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM712": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM733": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKG324": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKG327": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKA523": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-03-31; removed from form before 2015"
+    },
+    "BHCKB494": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-12-31; removed from form before 2015"
+    },
+    "BHCKJJ26": {
+      "category": "cecl_transition_temporary",
+      "reason": "CECL adoption one-time transition disclosure; last panel entry 2023-12-31"
+    },
+    "BHCK1716": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK3590": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2007-12-31; removed from form before 2015"
+    },
+    "BHCK5479": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK5613": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCK8275": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK8771": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB701": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKC397": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKC400": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKC403": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHBCB491": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
+    },
+    "BHCK1226": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2006-12-31; removed from form before 2015"
+    },
+    "BHDMF583": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF595": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF246": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF642": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF693": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHDMF613": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF678": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK048": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK189": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKG214": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKG342": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG344": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG591": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKJ447": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK022": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK089": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKK100": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKK269": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKF837": {
+      "category": "admin_metadata",
+      "reason": "Reporting stage code — operational metadata, not a financial measure"
+    },
+    "BHCAP856": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2019-12-31; removed from form before 2020"
+    },
+    "BHCKC160": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2004-12-31; removed from form before 2015"
+    },
+    "BHCK3535": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK5357": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCK5353": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKG385": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK198": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKM734": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM741": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM743": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKG382": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHDMG382": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKJ536": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCK2800": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-12-31; removed from form before 2015"
+    },
+    "BHCK5403": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-12-31; removed from form before 2015"
+    },
+    "BHCK1706": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK1718": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK4336": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK6019": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2005-12-31; removed from form before 2015"
+    },
+    "BHCK8274": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK8766": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK8775": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB592": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB593": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2008-12-31; removed from form before 2015"
+    },
+    "BHCKB766": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB769": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCK1228": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2006-12-31; removed from form before 2015"
+    },
+    "BHCKC868": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKC981": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHDMF585": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF601": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF184": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF616": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF634": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF627": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF672": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK050": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK068": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKG598": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKJ989": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKJ993": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK086": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK096": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCAP854": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2019-12-31; removed from form before 2020"
+    },
+    "BHFN3543": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2007-12-31; removed from form before 2015"
+    },
+    "BHCK5352": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCK5355": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCK3452": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHDMG299": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMG335": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG444": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKM738": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKG325": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCK4531": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-12-31; removed from form before 2015"
+    },
+    "BHCK5402": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-12-31; removed from form before 2015"
+    },
+    "BHCKB719": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-12-31; removed from form before 2015"
+    },
+    "BHCKB724": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-12-31; removed from form before 2015"
+    },
+    "BHCKA128": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-03-31; removed from form before 2015"
+    },
+    "BHCK1699": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK8761": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2005-12-31; removed from form before 2015"
+    },
+    "BHCKA249": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB703": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB764": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB774": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCK0426": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKC502": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKF228": {
+      "category": "removed_from_form",
+      "reason": "Noncash income from negative amortization; removed from form ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMF600": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKF635": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKF649": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF650": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF688": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHDMF606": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF611": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF635": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHDMF676": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF679": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK060": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK172": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKG336": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK008": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK016": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK035": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK076": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK077": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK093": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKK099": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKK134": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKK286": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKK288": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCK3571": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKB027": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKG384": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMG383": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKM710": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM716": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM723": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM732": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCK1727": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-12-31; removed from form before 2015"
+    },
+    "BHCK5401": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-12-31; removed from form before 2015"
+    },
+    "BHCKB720": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-12-31; removed from form before 2015"
+    },
+    "BHCKB725": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-12-31; removed from form before 2015"
+    },
+    "BHCK8836": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-03-31; removed from form before 2015"
+    },
+    "BHCK1293": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCK1294": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCK1658": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCK1709": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK2183": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2006-12-31; removed from form before 2015"
+    },
+    "BHCK2920": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2005-12-31; removed from form before 2015"
+    },
+    "BHCK4320": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCK4668": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2006-12-31; removed from form before 2015"
+    },
+    "BHCK5483": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK5525": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2017-12-31; removed from form before 2020"
+    },
+    "BHCK6572": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK8770": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKA250": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB772": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHBC4079": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
+    },
+    "BHBC4519": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
+    },
+    "BHCK1289": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF581": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF586": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF593": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF594": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF067": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF069": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF243": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF465": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2008-12-31; removed from form before 2015"
+    },
+    "BHCKF790": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK047": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK067": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK070": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK173": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCK8843": {
+      "category": "admin_metadata",
+      "reason": "Estimation flag — operational metadata, not a financial measure"
+    },
+    "BHCKJ997": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK001": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK095": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKK180": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK267": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCAP853": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2019-12-31; removed from form before 2020"
+    },
+    "BHCKB030": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCK3451": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKM713": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCK5414": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-12-31; removed from form before 2015"
+    },
+    "BHCK6373": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-12-31; removed from form before 2015"
+    },
+    "BHCKB721": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-12-31; removed from form before 2015"
+    },
+    "BHCKA121": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-06-30; removed from form before 2015"
+    },
+    "BHCK1710": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK1713": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK2759": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2007-12-31; removed from form before 2015"
+    },
+    "BHCK3503": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2007-12-31; removed from form before 2015"
+    },
+    "BHCK5376": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2005-12-31; removed from form before 2015"
+    },
+    "BHCK5614": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCK8773": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB595": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB675": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB768": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKC395": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKC398": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHBCA220": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
+    },
+    "BHDMF580": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF584": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF599": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCK1564": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-12-31; removed from form before 2015"
+    },
+    "BHCKF068": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF560": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF680": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK052": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK064": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK171": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK190": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKG220": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKG459": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG602": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKK025": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK078": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK081": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK082": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK087": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKK287": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKL188": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHDMK209": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCK5358": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCK6669": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKK199": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK200": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG434": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG454": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKM722": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM724": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM727": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM730": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM736": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM748": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM749": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKG894": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-12-31; removed from form before 2015"
+    },
+    "BHCK1350": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-12-31; removed from form before 2015"
+    },
+    "BHCK5413": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-12-31; removed from form before 2015"
+    },
+    "BHCKB982": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-12-31; removed from form before 2015"
+    },
+    "BHCKC231": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-12-31; removed from form before 2015"
+    },
+    "BHCK4484": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2008-12-31; removed from form before 2015"
+    },
+    "BHCKA507": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB500": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB501": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB580": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKB714": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB763": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB770": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB775": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKC402": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHBCC216": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
+    },
+    "BHCK1290": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF031": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKF599": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF669": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF596": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF249": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF696": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHDMF625": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF634": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK053": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK187": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHFNK260": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKG597": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKJ321": {
+      "category": "otti_discontinued",
+      "reason": "Other-than-temporary impairment (OTTI) codes superseded by CECL; last panel entry 2023-12-31"
+    },
+    "BHCKK196": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK273": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2016-06-30"
+    },
+    "BHDMK196": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB036": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCK5354": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB043": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB048": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB050": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHDMK197": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKM735": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKG330": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKJ463": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKB723": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-12-31; removed from form before 2015"
+    },
+    "BHCKKY38": {
+      "category": "low_filer_coverage",
+      "reason": "2 filers; too rare for systematic hierarchy inclusion; last panel entry 2025-09-30"
+    },
+    "BHCK1297": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCK1298": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCK1698": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK1711": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK4010": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2007-12-31; removed from form before 2015"
+    },
+    "BHCK5610": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK8767": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKA002": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB579": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKB696": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB700": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKC393": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKC394": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHBCB493": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
+    },
+    "BHCKC780": {
+      "category": "otti_discontinued",
+      "reason": "Other-than-temporary impairment (OTTI) codes superseded by CECL; last panel entry 2023-12-31"
+    },
+    "BHCKC781": {
+      "category": "otti_discontinued",
+      "reason": "Other-than-temporary impairment (OTTI) codes superseded by CECL; last panel entry 2023-12-31"
+    },
+    "BHCKC982": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF229": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF586": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF587": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF588": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKF609": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF666": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF590": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF598": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF682": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHDMF614": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF631": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF671": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK055": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK177": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKG338": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKJ984": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKJ986": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKJ998": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK029": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK080": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK182": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK183": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKK186": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2016-06-30"
+    },
+    "BHDMK208": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCAP855": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2019-12-31; removed from form before 2020"
+    },
+    "BHCKB039": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCK3573": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHDMK199": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKM717": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM731": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM742": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM747": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKB998": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-12-31; removed from form before 2015"
+    },
+    "BHCKHT83": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-12-31; removed from form before 2020"
+    },
+    "BHCKJJ28": {
+      "category": "cecl_transition_temporary",
+      "reason": "CECL adoption one-time transition disclosure; last panel entry 2023-12-31"
+    },
+    "BHCKLG26": {
+      "category": "pandemic_relief_temporary",
+      "reason": "COVID-19 PPP temporary disclosure; last panel entry 2021-12-31"
+    },
+    "BHCK1703": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK2769": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2007-12-31; removed from form before 2015"
+    },
+    "BHCK3818": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-12-31; removed from form before 2015"
+    },
+    "BHCK5526": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2017-12-31; removed from form before 2020"
+    },
+    "BHCK8763": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2005-12-31; removed from form before 2015"
+    },
+    "BHCK8769": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK8777": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK9802": {
+      "category": "admin_metadata",
+      "reason": "Subsidiary flag — operational metadata, not a financial measure"
+    },
+    "BHCKA511": {
+      "category": "afs_equity_pre_asu2016_01",
+      "reason": "AFS mutual fund equity disclosure removed by ASU 2016-01; last panel entry 2020-09-30"
+    },
+    "BHCKB639": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB697": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB715": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB762": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB767": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKC396": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHBC4107": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
+    },
+    "BHBC4230": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2018-12-31"
+    },
+    "BHBC4301": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
+    },
+    "BHCKC866": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKF600": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKF665": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF588": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHDMF597": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF244": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF245": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF695": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHDMF617": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHDMF618": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF626": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF629": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF632": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF639": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKJ990": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK007": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK026": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK072": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK073": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK084": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK208": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKL183": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKL184": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKB033": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCK5351": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB053": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHDMG381": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK211": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKG429": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKM714": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM720": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM726": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM739": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM745": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKG326": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKG331": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKJ452": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2010-12-31"
+    },
+    "BHCKJ537": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKB997": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-12-31; removed from form before 2015"
+    },
+    "BHCKB722": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-12-31; removed from form before 2015"
+    },
+    "BHCK2771": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK4669": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2006-12-31; removed from form before 2015"
+    },
+    "BHCK5616": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCK6649": {
+      "category": "admin_metadata",
+      "reason": "Confidential data indicator — operational metadata, not a financial measure"
+    },
+    "BHCKA534": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2005-12-31; removed from form before 2015"
+    },
+    "BHCKB517": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKB546": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB590": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB699": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB717": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKB771": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKC225": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKC404": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDM1635": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2005-12-31; removed from form before 2015"
+    },
+    "BHBC4320": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2016-06-30"
+    },
+    "BHCKC779": {
+      "category": "otti_discontinued",
+      "reason": "Other-than-temporary impairment (OTTI) codes superseded by CECL; last panel entry 2023-12-31"
+    },
+    "BHCKF264": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHDMF582": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF591": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF071": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF251": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF256": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF257": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF685": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHDMF675": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK045": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK065": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK170": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK188": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCK9191": {
+      "category": "admin_metadata",
+      "reason": "Processing district code — operational metadata, not a financial measure"
+    },
+    "BHCKG218": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKG222": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKG599": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKK004": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK005": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK013": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK075": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK184": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2016-06-30"
+    },
+    "BHCKL186": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKL187": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCK3572": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCKB029": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB040": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB054": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCK6927": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCKK211": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMG210": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMG380": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKM751": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCK8717": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-03-31; removed from form before 2015"
+    },
+    "BHCKHT84": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-12-31; removed from form before 2020"
+    },
+    "BHCK1707": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK1732": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK1735": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK2011": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCK2744": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK3792": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK5310": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK5612": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCK5615": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2010-12-31; removed from form before 2015"
+    },
+    "BHCK7205": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCK8764": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2014-12-31"
+    },
+    "BHCK8776": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKA223": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2014-12-31; removed from form before 2015"
+    },
+    "BHCKB773": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKC408": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2006-09-30; removed from form before 2015"
+    },
+    "BHDMA242": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-12-31; removed from form before 2020"
+    },
+    "BHCKC983": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKC985": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF066": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF072": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKF250": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF255": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF258": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCKF687": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHDMF605": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF624": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMF628": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK057": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK063": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHDMK069": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKG340": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKJ461": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2023-06-30"
+    },
+    "BHCKJ983": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKJ985": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKJ991": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK010": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKK178": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK181": {
+      "category": "fdic_loss_sharing_discontinued",
+      "reason": "FDIC loss-sharing agreement codes; program expired ~2023; last panel entry 2017-12-31"
+    },
+    "BHCKK285": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2016-06-30; removed from form before 2020"
+    },
+    "BHCAP845": {
+      "category": "afs_equity_pre_asu2016_01",
+      "reason": "AFS preferred stock unrealized G/L superseded by ASU 2016-01; last panel entry 2020-09-30"
+    },
+    "BHCK3534": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2009-03-31; removed from form before 2015"
+    },
+    "BHCK3546": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2008-12-31; removed from form before 2015"
+    },
+    "BHCKB028": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB038": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB044": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB049": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHCKB056": {
+      "category": "free_text_note",
+      "reason": "Text narrative note field for financial statements; not a numeric measure"
+    },
+    "BHDMG379": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMG651": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK200": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHDMK210": {
+      "category": "historically_discontinued_pre2020",
+      "reason": "Last reported 2018-03-31; removed from form before 2020"
+    },
+    "BHCKM711": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM740": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCKM750": {
+      "category": "alll_analysis_discontinued",
+      "reason": "ALLL/ASC-310-30 impairment analysis superseded by CECL 2023; last panel entry 2023-12-31"
+    },
+    "BHCK6688": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2001-12-31; removed from form before 2015"
+    },
+    "BHCK8838": {
+      "category": "historically_discontinued_pre2015",
+      "reason": "Last reported 2002-03-31; removed from form before 2015"
+    },
+    "BHCKLG27": {
+      "category": "pandemic_relief_temporary",
+      "reason": "COVID-19 PPP temporary disclosure; last panel entry 2021-12-31"
+    }
+  },
+  "sequence_exclusions": {
+    "HC-C": {
+      "5": "known_gap_needs_pdf_verification: HC-C restructured for CECL; item may have been removed",
+      "8": "known_gap_needs_pdf_verification: HC-C item 8 may have been removed in form revision"
+    },
+    "HC-L": {
+      "5": "known_gap_needs_pdf_verification: HC-L item 5 may have been restructured or removed",
+      "10": "known_gap_needs_pdf_verification: HC-L item 10 may have been restructured or removed"
+    },
+    "HC-S": {
+      "7": "known_gap_needs_pdf_verification: HC-S performance schedule item 7 may be removed",
+      "8": "known_gap_needs_pdf_verification: HC-S performance schedule item 8 may be removed"
+    },
+    "HC-R": {
+      "41": "known_gap_needs_pdf_verification: HC-R capital schedule item 41 may be removed/restructured"
+    },
+    "HC": {
+      "13": "known_gap_needs_pdf_verification: main balance sheet item 13 may be removed/restructured",
+      "17": "known_gap_needs_pdf_verification: main balance sheet item 17 may be removed/restructured",
+      "18": "known_gap_needs_pdf_verification: main balance sheet item 18 may be removed/restructured",
+      "22": "known_gap_needs_pdf_verification: main balance sheet item 22 may be removed/restructured"
+    },
+    "HC-D": {
+      "7": "known_gap_needs_pdf_verification: HC-D trading assets items 7-8 may be removed",
+      "8": "known_gap_needs_pdf_verification: HC-D trading assets items 7-8 may be removed"
+    },
+    "HC-D — Memoranda": {
+      "6": "known_gap_needs_pdf_verification: HC-D Memo item 6 may be removed or misclassified"
+    },
+    "HC-K": {
+      "10": "known_gap_needs_pdf_verification: HC-K quarterly averages item 10 may be removed"
+    },
+    "HC-M": {
+      "10": "known_gap_needs_pdf_verification: HC-M additional data item 10 may be removed",
+      "22": "known_gap_needs_pdf_verification: HC-M additional data item 22 may be removed"
+    },
+    "HI — Notes (Predecessor)": {
+      "4": "known_gap_needs_pdf_verification: predecessor schedule items renumbered or removed",
+      "7": "known_gap_needs_pdf_verification: predecessor schedule items renumbered or removed",
+      "8": "known_gap_needs_pdf_verification: predecessor schedule items renumbered or removed",
+      "9": "known_gap_needs_pdf_verification: predecessor schedule items renumbered or removed"
+    }
+  },
+  "spurious_allowed": {},
+  "_spurious_description": "spurious_allowed: hierarchy LEAF codes legitimately absent from the panel (text/admin fields or valid-but-unfiled form lines greyed-out per C4). The bidirectional gate FAILS on any hierarchy leaf code never reported in the panel that is NOT listed here — so genuine parse artifacts must be dropped via *_hierarchy_overrides.json drop_codes, not parked here."
+}

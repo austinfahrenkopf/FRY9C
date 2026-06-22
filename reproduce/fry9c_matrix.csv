@@ -1,0 +1,686 @@
+schedule,item,caption,header,colA,colB,colC,codes,labels
+# Curated matrix-schedule definitions (read by build_hierarchy_fry9c.py).
+# Matrix schedules place each ROW's data across fixed COLUMNS. pypdf can't extract these reliably,
+# so they are transcribed from the form here. header=1 -> grouping row (no data). header=0 with
+# 3 cells -> a 3-column matrix row. header=0 with 1 cell (colA only) -> a single-value row.
+# Codes are bare 4-char MDRM item codes; the BHCK/BHDM/... prefix is resolved via the dictionary.
+# Column labels are set per schedule in build_hierarchy_fry9c.py (MATRIX_COLS).
+# ---- HC-N : Past Due & Nonaccrual (A=Past due 30-89 / B=Past due 90+ / C=Nonaccrual) ----
+HC-N,1,Loans secured by real estate,1,,,
+HC-N,1.a,"Construction, land development, and other land loans in domestic offices",1,,,
+HC-N,1.a.(1),1-4 family residential construction loans,0,F172,F174,F176
+HC-N,1.a.(2),Other construction loans and all land development and other land loans,0,F173,F175,F177
+HC-N,1.b,Secured by farmland in domestic offices,0,3493,3494,3495
+HC-N,1.c,Secured by 1-4 family residential properties in domestic offices,1,,,
+HC-N,1.c.(1),"Revolving, open-end loans secured by 1-4 family residential properties and extended under lines of credit",0,5398,5399,5400
+HC-N,1.c.(2),Closed-end loans secured by 1-4 family residential properties,1,,,
+HC-N,1.c.(2).(a),Secured by first liens,0,C236,C237,C229
+HC-N,1.c.(2).(b),Secured by junior liens,0,C238,C239,C230
+HC-N,1.d,Secured by multifamily (5 or more) residential properties in domestic offices,0,3499,3500,3501
+HC-N,1.e,Secured by nonfarm nonresidential properties in domestic offices,1,,,
+HC-N,1.e.(1),Loans secured by owner-occupied nonfarm nonresidential properties,0,F178,F180,F182
+HC-N,1.e.(2),Loans secured by other nonfarm nonresidential properties,0,F179,F181,F183
+HC-N,1.f,In foreign offices,0,B572,B573,B574
+HC-N,2,Loans to depository institutions and acceptances of other banks,1,,,
+HC-N,2.a,U.S. banks and other U.S. depository institutions,0,5377,5378,5379
+HC-N,2.b,Foreign banks,0,5380,5381,5382
+HC-N,3,Loans to finance agricultural production and other loans to farmers,0,1594,1597,1583
+HC-N,4,Commercial and industrial loans,0,1606,1607,1608
+HC-N,5,"Loans to individuals for household, family, and other personal expenditures",1,,,
+HC-N,5.a,Credit cards,0,B575,B576,B577
+HC-N,5.b,Automobile loans,0,K213,K214,K215
+HC-N,5.c,"Other consumer loans (includes single payment, installment, all student loans, and revolving credit plans other than credit cards)",0,K216,K217,K218
+HC-N,6,Loans to foreign governments and official institutions,0,5389,5390,5391
+HC-N,7,All other loans,0,5459,5460,5461
+HC-N,8,Lease financing receivables,1,,,
+HC-N,8.a,"Leases to individuals for household, family, and other personal expenditures",0,F166,F167,F168
+HC-N,8.b,All other leases,0,F169,F170,F171
+HC-N,8.c,Lease finance receivables,0,KX63,KX64,KX65
+HC-N,9,Total loans and leases (sum of items 1 through 8.b),0,1406,1407,1403
+HC-N,10,Debt securities and other assets (exclude other real estate owned and other repossessed assets),0,3505,3506,3507
+HC-N,11,Loans and leases reported in items 1 through 8 above which are wholly or partially guaranteed by the U.S. Government (excluding loans and leases covered by loss-sharing agreements with the FDIC),0,K036,K037,K038
+HC-N,11.a,"Guaranteed portion of loans and leases (exclude rebooked ""GNMA loans"") included in item 11 above",0,K039,K040,K041
+HC-N,11.b,"Rebooked ""GNMA loans"" that have been repurchased or are eligible for repurchase included in item 11 above",0,K042,K043,K044
+HC-N,12,Portion of covered loans and leases reported in item 9 above that are protected by loss-sharing agreements with the FDIC,0,K102,K103,K104
+HC-N,M.1,"Loan modifications to borrowers experiencing financial difficulty included in Schedule HC-N, items 1 through 7, above (and not reported in Schedule HC-C, Memorandum item 1)",1,,,
+HC-N,M.1.a,"Construction, land development, and other land loans in domestic offices",1,,,
+HC-N,M.1.a.(1),1-4 family residential construction loans,0,K105,K106,K107
+HC-N,M.1.a.(2),Other construction loans and all land development and other land loans,0,K108,K109,K110
+HC-N,M.1.b,Loans secured by 1-4 family residential properties in domestic offices,0,F661,F662,F663
+HC-N,M.1.c,Secured by multifamily (5 or more) residential properties in domestic offices,0,K111,K112,K113
+HC-N,M.1.d,Secured by nonfarm nonresidential properties in domestic offices,1,,,
+HC-N,M.1.d.(1),Loans secured by owner-occupied nonfarm nonresidential properties,0,K114,K115,K116
+HC-N,M.1.d.(2),Loans secured by other nonfarm nonresidential properties,0,K117,K118,K119
+HC-N,M.1.e,Commercial and industrial loans,1,,,
+HC-N,M.1.e.(1),To U.S. addressees (domicile),0,K120,K121,K122
+HC-N,M.1.e.(2),To non-U.S. addressees (domicile),0,K123,K124,K125
+HC-N,M.1.e.(3),To U.S. addressees (domicile) and non-U.S. addressees (domicile),0,KX66,KX67,KX68
+HC-N,M.1.f,"All other loans (include loans to individuals for household, family, and other personal expenditures)",0,K126,K127,K128
+HC-N,M.1.f.(1),Loans secured by farmland in domestic offices,0,K130,K131,K132
+HC-N,M.1.f.(2),Loans to finance agricultural production and other loans to farmers,0,K138,K139,K140
+HC-N,M.1.f.(3),"Loans to individuals for household, family, and other personal expenditures",1,,,
+HC-N,M.1.f.(3).(a),Credit cards,0,K274,K275,K276
+HC-N,M.1.f.(3).(b),Automobile loan,0,K277,K278,K279
+HC-N,M.1.f.(3).(c),"Other consumer loans (includes single payment, installment, all student loans, and revolving credit plans other than credit cards)",0,K280,K281,K282
+HC-N,M.1.g,"Total loan modifications to borrowers experiencing financial difficulty included in Schedule HC-N items 1 through 7, above (sum of Memoranda items 1.a.(1) through item 1.f)",0,HK26,HK27,HK28
+HC-N,M.2,"Loans to finance commercial real estate, construction, and land development activities (not secured by real estate) included in Schedule HC-N, items 4 and 7 above",0,6558,6559,6560
+HC-N,M.3,"Loans and leases included in Schedule HC-N, items 1, 2, 4, 5, 6, 7, and 8 extended to non-U.S. addressees",0,3508,1912,1913
+HC-N,M.5,Loans and leases held-for-sale (included in Schedule HC-N items 1 through 8 above),0,C240,C241,C226
+HC-N,M.6,Derivative contracts: Fair value of amounts carried as assets,0,3529,3530,
+HC-N,M.7,Additions to nonaccrual assets during the previous six months,0,C410,,
+HC-N,M.8,Nonaccrual assets sold during the previous six months,0,C411,,
+HC-N,M.9,"Loans to nondepository financial institutions, included in Schedule HC-N, item 7",0,PV23,PV24,PV25
+# ---- HI-B (Charge-offs/Recoveries) + HI-B Part II + HC-C (restored) ----
+HC-C,1,Loans secured by real estate,0,1410,1410,
+HC-C,1.a,"Construction, land development, and other land loans",1,,,
+HC-C,1.a.(1),1-4 family residential construction loans,0,,F158,
+HC-C,1.a.(2),Other construction loans and all land development and other land loans,0,,F159,
+HC-C,1.b,Secured by farmland,0,,1420,
+HC-C,1.c,Secured by 1-4 family residential properties,1,,,
+HC-C,1.c.(1),"Revolving, open-end loans secured by 1-4 family residential properties and extended under lines of credit",0,,1797,
+HC-C,1.c.(2),Closed-end loans secured by 1-4 family residential properties,1,,,
+HC-C,1.c.(2).(a),Secured by first liens,0,,5367,
+HC-C,1.c.(2).(b),Secured by junior liens,0,,5368,
+HC-C,1.d,Secured by multifamily (5 or more) residential properties,0,,1460,
+HC-C,1.e,Secured by nonfarm nonresidential properties,1,,,
+HC-C,1.e.(1),Loans secured by owner-occupied nonfarm nonresidential properties,0,,F160,
+HC-C,1.e.(2),Loans secured by other nonfarm nonresidential properties,0,,F161,
+HC-C,10,Lease financing receivables (net of unearned income),0,2165,2165,
+HC-C,10.a,"Leases to individuals for household, family, and other personal expenditures",0,F162,,
+HC-C,10.b,All other leases,0,F163,,
+HC-C,10.c,Lease financing receivables,0,KX58,,
+HC-C,11,LESS: Any unearned income on loans reflected in items 1 through 9 above,0,2123,2123,
+HC-C,12,Total loans and leases held for investment and held for sale (sum of items 1 through 10 minus item 11),0,2122,2122,
+HC-C,2,Loans to depository institutions and acceptances of other banks,0,1288,1288,
+HC-C,2.a,To U.S. depository institutions and acceptances of U.S. banks,0,1292,,
+HC-C,2.b,To foreign banks,0,1296,,
+HC-C,3,Loans to finance agricultural production and other loans to farmers,0,1590,1590,
+HC-C,4,Commercial and industrial loans,0,1766,1766,
+HC-C,4.a,To U.S. addressees (domicile),0,1763,,
+HC-C,4.b,To non-U.S. addressees (domicile),0,1764,,
+HC-C,4.c,To U.S. addressees (domicile) and non-U.S. addressees (domicile),0,KX56,,
+HC-C,6,"Loans to individuals for household, family, and other personal expenditures",0,1975,1975,
+HC-C,6.a,Credit cards,0,B538,,
+HC-C,6.b,Other revolving credit plans,0,B539,,
+HC-C,6.c,Automobile loans,0,K137,,
+HC-C,6.d,"Other consumer loans (includes single payment, installment, and all student loans)",0,K207,,
+HC-C,7,Loans to foreign governments and official institutions (including foreign central banks),0,2081,2081,
+HC-C,9,Loans to nondepository financial institutions and other loans,1,,,
+HC-C,9.a,Loans to nondepository financial institutions,0,J454,J454,
+HC-C,9.b,Other loans,1,,,
+HC-C,9.b.(1),Loans for purchasing or carrying securities (secured or unsecured),0,1545,1545,
+HC-C,9.b.(2),All other loans (exclude consumer loans),0,J451,J451,
+HC-C,9.b.(3),Loans for purchasing or carrying securities and all other loans,0,KX57,KX57,
+HC-C,M,Memoranda,1,,,
+HC-C,M.1,Loan modifications to borrowers experiencing financial difficulty in compliance with their modified terms,1,,,
+HC-C,M.1.a,"Construction, land development, and other land loans in domestic offices",1,,,
+HC-C,M.1.a.(1),1-4 family residential construction loans,0,,K158,
+HC-C,M.1.a.(2),All other construction loans and all land development and other land loans,0,,K159,
+HC-C,M.1.b,Loans secured by 1-4 family residential properties in domestic offices,0,,F576,
+HC-C,M.1.c,Secured by multifamily (5 or more) residential properties in domestic offices,0,,K160,
+HC-C,M.1.d,Secured by nonfarm nonresidential properties in domestic offices,1,,,
+HC-C,M.1.d.(1),Loans secured by owner-occupied nonfarm nonresidential properties,0,,K161,
+HC-C,M.1.d.(2),Loans secured by other nonfarm nonresidential properties,0,,K162,
+HC-C,M.1.e,Commercial and industrial loans,1,,,
+HC-C,M.1.e.(1),To U.S. addressees (domicile),0,K163,,
+HC-C,M.1.e.(2),To non-U.S. addressees (domicile),0,K164,,
+HC-C,M.1.e.(3),To U.S. addressees (domicile) and non-U.S. addressees (domicile),0,KX59,,
+HC-C,M.1.f,"All other loans (include loans to individuals for household, family, and other personal expenditures)",0,,K165,
+HC-C,M.1.f.(1),Loans secured by farmland in domestic offices,0,,K166,
+HC-C,M.1.f.(2),Loans to finance agricultural production and other loans to farmers,0,K168,,
+HC-C,M.1.f.(3),"Loans to individuals for household, family, and other personal expenditures",1,,,
+HC-C,M.1.f.(3).(a),Credit cards,0,K098,,
+HC-C,M.1.f.(3).(b),Automobile loans,0,K203,,
+HC-C,M.1.f.(3).(c),"Other consumer loans (includes single payment, installment, all student loans, and revolving credit plans other than credit cards)",0,K204,,
+HC-C,M.1.g,Total loan modifications to borrowers experiencing financial difficulty (sum of Memorandum items 1.a.(1) through 1.f),0,HK25,,
+HC-C,M.2,"Loans to finance commercial real estate, construction, and land development activities (not secured by real estate) included in Schedule HC-C, items 4 and 9, column A above",0,2746,,
+HC-C,M.3,"Loans secured by real estate to non-U.S. addressees (domicile) (included in Schedule HC-C, item 1, column A above)",0,B837,,
+HC-C,M.4,"Outstanding credit card fees and finance charges (included in Schedule HC-C, item 6.a, column A above)",0,C391,,
+HC-C,M.6,Closed-end loans with negative amortization features secured by 1-4 family residential properties in domestic offices,1,,,
+HC-C,M.6.a,Total amount of closed-end loans with negative amortization features secured by 1-4 family residential properties,0,F230,,
+HC-C,M.6.b,Total maximum remaining amount of negative amortization contractually permitted on closed-end loans,0,F231,,
+HC-C,M.6.c,Total amount of negative amortization on closed-end loans included in Memorandum item 6.a above,0,F232,,
+HC-C,M.9,"Loans secured by 1-4 family residential properties in domestic offices in process of foreclosure (included in items 1.c.(1), 1.c.(2)(a) and 1.c.(2)(b))",0,,F577,
+HC-C,M.12,"Loans (not considered purchased credit-deteriorated) acquired in business combinations with acquisition dates in the current calendar year:",1,,,,,
+HC-C,M.12.a,Loans secured by real estate,0,,,,G091|G092|G093,Fair value at acquisition date|Gross contractual amounts receivable at acquisition|Best estimate of contractual cash flows not expected to be collected
+HC-C,M.12.b,Commercial and industrial loans,0,,,,G094|G095|G096,Fair value at acquisition date|Gross contractual amounts receivable at acquisition|Best estimate of contractual cash flows not expected to be collected
+HC-C,M.12.c,"Loans to individuals for household, family, and other personal expenditures",0,,,,G097|G098|G099,Fair value at acquisition date|Gross contractual amounts receivable at acquisition|Best estimate of contractual cash flows not expected to be collected
+HC-C,M.12.d,All other loans and all leases,0,,,,G100|G101|G102,Fair value at acquisition date|Gross contractual amounts receivable at acquisition|Best estimate of contractual cash flows not expected to be collected
+HC-C,M.12.e,Loans and leases,0,,,,KX60|KX61,Fair value at acquisition date|Gross contractual amounts receivable at acquisition
+HC-C,M.14,Pledged loans and leases,0,G378,,
+HC-C,M.15,"Revolving, open-end lines of credit secured by 1-4 family residential properties (included in item 1.c.(1) above)",0,LE75,,
+HI-B,1,Loans secured by real estate,1,,,
+HI-B,1.a,"Construction, land development, and other land loans in domestic offices",1,,,
+HI-B,1.a.(1),1-4 family residential construction loans,0,C891,C892,
+HI-B,1.a.(2),Other construction loans and all land development and other land loans,0,C893,C894,
+HI-B,1.b,Secured by farmland in domestic offices,0,3584,3585,
+HI-B,1.c,Secured by 1-4 family residential properties in domestic offices,1,,,
+HI-B,1.c.(1),"Revolving, open-end loans secured by 1-4 family residential properties and extended under lines of credit",0,5411,5412,
+HI-B,1.c.(2),Closed-end loans secured by 1-4 family residential properties,1,,,
+HI-B,1.c.(2).(a),Secured by first liens,0,C234,C217,
+HI-B,1.c.(2).(b),Secured by junior liens,0,C235,C218,
+HI-B,1.d,Secured by multifamily (5 or more) residential properties in domestic offices,0,3588,3589,
+HI-B,1.e,Secured by nonfarm nonresidential properties in domestic offices,1,,,
+HI-B,1.e.(1),Loans secured by owner-occupied nonfarm nonresidential properties,0,C895,C896,
+HI-B,1.e.(2),Loans secured by other nonfarm nonresidential properties,0,C897,C898,
+HI-B,1.f,In foreign offices,0,B512,B513,
+HI-B,2,Loans to depository institutions and acceptances of other banks,1,,,
+HI-B,2.a,To U.S. banks and other depository institutions,0,4653,4663,
+HI-B,2.b,To foreign banks,0,4654,4664,
+HI-B,3,Loans to finance agricultural production and other loans to farmers,0,4655,4665,
+HI-B,4,Commercial and industrial loans,1,,,
+HI-B,4.a,To U.S. addressees (domicile),0,4645,4617,
+HI-B,4.b,To non-U.S. addressees (domicile),0,4646,4618,
+HI-B,4.c,To U.S. addressees (domicile) and non-U.S. addressees (domicile),0,KX48,KX49,
+HI-B,5,"Loans to individuals for household, family, and other personal expenditures",1,,,
+HI-B,5.a,Credit cards,0,B514,B515,
+HI-B,5.b,Automobile loans,0,K129,K133,
+HI-B,5.c,"Other consumer loans (includes single payment, installment, all student loans, and revolving credit plans other than credit cards)",0,K205,K206,
+HI-B,6,Loans to foreign governments and official institutions,0,4643,4627,
+HI-B,7,All other loans,0,4644,4628,
+HI-B,8,Lease financing receivables,1,,,
+HI-B,8.a,"Leases to individuals for household, family, and other personal expenditures",0,F185,F187,
+HI-B,8.b,All other leases,0,C880,F188,
+HI-B,8.c,"Leases to individuals for household, family, and other personal expenditures",0,KX50,KX51,
+HI-B,9,Total (sum of items 1 through 8.b),0,4635,4605,
+HI-B,M,Memoranda,1,,,
+HI-B,M.1,"Loans to finance commercial real estate, construction, and land development activities (not secured by real estate) included in Schedule HI-B, items 1 through 7 above",0,5409,5410,
+HI-B,M.2,"Loans secured by real estate to non-U.S. addressees (domicile) (included in Schedule HI-B, part I, item 1, above)",0,4652,4662,
+HI-B,M.3,Uncollectible retail credit card fees and finance charges reversed against income (not included in charge-offs against the allowance),0,C388,,
+HI-B — Part II (Allowance Changes),1,Balance most recently reported at end of previous year (after adjustments from amended Reports of Income),0,B522,JH88,JH94
+HI-B — Part II (Allowance Changes),2,"Recoveries (column A must equal Part I, item 9, column B above)",0,4605,JH89,JH95
+HI-B — Part II (Allowance Changes),3,"LESS: Charge-offs (column A must equal Part I, item 9, column A above less item 4 below)",0,C079,JH92,JH98
+HI-B — Part II (Allowance Changes),4,LESS: Write-downs arising from transfers of financial assets,0,5523,JJ00,JJ01
+HI-B — Part II (Allowance Changes),5,Provisions for credit losses,0,4230,JH90,JH96
+HI-B — Part II (Allowance Changes),6,Adjustments (see instructions for this schedule),0,C233,JH91,JH97
+HI-B — Part II (Allowance Changes),7,"Balance end of current period (sum of items 1, 2, and 5, less items 3 and 4)",0,3123,JH93,JH99
+HI-B — Part II (Allowance Changes),M.1,"Allocated transfer risk reserve included in Schedule HI-B, Part II, item 7, column A, above",0,C435,,
+HI-B — Part II (Allowance Changes),M.2,Separate valuation allowance for uncollectible retail credit card fees and finance charges,0,C389,,
+HI-B — Part II (Allowance Changes),M.3,Amount of allowance for credit losses on loans and leases attributable to retail credit card fees and finance charges,0,C390,,
+HI-B — Part II (Allowance Changes),M.5,Provisions for credit losses on other financial assets measured at amortized cost (not included in item 5 above),0,JJ02,,
+HI-B — Part II (Allowance Changes),M.6,"Allowance for credit losses on other financial assets measured at amortized cost (not included in item 7, column A above)",0,JJ03,,
+HI-B — Part II (Allowance Changes),M.7,Provisions for credit losses on off-balance-sheet credit exposures,0,MG93,,
+HI-B — Part II (Allowance Changes),M.8,Estimated amount of expected recoveries of amounts previously written off included within the allowance for credit losses on loans and leases held for investment,0,MG94,,
+# ---- HC-L (Derivatives & Off-Balance-Sheet) ----
+HC-L,1,Unused commitments:,1,,,,,
+HC-L,1.a,Revolving open-end lines secured by 1-4 family residential properties (e.g. home equity lines),0,3814,,,,
+HC-L,1.b,Credit card lines:,1,,,,,
+HC-L,1.b.(1),Unused consumer credit card lines,0,J455,,,,
+HC-L,1.b.(2),Other unused credit card lines,0,J456,,,,
+HC-L,1.c,"Commitments to fund commercial real estate, construction, and land development loans:",1,,,,,
+HC-L,1.c.(1),Secured by real estate,0,3816,,,,
+HC-L,1.c.(1)(a),1-4 family residential construction loan commitments,0,F164,,,,
+HC-L,1.c.(1)(b),"Commercial real estate, other construction loan, and land development loan commitments",0,F165,,,,
+HC-L,1.c.(2),NOT secured by real estate,0,6550,,,,
+HC-L,1.d,Securities underwriting,0,3817,,,,
+HC-L,1.e,Other unused commitments:,1,,,,,
+HC-L,1.e.(1),Commercial and industrial loans,0,J457,,,,
+HC-L,1.e.(2),Loans to financial institutions,0,J458,,,,
+HC-L,1.e.(3),All other unused commitments,0,J459,,,,
+HC-L,2,Financial standby letters of credit and foreign office guarantees,0,6566,,,,
+HC-L,2.a,Amount of financial standby letters of credit conveyed to others,0,3820,,,,
+HC-L,3,Performance standby letters of credit and foreign office guarantees,0,6570,,,,
+HC-L,3.a,Amount of performance standby letters of credit conveyed to others,0,3822,,,,
+HC-L,4,Commercial and similar letters of credit,0,3411,,,,
+HC-L,6,Securities:,1,,,,,
+HC-L,6.a,Securities lent,0,3433,,,,
+HC-L,6.b,Securities borrowed,0,3432,,,,
+HC-L,7,Credit derivatives:,1,,,,,
+HC-L,7.a,Notional amounts:,1,,,,,
+HC-L,7.a.(1),Credit default swaps,0,,,,C968|C969,Sold protection|Purchased protection
+HC-L,7.a.(2),Total return swaps,0,,,,C970|C971,Sold protection|Purchased protection
+HC-L,7.a.(3),Credit options,0,,,,C972|C973,Sold protection|Purchased protection
+HC-L,7.a.(4),Other credit derivatives,0,,,,C974|C975,Sold protection|Purchased protection
+HC-L,7.b,Gross fair values:,1,,,,,
+HC-L,7.b.(1),Gross positive fair value,0,,,,C219|C221,Sold protection|Purchased protection
+HC-L,7.b.(2),Gross negative fair value,0,,,,C220|C222,Sold protection|Purchased protection
+HC-L,7.c,Notional amounts by regulatory capital treatment:,1,,,,,
+HC-L,7.c.(1),Positions covered under the Market Risk Rule:,1,,,,,
+HC-L,7.c.(1)(a),Sold protection,0,G401,,,,
+HC-L,7.c.(1)(b),Purchased protection,0,G402,,,,
+HC-L,7.c.(2),All other positions:,1,,,,,
+HC-L,7.c.(2)(a),Sold protection,0,G403,,,,
+HC-L,7.c.(2)(b),Purchased protection recognized as a guarantee for regulatory capital purposes,0,G404,,,,
+HC-L,7.c.(2)(c),Purchased protection not recognized as a guarantee for regulatory capital purposes,0,G405,,,,
+HC-L,7.d,Notional amounts by remaining maturity:,1,,,,,
+HC-L,7.d.(1),Sold credit protection:,1,,,,,
+HC-L,7.d.(1)(a),Investment grade,0,,,,G406|G407|G408,One year or less|Over one through five years|Over five years
+HC-L,7.d.(1)(b),Subinvestment grade,0,,,,G409|G410|G411,One year or less|Over one through five years|Over five years
+HC-L,7.d.(2),Purchased credit protection:,1,,,,,
+HC-L,7.d.(2)(a),Investment grade,0,,,,G412|G413|G414,One year or less|Over one through five years|Over five years
+HC-L,7.d.(2)(b),Subinvestment grade,0,,,,G415|G416|G417,One year or less|Over one through five years|Over five years
+HC-L,8,Spot foreign exchange contracts,0,8765,,,,
+HC-L,9,All other off-balance-sheet items,0,3430,,,,
+HC-L,9.a,Commitments to purchase when-issued securities,0,3434,,,,
+HC-L,9.b,Commitments to sell when-issued securities,0,3435,,,,
+HC-L,9.c,All other off-balance-sheet items (itemized),0,6561,,,,
+HC-L,9.d,All other off-balance-sheet items (itemized),0,6562,,,,
+HC-L,9.e,All other off-balance-sheet items (itemized),0,6568,,,,
+HC-L,9.f,All other off-balance-sheet items (itemized),0,6586,,,,
+HC-L,11,Gross amounts (e.g. notional amounts):,1,,,,,
+HC-L,11.a,Futures contracts,0,,,,8693|8694|8695|8696,Interest rate|Foreign exchange|Equity derivative|Commodity and other
+HC-L,11.b,Forward contracts,0,,,,8697|8698|8699|8700,Interest rate|Foreign exchange|Equity derivative|Commodity and other
+HC-L,11.c,Exchange-traded option contracts:,1,,,,,
+HC-L,11.c.(1),Written options,0,,,,8701|8702|8703|8704,Interest rate|Foreign exchange|Equity derivative|Commodity and other
+HC-L,11.c.(2),Purchased options,0,,,,8705|8706|8707|8708,Interest rate|Foreign exchange|Equity derivative|Commodity and other
+HC-L,11.d,Over-the-counter option contracts:,1,,,,,
+HC-L,11.d.(1),Written options,0,,,,8709|8710|8711|8712,Interest rate|Foreign exchange|Equity derivative|Commodity and other
+HC-L,11.d.(2),Purchased options,0,,,,8713|8714|8715|8716,Interest rate|Foreign exchange|Equity derivative|Commodity and other
+HC-L,11.e,Swaps,0,,,,3450|3826|8719|8720,Interest rate|Foreign exchange|Equity derivative|Commodity and other
+HC-L,12,Total gross notional amount of derivative contracts held for trading,0,,,,A126|A127|8723|8724,Interest rate|Foreign exchange|Equity derivative|Commodity and other
+HC-L,13,Total gross notional amount of derivative contracts held for purposes other than trading,0,,,,8725|8726|8727|8728,Interest rate|Foreign exchange|Equity derivative|Commodity and other
+HC-L,14,Gross fair values of derivative contracts:,1,,,,,
+HC-L,14.a,Contracts held for trading:,1,,,,,
+HC-L,14.a.(1),Gross positive fair value,0,,,,8733|8734|8735|8736,Interest rate|Foreign exchange|Equity derivative|Commodity and other
+HC-L,14.a.(2),Gross negative fair value,0,,,,8737|8738|8739|8740,Interest rate|Foreign exchange|Equity derivative|Commodity and other
+HC-L,14.b,Contracts held for purposes other than trading:,1,,,,,
+HC-L,14.b.(1),Gross positive fair value,0,,,,8741|8742|8743|8744,Interest rate|Foreign exchange|Equity derivative|Commodity and other
+HC-L,14.b.(2),Gross negative fair value,0,,,,8745|8746|8747|8748,Interest rate|Foreign exchange|Equity derivative|Commodity and other
+HC-L,15,Over-the-counter derivatives:,1,,,,,
+HC-L,15.a,Net current credit exposure,0,,,,G418|G420|G421|G422,Banks and securities firms|Hedge funds|Sovereign governments|Corporations and all other counterparties
+HC-L,15.b,Fair value of collateral:,1,,,,,
+HC-L,15.b.(1),Cash - U.S. dollar,0,,,,G423|G425|G426|G427,Banks and securities firms|Hedge funds|Sovereign governments|Corporations and all other counterparties
+HC-L,15.b.(2),Cash - Other currencies,0,,,,G428|G430|G431|G432,Banks and securities firms|Hedge funds|Sovereign governments|Corporations and all other counterparties
+HC-L,15.b.(3),U.S. Treasury securities,0,,,,G433|G435|G436|G437,Banks and securities firms|Hedge funds|Sovereign governments|Corporations and all other counterparties
+HC-L,15.b.(4),U.S. government agency and U.S. government-sponsored agency debt securities,0,,,,G438|G440|G441|G442,Banks and securities firms|Hedge funds|Sovereign governments|Corporations and all other counterparties
+HC-L,15.b.(5),Corporate bonds,0,,,,G443|G445|G446|G447,Banks and securities firms|Hedge funds|Sovereign governments|Corporations and all other counterparties
+HC-L,15.b.(6),Equity securities,0,,,,G448|G450|G451|G452,Banks and securities firms|Hedge funds|Sovereign governments|Corporations and all other counterparties
+HC-L,15.b.(7),All other collateral,0,,,,G453|G455|G456|G457,Banks and securities firms|Hedge funds|Sovereign governments|Corporations and all other counterparties
+HC-L,15.b.(8),Total fair value of collateral (sum of 15.b.(1) through (7)),0,,,,G458|G460|G461|G462,Banks and securities firms|Hedge funds|Sovereign governments|Corporations and all other counterparties
+# ---- HC-Q (Fair Value) ----
+HC-Q,,Assets,1,,,,,
+HC-Q,1,Available-for-sale debt securities and equity securities with readily determinable fair values not held for trading,0,,,,JA36|G474|G475|G476|G477,
+HC-Q,2,Federal funds sold and securities purchased under agreements to resell,0,,,,G478|G479|G480|G481|G482,
+HC-Q,3,Loans and leases held for sale,0,,,,G483|G484|G485|G486|G487,
+HC-Q,4,Loans and leases held for investment,0,,,,G488|G489|G490|G491|G492,
+HC-Q,5,Trading assets:,1,,,,,
+HC-Q,5.a,Derivative assets,0,,,,3543|G493|G494|G495|G496,
+HC-Q,5.b,Other trading assets,0,,,,G497|G498|G499|G500|G501,
+HC-Q,5.b.(1),Nontrading securities at fair value with changes in fair value reported in current earnings,0,,,,F240|F684|F692|F241|F242,
+HC-Q,6,All other assets,0,,,,G391|G392|G395|G396|G804,
+HC-Q,7,Total assets measured at fair value on a recurring basis,0,,,,G502|G503|G504|G505|G506,
+HC-Q,,Liabilities,1,,,,,
+HC-Q,8,Deposits,0,,,,F252|F686|F694|F253|F254,
+HC-Q,9,Federal funds purchased and securities sold under agreements to repurchase,0,,,,G507|G508|G509|G510|G511,
+HC-Q,10,Trading liabilities:,1,,,,,
+HC-Q,10.a,Derivative liabilities,0,,,,3547|G512|G513|G514|G515,
+HC-Q,10.b,Other trading liabilities,0,,,,G516|G517|G518|G519|G520,
+HC-Q,11,Other borrowed money,0,,,,G521|G522|G523|G524|G525,
+HC-Q,12,Subordinated notes and debentures,0,,,,G526|G527|G528|G529|G530,
+HC-Q,13,All other liabilities,0,,,,G805|G806|G807|G808|G809,
+HC-Q,14,Total liabilities measured at fair value on a recurring basis,0,,,,G531|G532|G533|G534|G535,
+HC-Q,M.1,"All other assets (itemize and describe amounts included in Schedule HC-Q, item 6):",1,,,,,
+HC-Q,M.1.a,Mortgage servicing assets,0,,,,G536|G537|G538|G539|G540,
+HC-Q,M.1.b,Nontrading derivative assets,0,,,,G541|G542|G543|G544|G545,
+HC-Q,M.1.c,Other (itemized),0,,,,G546|G547|G548|G549|G550,
+HC-Q,M.1.d,Other (itemized),0,,,,G551|G552|G553|G554|G555,
+HC-Q,M.1.e,Other (itemized),0,,,,G556|G557|G558|G559|G560,
+HC-Q,M.1.f,Other (itemized),0,,,,G561|G562|G563|G564|G565,
+HC-Q,M.2,"All other liabilities (itemize and describe amounts included in Schedule HC-Q, item 13):",1,,,,,
+HC-Q,M.2.a,Loan commitments (not accounted for as derivatives),0,,,,F261|F689|F697|F262|F263,
+HC-Q,M.2.b,Nontrading derivative liabilities,0,,,,G566|G567|G568|G569|G570,
+HC-Q,M.2.c,Other (itemized),0,,,,G571|G572|G573|G574|G575,
+HC-Q,M.2.d,Other (itemized),0,,,,G576|G577|G578|G579|G580,
+HC-Q,M.2.e,Other (itemized),0,,,,G581|G582|G583|G584|G585,
+HC-Q,M.2.f,Other (itemized),0,,,,G586|G587|G588|G589|G590,
+HC-Q,M.3,Loans measured at fair value:,1,,,,,
+HC-Q,M.3.a,Loans secured by real estate:,1,,,,,
+HC-Q,M.3.a.(1),Secured by 1-4 family residential properties,0,HT87,,,,
+HC-Q,M.3.a.(2),All other loans secured by real estate,0,HT88,,,,
+HC-Q,M.3.b,Commercial and industrial loans,0,F585,,,,
+HC-Q,M.3.c,"Loans to individuals for household, family, and other personal expenditures",0,HT89,,,,
+HC-Q,M.3.d,Other loans,0,F589,,,,
+HC-Q,M.4,Unpaid principal balances of loans measured at fair value (reported in memorandum item 3):,1,,,,,
+HC-Q,M.4.a,Loans secured by real estate:,1,,,,,
+HC-Q,M.4.a.(1),Secured by 1-4 family residential properties,0,HT91,,,,
+HC-Q,M.4.a.(2),All other loans secured by real estate,0,HT92,,,,
+HC-Q,M.4.b,Commercial and industrial loans,0,F597,,,,
+HC-Q,M.4.c,"Loans to individuals for household, family, and other personal expenditures",0,HT93,,,,
+HC-Q,M.4.d,Other loans,0,F601,,,,
+# ---- HC-S (Servicing/Securitization) ----
+HC-S,,Securitization Activities,1,,,,,
+HC-S,1,Outstanding principal balance of assets sold and securitized with servicing retained or with recourse or other seller-provided credit enhancements,0,,,,B705|B706|B707|B708|B709|B710|B711,
+HC-S,2,Maximum amount of credit exposure arising from recourse or other seller-provided credit enhancements provided to structures reported in item 1,0,,,,HU09|HU10|HU11|HU12|HU13|HU14|HU15,
+HC-S,3,Reporting institution's unused commitments to provide liquidity to structures reported in item 1,0,,,,B726|B727|B728|B729|B730|B731|B732,
+HC-S,4,Past due loan amounts included in item 1:,1,,,,,
+HC-S,4.a,30-89 days past due,0,,,,B733|B734|B735|B736|B737|B738|B739,
+HC-S,4.b,90 days or more past due,0,,,,B740|B741|B742|B743|B744|B745|B746,
+HC-S,5,Charge-offs and recoveries on assets sold and securitized with servicing retained or with recourse or other seller-provided credit enhancements (calendar year-to-date):,1,,,,,
+HC-S,5.a,Charge-offs,0,,,,B747|B748|B749|B750|B751|B752|B753,
+HC-S,5.b,Recoveries,0,,,,B754|B755|B756|B757|B758|B759|B760,
+HC-S,6,Total amount of ownership (or seller's) interest carried as securities or loans,0,,,,|HU16|HU17|||HU18|,
+HC-S,,For securitization facilities sponsored by or otherwise established by other institutions,1,,,,,
+HC-S,9,Maximum amount of credit exposure arising from credit enhancements provided by the reporting institution to other institutions' securitization structures,0,,,,B776|B777|B778|B779|B780|B781|B782,
+HC-S,10,Reporting institution's unused commitments to provide liquidity to other institutions' securitization structures,0,,,,B783|B784|B785|B786|B787|B788|B789,
+HC-S,,Asset Sales,1,,,,,
+HC-S,11,Assets sold with recourse or other seller-provided credit enhancements and not securitized,0,,,,B790|B791|B792|B793|B794|B795|B796,
+HC-S,12,Maximum amount of credit exposure arising from recourse or other seller-provided credit enhancements provided to assets reported in item 11,0,,,,B797|B798|B799|B800|B801|B802|B803,
+HC-S,,Memoranda,1,,,,,
+HC-S,M.2,Outstanding principal balance of assets serviced for others (includes participations serviced for others):,1,,,,,
+HC-S,M.2.a,1-4 family residential mortgages serviced with recourse or other servicer-provided credit enhancements,0,B804,,,,
+HC-S,M.2.b,1-4 family residential mortgages serviced with no recourse or other servicer-provided credit enhancements,0,B805,,,,
+HC-S,M.2.c,Other financial assets,0,A591,,,,
+HC-S,M.2.d,1-4 family residential mortgages serviced for others that are in process of foreclosure at quarter-end (includes closed-end and open-end loans),0,F699,,,,
+HC-S,M.3,Asset-backed commercial paper conduits:,1,,,,,
+HC-S,M.3.a,"Maximum amount of credit exposure arising from credit enhancements provided to conduit structures in the form of standby letters of credit, subordinated securities, and other enhancements:",1,,,,,
+HC-S,M.3.a.(1),"Conduits sponsored by the bank, a bank affiliate, or the holding company",0,B806,,,,
+HC-S,M.3.a.(2),Conduits sponsored by other unrelated institutions,0,B807,,,,
+HC-S,M.3.b,Unused commitments to provide liquidity to conduit structures:,1,,,,,
+HC-S,M.3.b.(1),"Conduits sponsored by the bank, a bank affiliate, or the holding company",0,B808,,,,
+HC-S,M.3.b.(2),Conduits sponsored by other unrelated institutions,0,B809,,,,
+HC-S,M.4,"Outstanding credit card fees and finance charges (included in Schedule HC-S, item 1, column C)",0,C407,,,,
+# ---- HC-R Part I (Regulatory Capital Components & Ratios) ----
+HC-R,,Common Equity Tier 1 Capital,1,,,,,
+HC-R,1,"Common stock plus related surplus, net of treasury stock and unearned ESOP shares",0,BHCAP742,,,,
+HC-R,2,Retained earnings,0,BHCAKW00,,,,
+HC-R,2.a,"Does your institution have a CECL transition election in effect as of the quarter-end report date? (1=Yes, 0=No)",0,BHCAJJ29,,,,
+HC-R,3,Accumulated other comprehensive income (AOCI),0,BHCAB530,,,,
+HC-R,3.a,"AOCI opt-out election (1=Yes, 0=No)",0,BHCAP838,,,,
+HC-R,4,Common equity tier 1 minority interest includable in common equity tier 1 capital,0,BHCAP839,,,,
+HC-R,5,Common equity tier 1 capital before adjustments and deductions,0,BHCAP840,,,,
+HC-R,,Common Equity Tier 1 Capital: Adjustments and Deductions,1,,,,,
+HC-R,6,LESS: Goodwill net of associated deferred tax liabilities (DTLs),0,BHCAP841,,,,
+HC-R,7,"LESS: Intangible assets (other than goodwill and MSAs), net of associated DTLs",0,BHCAP842,,,,
+HC-R,8,"LESS: Deferred tax assets (DTAs) from net operating loss and tax credit carryforwards, net of related valuation allowances and net of DTLs",0,BHCAP843,,,,
+HC-R,9,AOCI-related adjustments,1,,,,,
+HC-R,9.a,LESS: Net unrealized gains (losses) on available-for-sale debt securities,0,BHCAP844,,,,
+HC-R,9.c,LESS: Net unrealized gains (losses) on cash-flow hedges,0,BHCAP846,,,,
+HC-R,9.d,LESS: Amounts in AOCI attributed to defined benefit postretirement plans,0,BHCAP847,,,,
+HC-R,9.e,LESS: Net unrealized gains (losses) on held-to-maturity securities included in AOCI,0,BHCAP848,,,,
+HC-R,9.f,LESS: Accumulated net gain (loss) on cash flow hedges included in AOCI (items not at fair value),0,BHCAP849,,,,
+HC-R,10,Other deductions from (additions to) common equity tier 1 capital before threshold-based deductions,1,,,,,
+HC-R,10.a,LESS: Unrealized net gain (loss) related to changes in fair value of liabilities due to changes in own credit risk,0,BHCAQ258,,,,
+HC-R,10.b,LESS: All other deductions from (additions to) common equity tier 1 capital before threshold-based deductions,0,BHCAP850,,,,
+HC-R,11,LESS: Non-significant investments in the capital of unconsolidated financial institutions in the form of common stock that exceed the 10 percent threshold,0,BHCAP851,,,,
+HC-R,12,Subtotal of common equity tier 1 capital: adjustments and deductions,0,BHCAP852,,,,
+HC-R,13.a,"LESS: Investments in the capital of unconsolidated financial institutions, net of DTLs, that exceed 25 percent of item 12",0,BHCALB58,,,,
+HC-R,13.b,"LESS: Significant investments in the capital of unconsolidated financial institutions in common stock, net of DTLs, exceeding the 10 percent CET1 threshold (advanced)",0,BHCWP853,,,,
+HC-R,14.a,"LESS: MSAs, net of associated DTLs, that exceed 25 percent of item 12",0,BHCALB59,,,,
+HC-R,14.b,"LESS: MSAs, net of associated DTLs, exceeding the 10 percent CET1 threshold (advanced)",0,BHCWP854,,,,
+HC-R,15.a,"LESS: DTAs from temporary differences not realizable through NOL carrybacks, exceeding 25 percent of item 12",0,BHCALB60,,,,
+HC-R,15.b,LESS: DTAs from temporary differences exceeding the 10 percent CET1 threshold (advanced),0,BHCWP855,,,,
+HC-R,16,"LESS: Amount of significant investments in common stock, MSAs, and DTAs exceeding the 15 percent CET1 threshold (advanced)",0,BHCWP856,,,,
+HC-R,17,LESS: Deductions applied to CET1 capital due to insufficient additional tier 1 and tier 2 capital to cover deductions,0,BHCAP857,,,,
+HC-R,18,Total adjustments and deductions for common equity tier 1 capital,0,BHCAP858,,,,
+HC-R,19,Common equity tier 1 capital,0,BHCAP859,,,,
+HC-R,,Additional Tier 1 Capital,1,,,,,
+HC-R,20,Additional tier 1 capital instruments plus related surplus,0,BHCAP860,,,,
+HC-R,21,Non-qualifying capital instruments subject to phase out from additional tier 1 capital,0,BHCAP861,,,,
+HC-R,22,Tier 1 minority interest not included in common equity tier 1 capital,0,BHCAP862,,,,
+HC-R,23,"Additional tier 1 capital before deductions (sum of items 20, 21, and 22)",0,BHCAP863,,,,
+HC-R,24,LESS: Additional tier 1 capital deductions,0,BHCAP864,,,,
+HC-R,25,"Additional tier 1 capital (greater of item 23 minus item 24, or zero)",0,BHCAP865,,,,
+HC-R,,Tier 1 Capital,1,,,,,
+HC-R,26,Tier 1 capital (sum of items 19 and 25),0,BHCA8274,,,,
+HC-R,,Total Assets for the Leverage Ratio,1,,,,,
+HC-R,27,Average total consolidated assets,0,BHCAKW03,,,,
+HC-R,28,LESS: Deductions from common equity tier 1 capital and additional tier 1 capital,0,BHCAP875,,,,
+HC-R,29,LESS: Other deductions from (additions to) assets for leverage ratio purposes,0,BHCAB596,,,,
+HC-R,30,Total assets for the leverage ratio (item 27 minus items 28 and 29),0,BHCAA224,,,,
+HC-R,,Leverage Ratio,1,,,,,
+HC-R,31,Leverage ratio (item 26 divided by item 30),0,BHCA7204,,,,
+HC-R,31.a,"Does your holding company have a community bank leverage ratio (CBLR) framework election in effect? (1=Yes, 0=No)",0,BHCALE74,,,,
+HC-R,31.b,"Standardized Approach for Counterparty Credit Risk (SA-CCR) opt-in election (1=Yes, 0=No)",0,BHCANC99,,,,
+HC-R,,Qualifying Criteria and Other Information for CBLR Holding Companies,1,,,,,
+HC-R,32,"Total assets (Schedule HC, item 12; must be less than $10 billion)",0,BHCA2170,,,,
+HC-R,33,"Trading assets and trading liabilities (Schedule HC, sum of items 5 and 15)",0,,,,BHCAKX77|BHCAKX78,Amount ($)|% of total assets
+HC-R,34,Off-balance sheet exposures:,1,,,,,
+HC-R,34.a,Unused portion of conditionally cancellable commitments,0,BHCAKX79,,,,
+HC-R,34.b,Securities lent and borrowed (Schedule HC-L; sum of items 6.a and 6.b),0,BHCAKX80,,,,
+HC-R,34.c,Other off-balance sheet exposures,0,BHCAKX81,,,,
+HC-R,34.d,Total off-balance sheet exposures (sum of items 34.a through 34.c),0,,,,BHCAKX82|BHCAKX83,Amount ($)|% of total assets
+HC-R,35,Unconditionally cancellable commitments,0,BHCAS540,,,,
+HC-R,36,Investments in the capital of unconsolidated financial institutions,0,BHCALB61,,,,
+HC-R,,Tier 2 Capital,1,,,,,
+HC-R,37,Tier 2 capital instruments plus related surplus,0,BHCAP866,,,,
+HC-R,38,Non-qualifying capital instruments subject to phase out from tier 2 capital,0,BHCAP867,,,,
+HC-R,39,Total capital minority interest not included in tier 1 capital,0,BHCAP868,,,,
+HC-R,40.a,Adjusted allowances for credit losses (AACL) includable in tier 2 capital,0,BHCA5310,,,,
+HC-R,40.b,Eligible credit reserves includable in tier 2 capital (advanced),0,BHCW5310,,,,
+HC-R,42.a,Tier 2 capital before deductions (sum of items 37 through 40.a),0,BHCAP870,,,,
+HC-R,42.b,Tier 2 capital before deductions (advanced),0,BHCWP870,,,,
+HC-R,43,LESS: Tier 2 capital deductions,0,BHCAP872,,,,
+HC-R,44.a,"Tier 2 capital (greater of item 42.a minus item 43, or zero)",0,BHCA5311,,,,
+HC-R,44.b,Tier 2 capital (advanced),0,BHCW5311,,,,
+HC-R,,Total Capital,1,,,,,
+HC-R,45.a,Total capital (sum of items 26 and 44.a),0,BHCA3792,,,,
+HC-R,45.b,Total capital (advanced),0,BHCW3792,,,,
+HC-R,,Total Risk-Weighted Assets,1,,,,,
+HC-R,46.a,"Total risk-weighted assets (from Schedule HC-R, Part II, item 31)",0,BHCAA223,,,,
+HC-R,46.b,Total risk-weighted assets using advanced approaches (advanced),0,BHCWA223,,,,
+HC-R,,Risk-Based Capital Ratios,1,,,,,
+HC-R,47,Common equity tier 1 capital ratio,0,,,,BHCAP793|BHCWP793,Non-advanced approaches|Advanced approaches
+HC-R,48,Tier 1 capital ratio,0,,,,BHCA7206|BHCW7206,Non-advanced approaches|Advanced approaches
+HC-R,49,Total capital ratio,0,,,,BHCA7205|BHCW7205,Non-advanced approaches|Advanced approaches
+HC-R,50,Institution-specific capital buffer: Capital conservation buffer,0,BHCAH311,,,,
+HC-R,51,Eligible retained income,0,BHCAH313,,,,
+HC-R,52,Distributions and discretionary bonus payments during the quarter,0,BHCAH314,,,,
+HC-R,53,Advanced approaches only: Supplementary leverage ratio,0,BHCAH036,,,,
+HC-R,,Long-Term Debt and Total Loss Absorbing Capacity,1,,,,,
+HC-R,54,Outstanding eligible long-term debt,0,BHCALF21,,,,
+HC-R,55,Total loss absorbing capacity,0,BHCALF22,,,,
+HC-R,,Long-Term Debt and Total Loss Absorbing Capacity Ratios,1,,,,,
+HC-R,56,LTD and TLAC risk-weighted assets ratio (item 54 divided by total risk-weighted assets),0,,,,BHCALF23|BHCWLF23,Standardized approaches|Advanced approaches
+HC-R,57,Top-tier BHCs of U.S. GSIBs only: LTD and TLAC total risk-weighted assets ratio using advanced approaches (item 55 divided by item 46.b),0,BHCWMK66,,,,
+HC-R,58,IHCs of foreign GSIBs only: LTD and TLAC leverage ratio (item 54 divided by item 30),0,,,,BHCALF24|BHCWLF24,Standardized approaches|Advanced approaches
+HC-R,59,"Holding companies subject to Category I, II, or III standards: LTD and TLAC supplementary leverage ratio",0,,,,BHCALF25|BHCWLF25,Standardized approaches|Advanced approaches
+HC-R,,Risk-Based Capital Buffer for Holding Companies Subject to the Capital Plan Rule,1,,,,,
+HC-R,60,Capital conservation buffer requirement (sum of items 60.a through 60.c),1,,,,,
+HC-R,60.a,of which: Stress capital buffer requirement,0,,,,BHCALE85|BHCWLE85,Standardized approaches|Advanced approaches
+HC-R,60.b,of which: GSIB surcharge (if applicable),0,,,,BHCALE86|BHCWLE86,Standardized approaches|Advanced approaches
+HC-R,60.c,of which: Countercyclical capital buffer amount (if applicable),0,,,,BHCALE87|BHCWLE87,Standardized approaches|Advanced approaches
+HC-R,61,Capital conservation buffer,0,,,,BHCAMK76|BHCWH311,Standardized approaches|Advanced approaches
+HC-R,,TLAC Buffers,1,,,,,
+HC-R,62.a,Top-tier BHCs of U.S. GSIBs: TLAC risk-weighted asset buffer,0,BHCALF27,,,,
+HC-R,62.b,TLAC leverage buffer,0,BHCALF28,,,,
+HC-R,,Leverage Buffer and Requirements (Capital Plan Rule),1,,,,,
+HC-R,63,Total leverage exposure for the supplementary leverage ratio (SLR) (if applicable),0,BHCALE88,,,,
+HC-R,64,Leverage buffer requirement (if applicable),0,BHCALE89,,,,
+HC-R,65,Leverage buffer (if applicable),0,BHCALE90,,,,
+HC-R,,Maximum Payout Ratios and Amounts (Capital Plan Rule),1,,,,,
+HC-R,66,Eligible retained income,0,BHCAMK77,,,,
+HC-R,67,Maximum payout ratio,0,BHCALE91,,,,
+HC-R,68,Maximum payout amount,0,BHCALE92,,,,
+HC-R,69,Distributions and discretionary bonus payments during the quarter,0,BHCAMK78,,,,
+# ---- HC-V (Variable Interest Entities) ----
+HC-V,1,Assets of consolidated variable interest entities (VIEs) that can be used only to settle obligations of consolidated VIEs:,1,,,,,
+HC-V,1.a,Cash and balances due from depository institutions,0,,,,J981|JF84,Securitization vehicles|Other VIEs
+HC-V,1.b,Securities not held for trading,0,,,,HU20|HU21,Securitization vehicles|Other VIEs
+HC-V,1.c,"Loans and leases held for investment, net of allowance, and held for sale",0,,,,HU22|HU23,Securitization vehicles|Other VIEs
+HC-V,1.d,Other real estate owned,0,,,,K009|JF89,Securitization vehicles|Other VIEs
+HC-V,1.e,Other assets,0,,,,JF91|JF90,Securitization vehicles|Other VIEs
+HC-V,2,Liabilities of consolidated VIEs for which creditors do not have recourse to the general credit of the reporting holding company:,1,,,,,
+HC-V,2.a,Other borrowed money,0,,,,JF92|JF85,Securitization vehicles|Other VIEs
+HC-V,2.b,Other liabilities,0,,,,JF93|JF86,Securitization vehicles|Other VIEs
+HC-V,3,All other assets of consolidated VIEs (not included in items 1.a through 1.e above),0,,,,K030|JF87,Securitization vehicles|Other VIEs
+HC-V,4,All other liabilities of consolidated VIEs (not included in items 2.a through 2.b above),0,,,,K033|JF88,Securitization vehicles|Other VIEs
+HC-V,5,Total assets of asset-backed commercial paper (ABCP) conduit VIEs,0,JF77,,,,
+HC-V,6,Total liabilities of ABCP conduit VIEs,0,JF78,,,,
+# ---- HI-C (Disaggregated Allowances for Credit Losses) ----
+HI-C,,Loans and Leases Held for Investment,1,,,,,
+HI-C,1,Real estate loans:,1,,,,,
+HI-C,1.a,Construction loans,0,JJ04,JJ12,,,
+HI-C,1.b,Commercial real estate loans,0,JJ05,JJ13,,,
+HI-C,1.c,Residential real estate loans,0,JJ06,JJ14,,,
+HI-C,2,Commercial loans,0,JJ07,JJ15,,,
+HI-C,3,Credit cards,0,JJ08,JJ16,,,
+HI-C,4,Other consumer loans,0,JJ09,JJ17,,,
+HI-C,5,"Unallocated, if any",0,,JJ18,,,
+HI-C,6,Total (sum of items 1.a through 5),0,JJ11,JJ19,,,
+HI-C,,Held-to-Maturity Securities,1,,,,,
+HI-C,7,Securities issued by states and political subdivisions in the U.S.,0,JJ20,,,,
+HI-C,8,"Total mortgage-backed securities (MBS) (including CMOs, REMICs, and stripped MBS)",0,JJ21,,,,
+HI-C,9,Asset-backed securities and structured financial products,0,JJ23,,,,
+HI-C,10,Other debt securities,0,JJ24,,,,
+HI-C,11,Total (sum of items 7 through 10),0,JJ25,,,,
+# ---- HC-B (Securities) — 4-col: HTM Amortized/Fair, AFS Amortized/Fair ----
+HC-B,1,U.S. Treasury securities,0,,,,0211|0213|1286|1287,
+HC-B,2,U.S. government agency and sponsored agency obligations (exclude mortgage-backed securities),0,,,,HT50|HT51|HT52|HT53,
+HC-B,3,Securities issued by states and political subdivisions in the U.S.,0,,,,8496|8497|8498|8499,
+HC-B,4,Mortgage-backed securities (MBS):,1,,,,,
+HC-B,4.a,Residential pass-through securities:,1,,,,,
+HC-B,4.a.(1),Guaranteed by GNMA,0,,,,G300|G301|G302|G303,
+HC-B,4.a.(2),Issued by FNMA and FHLMC,0,,,,G304|G305|G306|G307,
+HC-B,4.a.(3),Other pass-through securities,0,,,,G308|G309|G310|G311,
+HC-B,4.a.(4),"Guaranteed by GNMA, issued by FNMA and FHLMC, and other pass-through securities",0,,,,KX52|KX53|KX54|KX55,
+HC-B,4.b,"Other residential mortgage-backed securities (include CMOs, REMICs, and stripped MBS):",1,,,,,
+HC-B,4.b.(1),Issued or guaranteed by U.S. Government agencies or sponsored agencies,0,,,,G312|G313|G314|G315,
+HC-B,4.b.(2),Collateralized by MBS issued or guaranteed by U.S. Government agencies or sponsored agencies,0,,,,G316|G317|G318|G319,
+HC-B,4.b.(3),All other residential MBS,0,,,,G320|G321|G322|G323,
+HC-B,4.c,Commercial MBS:,1,,,,,
+HC-B,4.c.(1),Commercial mortgage pass-through securities:,1,,,,,
+HC-B,4.c.(1)(a),"Issued or guaranteed by FNMA, FHLMC, or GNMA",0,,,,K142|K143|K144|K145,
+HC-B,4.c.(1)(b),Other pass-through securities,0,,,,K146|K147|K148|K149,
+HC-B,4.c.(2),Other commercial MBS:,1,,,,,
+HC-B,4.c.(2)(a),Issued or guaranteed by U.S. Government agencies or sponsored agencies,0,,,,K150|K151|K152|K153,
+HC-B,4.c.(2)(b),All other commercial MBS,0,,,,K154|K155|K156|K157,
+HC-B,5,Asset-backed securities and structured financial products:,1,,,,,
+HC-B,5.a,Asset-backed securities (ABS),0,,,,C026|C988|C989|C027,
+HC-B,5.b,Structured financial products,0,,,,HT58|HT59|HT60|HT61,
+HC-B,6,Other debt securities:,1,,,,,
+HC-B,6.a,Other domestic debt securities,0,,,,1737|1738|1739|1741,
+HC-B,6.b,Other foreign debt securities,0,,,,1742|1743|1744|1746,
+HC-B,7,Unallocated portfolio layer fair value hedge basis adjustments,0,,,,||MG95|,
+HC-B,8,Total (sum of items 1 through 7),0,,,,1754|1771|1772|1773,
+HC-B,M.1,Pledged securities,0,0416,,,,
+HC-B,M.2,Remaining maturity or next repricing date of debt securities (items 1 through 6.b in columns A and D):,1,,,,,
+HC-B,M.2.a,One year or less,0,0383,,,,
+HC-B,M.2.b,Over one year through five years,0,0384,,,,
+HC-B,M.2.c,Over five years,0,0387,,,,
+HC-B,M.3,Amortized cost of held-to-maturity securities sold or transferred to available-for-sale or trading securities during the calendar year-to-date,0,1778,,,,
+HC-B,M.4,Structured notes (included in the held-to-maturity and available-for-sale accounts):,1,,,,,
+HC-B,M.4.a,Amortized cost,0,8782,,,,
+HC-B,M.4.b,Fair value,0,8783,,,,
+HC-B,M.5,Asset-backed securities (ABS) by underlying loan or asset:,1,,,,,
+HC-B,M.5.a,Credit card receivables,0,,,,B838|B839|B840|B841,
+HC-B,M.5.b,Home equity lines,0,,,,B842|B843|B844|B845,
+HC-B,M.5.c,Automobile loans,0,,,,B846|B847|B848|B849,
+HC-B,M.5.d,Other consumer loans,0,,,,B850|B851|B852|B853,
+HC-B,M.5.e,Commercial and industrial loans,0,,,,B854|B855|B856|B857,
+HC-B,M.5.f,Other,0,,,,B858|B859|B860|B861,
+HC-B,M.6,Structured financial products by underlying collateral or reference assets:,1,,,,,
+HC-B,M.6.a,Trust preferred securities issued by financial institutions,0,,,,G348|G349|G350|G351,
+HC-B,M.6.b,Trust preferred securities issued by real estate investment trusts,0,,,,G352|G353|G354|G355,
+HC-B,M.6.c,Corporate and similar loans,0,,,,G356|G357|G358|G359,
+HC-B,M.6.d,1-4 family residential MBS issued or guaranteed by U.S. government-sponsored enterprises (GSEs),0,,,,G360|G361|G362|G363,
+HC-B,M.6.e,1-4 family residential MBS not issued or guaranteed by GSEs,0,,,,G364|G365|G366|G367,
+HC-B,M.6.f,Diversified (mixed) pools of structured financial products,0,,,,G368|G369|G370|G371,
+HC-B,M.6.g,Other collateral or reference assets,0,,,,G372|G373|G374|G375,
+# ---- HC-R Part II (Risk-Weighted Assets) — dictionary-derived ----
+HC-R — Part II (Risk-Weighted Assets),1,Cash And Balances Due From Depository Institutions,0,,,,BHCKD957|BHCKS396|BHCKD958|BHCKD959|BHCKS397|BHCKD960|BHCKS398,Totals (from Schedule HC)|Adjustments to totals|0% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),2,Held-To-Maturity Securities,0,,,,BHCKD961|BHCKS399|BHCKD962|BHCKHJ74|BHCKHJ75|BHCKD963|BHCKD964|BHCKD965|BHCKS400,Totals (from Schedule HC)|Adjustments to totals|0% risk weight|2% risk weight|4% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),3,Available-For-Sale Debt Securities And Equity Securities With Readily Determinable Fair Va,0,,,,BHCKJA21|BHCKS402|BHCKD967|BHCKHJ76|BHCKHJ77|BHCKD968|BHCKD969|BHCKD970|BHCKS403,Totals (from Schedule HC)|Adjustments to totals|0% risk weight|2% risk weight|4% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),4,Federal Funds Sold In Domestic Offices,0,,,,BHCKD971|BHCKD972|BHCKD973|BHCKS410|BHCKD974|BHCKS411,Totals (from Schedule HC)|0% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),5,Securities Purchased Under Agreements To Resell,0,,,,BHCKH171|BHCKH172|BHCKH270|BHCKS405|BHCKS406|BHCKH271|BHCKH272,Totals (from Schedule HC)|Adjustments to totals|250% risk weight|300% risk weight|600% risk weight|Other approaches: exposure|Other approaches: RWA
+HC-R — Part II (Risk-Weighted Assets),6,Loans And Leases Held For Sale Exposures Past Due 90 Days Or More Or On Nonaccrual,0,,,,BHCKS423|BHCKS424|BHCKS425|BHCKHJ78|BHCKHJ79|BHCKS426|BHCKS427|BHCKS428|BHCKS429,Totals (from Schedule HC)|Adjustments to totals|0% risk weight|2% risk weight|4% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),7,Loans And Leases Held For Sale All Other Exposures,0,,,,BHCKS431|BHCKS432|BHCKS433|BHCKHJ80|BHCKHJ81|BHCKS434|BHCKS435|BHCKS436|BHCKS437,Totals (from Schedule HC)|Adjustments to totals|0% risk weight|2% risk weight|4% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),8,Loans And Leases Net Of Unearned Income Residential Mortgage Exposures,0,,,,BHCKS439|BHCKS440|BHCKH178|BHCKS441|BHCKS442|BHCKS443,Totals (from Schedule HC)|Adjustments to totals|0% risk weight|20% risk weight|50% risk weight|100% risk weight
+HC-R — Part II (Risk-Weighted Assets),9,Loans And Leases Net Of Unearned Income High Volatility Commercial Real Estate Exposures,0,,,,BHCKS445|BHCKS446|BHCKH179|BHCKH180|BHCKH181|BHCKH182|BHCKS447,Totals (from Schedule HC)|Adjustments to totals|0% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),10,Loans And Leases Net Of Unearned Income Exposures Past Due 90 Days Or More Or On Nonaccrua,0,,,,BHCKS449|BHCKS450|BHCKS451|BHCKHJ82|BHCKHJ83|BHCKS452|BHCKS453|BHCKS454|BHCKS455,Totals (from Schedule HC)|Adjustments to totals|0% risk weight|2% risk weight|4% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),11,Loans And Leases Net Of Unearned Income All Other Exposures,0,,,,BHCKS457|BHCKS458|BHCKS459|BHCKHJ84|BHCKHJ85|BHCKS460|BHCKS461|BHCKS462|BHCKS463,Totals (from Schedule HC)|Adjustments to totals|0% risk weight|2% risk weight|4% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),12,Allowance For Loan And Lease Losses,0,,,,BHCK3123,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),13,Loans And Leases Held For Sale High Volatility Commercial Real Estate Exposures,0,,,,BHCKS419|BHCKS420|BHCKH174|BHCKH175|BHCKH176|BHCKH177|BHCKS421,Totals (from Schedule HC)|Adjustments to totals|0% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),14,Loans And Leases Held For Sale Residential Mortgage Exposures,0,,,,BHCKS413|BHCKS414|BHCKH173|BHCKS415|BHCKS416|BHCKS417|BHCKH273|BHCKH274,Totals (from Schedule HC)|Adjustments to totals|0% risk weight|20% risk weight|50% risk weight|100% risk weight|Other approaches: exposure|Other approaches: RWA
+HC-R — Part II (Risk-Weighted Assets),15,Trading Assets,0,,,,BHCKD976|BHCKS466|BHCKD977|BHCKHJ86|BHCKHJ87|BHCKD978|BHCKD979|BHCKD980|BHCKS467,Totals (from Schedule HC)|Adjustments to totals|0% risk weight|2% risk weight|4% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),16,All Other Assets,0,,,,BHCKD981|BHCKS469|BHCKD982|BHCKHJ88|BHCKHJ89|BHCKD983|BHCKD984|BHCKD985|BHCKH185|BHCKH289|BHCKH186|BHCKH290|BHCKH187|BHCKH291|BHCKH292,Totals (from Schedule HC)|Adjustments to totals|0% risk weight|2% risk weight|4% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight|250% risk weight|300% risk weight|400% risk weight|600% risk weight|Other approaches: exposure|Other approaches: RWA
+HC-R — Part II (Risk-Weighted Assets),17,On-Balance Sheet Securitization Exposures Held-To-Maturity Securities,0,,,,BHCKS475|BHCKS476|BHCKS477,Totals (from Schedule HC)|Adjustments to totals|1250% risk weight
+HC-R — Part II (Risk-Weighted Assets),18,On-Balance Sheet Securitization Exposures Held-To-Maturity Securities - SSFA Risk Weight E,0,,,,BHCKS478,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),19,On-Balance Sheet Securitization Exposures Held-To-Maturity Securities - Gross-Up Risk Weig,0,,,,BHCKS479,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),20,On-Balance Sheet Securitization Exposures Available-For-Sale Securities,0,,,,BHCKS480|BHCKS481|BHCKS482,Totals (from Schedule HC)|Adjustments to totals|1250% risk weight
+HC-R — Part II (Risk-Weighted Assets),21,On-Balance Sheet Securitization Exposures Available-For-Sale Securities - SSFA Risk Weight,0,,,,BHCKS483,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),22,On-Balance Sheet Securitization Exposures Available-For-Sale Securities - Gross-Up Risk We,0,,,,BHCKS484,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),23,On-Balance Sheet Securitization Exposures Trading Assets,0,,,,BHCKS485|BHCKS486|BHCKS487,Totals (from Schedule HC)|Adjustments to totals|1250% risk weight
+HC-R — Part II (Risk-Weighted Assets),24,On-Balance Sheet Securitization Exposures Trading Assets - SSFA Risk Weight Exposure By Ca,0,,,,BHCKS488,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),25,On-Balance Sheet Securitization Exposures Trading Assets - Gross-Up Risk Weight Exposure B,0,,,,BHCKS489,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),26,On-Balance Sheet Securitization Exposures All Other On-Balance Sheet Securitization Exposu,0,,,,BHCKS490|BHCKS491|BHCKS492,Totals (from Schedule HC)|Adjustments to totals|1250% risk weight
+HC-R — Part II (Risk-Weighted Assets),27,On-Balance Sheet Securitization Exposures All Other On-Balance Sheet Securitization Exposu,0,,,,BHCKS493,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),28,On-Balance Sheet Securitization Exposures All Other On-Balance Sheet Securitization Exposu,0,,,,BHCKS494,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),29,Off-Balance Sheet Securitization Exposures,0,,,,BHCKS495|BHCKS496|BHCKS497,Totals (from Schedule HC)|Adjustments to totals|1250% risk weight
+HC-R — Part II (Risk-Weighted Assets),30,Off-Balance Sheet Securitization Exposures - SSFA Risk Weight Exposure By Calculation Meth,0,,,,BHCKS498,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),31,Off-Balance Sheet Securitization Exposures - Gross-Up Risk Weight Exposure By Calculation ,0,,,,BHCKS499,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),32,Assets,0,,,,BHCK2170|BHCKS500|BHCKD987|BHCKHJ90|BHCKHJ91|BHCKD988|BHCKD989|BHCKD990|BHCKS503,Totals (from Schedule HC)|Adjustments to totals|0% risk weight|2% risk weight|4% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),33,The Of All Components In The 250% Balance Sheet Asset Category On Call Report Schedule Rc-,0,,,,BHCKS504|BHCKS505|BHCKS506|BHCKS507|BHCKS510|BHCKH300,Totals (from Schedule HC)|300% risk weight|400% risk weight|600% risk weight|1250% risk weight|Other approaches: exposure
+HC-R — Part II (Risk-Weighted Assets),34,Financial Standby Letters Of Credit - Face Notional Or Other Amount,0,,,,BHCKD991,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),35,Financial Standby Letters Of Credit - Credit Equivalent Amount,0,,,,BHCKD992|BHCKD993|BHCKHJ92|BHCKHJ93|BHCKD994|BHCKD995|BHCKD996|BHCKS511,Totals (from Schedule HC)|0% risk weight|2% risk weight|4% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),36,Performance Standby Letters Of Credit And Transaction-Related Contingent Items - Face Noti,0,,,,BHCKD997,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),37,Performance Standby Letters Of Credit And Transaction-Related Contingent Items - Credit Eq,0,,,,BHCKD998|BHCKD999|BHCKG603|BHCKG604|BHCKG605|BHCKS512,Totals (from Schedule HC)|0% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),38,Commercial And Similar Letters Of Credit With An Original Maturity Of One Year Or Less - F,0,,,,BHCKG606,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),39,Commercial And Similar Letters Of Credit With An Original Maturity Of One Year Or Less - C,0,,,,BHCKG607|BHCKG608|BHCKHJ94|BHCKHJ95|BHCKG609|BHCKG610|BHCKG611|BHCKS513,Totals (from Schedule HC)|0% risk weight|2% risk weight|4% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),40,Retained Resource On Small Business Obligations Sold With Resource - Face Notional Or Othe,0,,,,BHCKG612,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),41,Retained Resource On Small Business Obligations Sold With Resource - Credit Equivalent Amo,0,,,,BHCKG613|BHCKG614|BHCKG615|BHCKG616|BHCKG617|BHCKS514,Totals (from Schedule HC)|0% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),42,Repo-Style Transactions - Face Notional Or Other Amount,0,,,,BHCKS515,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),43,Repo-Style Transactions - Credit Equivalent Amount,0,,,,BHCKS516|BHCKS517|BHCKS518|BHCKS519|BHCKS520|BHCKS521|BHCKS522|BHCKS523,Totals (from Schedule HC)|0% risk weight|2% risk weight|4% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),44,All Other Off- Balance Sheet Liabilities - Face Notional Or Other Amount,0,,,,BHCKG618,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),45,All Other Off- Balance Sheet Liabilities - Credit Equivalent Amount,0,,,,BHCKG619|BHCKG620|BHCKG621|BHCKG622|BHCKG623|BHCKS524,Totals (from Schedule HC)|0% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),46,Unused Commitments Original Maturity Of One Year Or Less Excludes Unused Commitments To As,0,,,,BHCKS525,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),47,Unused Commitments Original Maturity Of One Year Or Less Excludes Unused Commitments To As,0,,,,BHCKS526,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),48,Unused Commitments Original Maturity Of One Year Or Less Excludes Unused Commitments To As,0,,,,BHCKS527|BHCKHJ96|BHCKHJ97,Totals (from Schedule HC)|2% risk weight|4% risk weight
+HC-R — Part II (Risk-Weighted Assets),49,Unused Commitments Original Maturity Of One Year Or Less Excludes Unused Commitments To As,0,,,,BHCKS528,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),50,Unused Commitments Original Maturity Of One Year Or Less Excludes Unused Commitments To As,0,,,,BHCKS529,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),51,Unused Commitments Original Maturity Of One Year Or Less Excludes Unused Commitments To As,0,,,,BHCKS530,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),52,Unused Commitments Original Maturity Of One Year Or Less Excludes Unused Commitments To As,0,,,,BHCKS531,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),53,Unused Commitments Original Maturity Exceeding One Year - Face Notional Or Other Amount,0,,,,BHCKG624,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),54,Unused Commitments Original Maturity Exceeding One Year - Credit Equivalent Amount,0,,,,BHCKG625|BHCKG626|BHCKHJ98|BHCKHJ99|BHCKG627|BHCKG628|BHCKG629|BHCKS539,Totals (from Schedule HC)|0% risk weight|2% risk weight|4% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),55,Unconditionally Cancellable Commitments,0,,,,BHCKS540,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),56,Unconditionally Cancelable Commitments - Credit Equivalent Amount,0,,,,BHCKS541,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),57,Over-The-Counter Derivatives - Credit Equivalent Amount,0,,,,BHCKS542|BHCKS543|BHCKHK00|BHCKHK01|BHCKS544|BHCKS545|BHCKS546|BHCKS547|BHCKS548,Totals (from Schedule HC)|0% risk weight|2% risk weight|4% risk weight|10% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),58,Centrally Cleared Derivatives - Credit Equivalent Amount,0,,,,BHCKS549|BHCKS550|BHCKS551|BHCKS552|BHCKS554|BHCKS555|BHCKS556|BHCKS557,Totals (from Schedule HC)|0% risk weight|2% risk weight|4% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),59,Unsettled Transactions (Failed Trades),0,,,,BHCKH191|BHCKH193|BHCKH194|BHCKH195|BHCKH196|BHCKH197,Totals (from Schedule HC)|0% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight
+HC-R — Part II (Risk-Weighted Assets),60,Repo-Style Transactions - Application Of Other Risk Weighting Approaches Credit Equivalent,0,,,,BHCKH301|BHCKH302,Totals (from Schedule HC)|Other approaches: RWA
+HC-R — Part II (Risk-Weighted Assets),61,Unused Commitments Original Maturity Of One Year Or Less Excluding Asset-Backed Commercial,0,,,,BHCKH303|BHCKH304,Totals (from Schedule HC)|Other approaches: RWA
+HC-R — Part II (Risk-Weighted Assets),62,Unused Commitments Original Maturity Exceeding One Year - Application Of Other Risk Weight,0,,,,BHCKH307|BHCKH308,Totals (from Schedule HC)|Other approaches: RWA
+HC-R — Part II (Risk-Weighted Assets),63,Over-The-Counter Derivatives - Application Of Other Risk Weighting Approaches Credit Equiv,0,,,,BHCKH309|BHCKG630|BHCKS558|BHCKS559|BHCKS560|BHCKG631|BHCKG632|BHCKG633|BHCKS561|BHCKS562|BHCKS563|BHCKS564|BHCKS565|BHCKH198|BHCKH199|BHCKH200|BHCKH310,Totals (from Schedule HC)|0% risk weight|2% risk weight|4% risk weight|10% risk weight|20% risk weight|50% risk weight|100% risk weight|150% risk weight|250% risk weight|300% risk weight|400% risk weight|600% risk weight|625% risk weight|937.5% risk weight|1250% risk weight|Other approaches: RWA
+HC-R — Part II (Risk-Weighted Assets),64,Risk-Weighted Assets For Purposes Of Calculating The Allowance For Loan And Lease Losses 1,0,,,,BHCKS580,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),65,Standardized Market Risk-Weighted Assets Applicable Only To Hcs That Are Covered By Market,0,,,,BHCKS581,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),66,Risk-Weighted Assets Before Deductions For Excess Allowance For Loan And Lease Losses And ,0,,,,BHCKB704,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),67,Excess Allowance For Loan And Lease Losses,0,,,,BHCKA222,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),68,Allocated Transfer Risk Reserves,0,,,,BHCK3128,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),69,Risk-Weighted Assets,0,,,,BHCKG641,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),70,Current Credit Exposure Across All Derivative Contracts Covered By The Regulatory Capital ,0,,,,BHCKG642,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),71,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Interest Rate - One Year,0,,,,BHCKS582,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),72,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Interest Rate - Over One,0,,,,BHCKS583,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),73,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Interest Rate - Over Fiv,0,,,,BHCKS584,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),74,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Foreign Exchange Rate An,0,,,,BHCKS585,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),75,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Foreign Exchange Rate An,0,,,,BHCKS586,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),76,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Foreign Exchange Rate An,0,,,,BHCKS587,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),77,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Credit Investment Grade ,0,,,,BHCKS588,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),78,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Credit Investment Grade ,0,,,,BHCKS589,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),79,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Credit Investment Grade ,0,,,,BHCKS590,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),80,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Credit Non--Investment G,0,,,,BHCKS591,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),81,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Credit Non--Investment G,0,,,,BHCKS592,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),82,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Credit Non--Investment G,0,,,,BHCKS593,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),83,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Equity - One Year Or Les,0,,,,BHCKS594,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),84,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Equity - Over One Year T,0,,,,BHCKS595,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),85,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Equity - Over Five Years,0,,,,BHCKS596,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),86,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Precious Metals Except G,0,,,,BHCKS597,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),87,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Precious Metals Except G,0,,,,BHCKS598,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),88,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Precious Metals Except G,0,,,,BHCKS599,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),89,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Other - One Year Or Less,0,,,,BHCKS600,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),90,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Other - Over One Year Th,0,,,,BHCKS601,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),91,Notional Principal Amounts Of Over-The-Counter Derivate Contracts Other - Over Five Years,0,,,,BHCKS602,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),92,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Foreign Exchange Rate ,0,,,,BHCKS606,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),93,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Foreign Exchange Rate ,0,,,,BHCKS607,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),94,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Foreign Exchange Rate ,0,,,,BHCKS608,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),95,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Credit Non--Investment,0,,,,BHCKS612,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),96,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Credit Non--Investment,0,,,,BHCKS613,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),97,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Credit Non--Investment,0,,,,BHCKS614,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),98,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Credit Investment Grad,0,,,,BHCKS609,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),99,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Credit Investment Grad,0,,,,BHCKS610,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),100,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Credit Investment Grad,0,,,,BHCKS611,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),101,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Interest Rate - One Ye,0,,,,BHCKS603,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),102,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Interest Rate - Over O,0,,,,BHCKS604,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),103,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Interest Rate - Over F,0,,,,BHCKS605,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),104,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Precious Metals Except,0,,,,BHCKS618,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),105,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Precious Metals Except,0,,,,BHCKS619,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),106,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Precious Metals Except,0,,,,BHCKS620,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),107,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Equity - One Year Or L,0,,,,BHCKS615,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),108,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Equity - Over One Year,0,,,,BHCKS616,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),109,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Equity - Over Five Yea,0,,,,BHCKS617,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),110,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Other - One Year Or Le,0,,,,BHCKS621,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),111,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Other - Over One Year ,0,,,,BHCKS622,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),112,Notional Principal Amounts Of Centrally Cleared Dervative Contracts Other - Over Five Year,0,,,,BHCKS623,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),113,Standardized Market Risk-Weighted Assets Attributable To Specific Risk Included In Scheudl,0,,,,BHCKS624,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),114,Amount Of Allowances For Credit Losses On Purchased Credit-Deteriorated Assets - Loans And,0,,,,BHCKJJ30,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),115,Amount Of Allowances For Credit Losses On Purchased Credit-Deteriorated Assets Held-To-Mat,0,,,,BHCKJJ31,Totals (from Schedule HC)
+HC-R — Part II (Risk-Weighted Assets),116,Amount Of Allowances For Credit Losses On Purchased Credit-Deteriorated Assets Other Finan,0,,,,BHCKJJ32,Totals (from Schedule HC)
+# end of curated matrix definitions

@@ -1,0 +1,1668 @@
+{
+  "_README": "Curated fixes applied on top of the parsed hierarchy (build_hierarchy_fry9c.py -> apply_overrides). 'captions' overrides a code's caption; 'force_rows' guarantees a row exists under a schedule key (key/mdrm/item/caption); 'drop_codes' removes a misparsed code. The force_rows below add codes the plain-text parser drops because they sit in matrix-style cells or notes lines without a clean leading item token. Items/captions verified against the form PDF (ReturnFinancialReportPDF.pdf) and the MDRM dictionary on 2026-06. Non-numeric 'Notes to the financial statements' text fields (5351-5360, B027-B056, etc.) are intentionally NOT added: they are free text, never charted, and are excluded by validate_build.py's panel-reported gate.",
+  "captions": {
+    "BHCKC889": "Net gains (losses) on credit derivatives held for trading",
+    "BHCKC890": "Net gains (losses) on credit derivatives held for purposes other than trading",
+    "BHCKC242": "Premiums on insurance related to the extension of credit",
+    "BHCKC243": "All other premiums",
+    "BHCKB983": "Benefits, losses, and expenses from insurance-related activities",
+    "BHCKF553": "Net gains (losses) recognized in earnings on liabilities reported at fair value option",
+    "BHCKF064": "SECURED LIABILITIES: AMOUNT OF 'FEDERAL FUNDS PURCHASED' THAT ARE SECURED",
+    "BHCK8782": "AMORTIZED COST OF STRUCTURED NOTES",
+    "BHCK8783": "FAIR VALUE OF STRUCTURED NOTES",
+    "BHCK1292": "LOANS TO U.S. BANKS AND OTHER U.S. DEPOSITORY INSTITUTIONS",
+    "BHCK1763": "COMMERCIAL AND INDUSTRIAL LOANS TO U.S. ADDRESSEES",
+    "BHCK1764": "COMMERCIAL AND INDUSTRIAL LOANS TO NON-U.S. ADDRESSEES",
+    "BHCKF163": "ALL OTHER LEASE FINANCING RECEIVABLES",
+    "BHCK3434": "GROSS COMMITMENTS TO PURCHASE",
+    "BHCK3435": "GROSS COMMITMENTS TO SELL",
+    "BHCK6561": "FIRST COMPONENT OF OTHER SIGNIFICANT OFF-BALANCE SHEET ITEMS THAT IS OVER 25% OF TOTAL EQUITY CAPITAL (3210)",
+    "BHCK6562": "SECOND COMPONENT OF OTHER SIGNIFICANT OFF-BALANCE SHEET ITEMS THAT IS OVER 25% OF TOTAL EQUITY CAPITAL (3210)",
+    "BHCK6568": "THIRD COMPONENT OF OTHER SIGNIFICANT OFF-BALANCE SHEET ITEMS THAT IS OVER 25% OF TOTAL EQUITY CAPITAL (3210)",
+    "BHCK6586": "FOURTH COMPONENT OF OTHER SIGNIFICANT OFF-BALANCE SHEET ITEMS THAT IS OVER 25% OF TOTAL EQUITY CAPITAL (3210)",
+    "BHBC6061": "LOANS CHARGED OFF AND RECOVERIES: TOTAL LOANS CHARGED OFF & RECOVERIES NET CHARGE-OFFS",
+    "BHBC4094": "INTEREST AND FEES ON LOANS AND LEASE FINANCING RECEIVABLES",
+    "BHBC4218": "INTEREST AND DIVIDEND INCOME ON SECURITIES",
+    "BHBCA220": "TRADING REVENUE",
+    "BHBC4091": "GAINS (LOSSES) ON SECURITIES NOT HELD IN TRADING ACCOUNTS",
+    "BHBC4484": "MINORITY INTEREST",
+    "BHCAA224": "AVERAGE TOTAL ASSETS (NET OF DEDUCTIONS)",
+    "BHCA7204": "TIER 1 LEVERAGE CAPITAL RATIO",
+    "BHCAA223": "RISK-WEIGHTED ASSETS (NET OF ALLOWANCES AND OTHER DEDUCTIONS)",
+    "BHCWA223": "RISK-WEIGHTED ASSETS (NET OF ALLOWANCES AND OTHER DEDUCTIONS)",
+    "BHCA3792": "TOTAL QUALIFYING CAPITAL ALLOWABLE UNDER THE RISK-BASED CAPITAL GUIDELINES",
+    "BHCW3792": "TOTAL QUALIFYING CAPITAL ALLOWABLE UNDER THE RISK-BASED CAPITAL GUIDELINES",
+    "BHCA5311": "TIER 2 (SUPPLEMENTARY) CAPITAL",
+    "BHCW5311": "TIER 2 (SUPPLEMENTARY) CAPITAL",
+    "BHCA5310": "GENERAL LOAN AND LEASE VALUATION ALLOWANCES",
+    "BHCW5310": "GENERAL LOAN AND LEASE VALUATION ALLOWANCES",
+    "BHCKA251": "Credit losses on derivatives"
+  },
+  "drop_codes": [
+    "BHCK2210",
+    "BHCK3360",
+    "BHCKB993",
+    "BHBC4079",
+    "BHBC4093",
+    "BHBC4107",
+    "BHBC4135",
+    "BHBC4301",
+    "BHBC4302",
+    "BHBC4519",
+    "BHBCA220",
+    "BHBCB491",
+    "BHBCB493",
+    "BHBCC216",
+    "BHBCJJ33",
+    "BHCA3792",
+    "BHCA5310",
+    "BHCA5311",
+    "BHCAA223",
+    "BHCALB58",
+    "BHCALB59",
+    "BHCALB60",
+    "BHCAP870",
+    "BHCK1752",
+    "BHCK2148",
+    "BHCK2168",
+    "BHCK3049",
+    "BHCK3197",
+    "BHCK3408",
+    "BHCK3409",
+    "BHCKB556",
+    "BHCKB557",
+    "BHCKB983",
+    "BHCKB984",
+    "BHCKC242",
+    "BHCKC243",
+    "BHCKC703",
+    "BHCKC704",
+    "BHCKC705",
+    "BHCKC708",
+    "BHCKC714",
+    "BHCKC715",
+    "BHCKC889",
+    "BHCKC890",
+    "BHCKF553",
+    "BHCKG387",
+    "BHCKG388",
+    "BHCKG634",
+    "BHCKG635",
+    "BHCKG636",
+    "BHCKG637",
+    "BHCKH188",
+    "BHCKH275",
+    "BHCKH276",
+    "BHCKH277",
+    "BHCKH278",
+    "BHCKH279",
+    "BHCKH280",
+    "BHCKH281",
+    "BHCKH282",
+    "BHCKH283",
+    "BHCKH284",
+    "BHCKH285",
+    "BHCKH286",
+    "BHCKH287",
+    "BHCKH288",
+    "BHCKH293",
+    "BHCKH294",
+    "BHCKH295",
+    "BHCKH296",
+    "BHCKH297",
+    "BHCKH298",
+    "BHCKH299",
+    "BHCKHT80",
+    "BHCKJA36",
+    "BHCKJJ27",
+    "BHCKK201",
+    "BHCKK202",
+    "BHCKK270",
+    "BHCKL191",
+    "BHCKL192",
+    "BHCKS470",
+    "BHCKS471",
+    "BHCKS566",
+    "BHCKS567",
+    "BHCKS568",
+    "BHCKS569",
+    "BHCKS570",
+    "BHCKS571",
+    "BHCKS572",
+    "BHCKS573",
+    "BHCKS574",
+    "BHCKS575",
+    "BHCKS576",
+    "BHCKS577",
+    "BHCKS578",
+    "BHCKS579",
+    "BHCW3792",
+    "BHCW5310",
+    "BHCW5311",
+    "BHCWA223",
+    "BHCWP853",
+    "BHCWP854",
+    "BHCWP855",
+    "BHCWP870"
+  ],
+  "force_rows": [
+    {
+      "key": "HI",
+      "mdrm": "BHCKB488",
+      "item": "1.d.(1)",
+      "caption": "Interest and dividend income on securities: U.S. Treasury and U.S. Government agency obligations"
+    },
+    {
+      "key": "HI",
+      "mdrm": "BHCKKX46",
+      "item": "5.d.(6)",
+      "caption": "Fees and commissions from securities brokerage, investment banking, advisory, and underwriting"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCK4592",
+      "item": "2",
+      "caption": "Net income before applicable income taxes (fully taxable equivalent basis)"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCK4313",
+      "item": "3",
+      "caption": "Income on tax-exempt loans and leases to states and political subdivisions"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCK4507",
+      "item": "4",
+      "caption": "Interest and dividend income on tax-exempt securities issued by states and political subdivisions"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCK4150",
+      "item": "5",
+      "caption": "Number of full-time equivalent employees on payroll at end of quarter"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCK4136",
+      "item": "7.c",
+      "caption": "Other noninterest expense: directors' fees"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCK8403",
+      "item": "7.e",
+      "caption": "Other noninterest expense: postage"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKY924",
+      "item": "7.m",
+      "caption": "Other noninterest expense: insurance expenses (not included in employee, premises, or other real estate expenses)"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKFT30",
+      "item": "8.a.(2)",
+      "caption": "Discontinued operations: applicable income tax effect"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKF186",
+      "item": "9.e",
+      "caption": "Trading revenue by exposure type: credit exposures"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKK090",
+      "item": "9.f",
+      "caption": "Impact on trading revenue of changes in the creditworthiness of the bank's own liabilities"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKK094",
+      "item": "9.g",
+      "caption": "Net gains (losses) on credit derivatives held for trading"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCK8431",
+      "item": "12.a",
+      "caption": "Income from the sale and servicing of mutual funds and annuities (in domestic offices)"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKA530",
+      "item": "13",
+      "caption": "Does the reporting holding company have a Subchapter S election in effect for federal income tax purposes? (1=Yes, 0=No)"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKF551",
+      "item": "14.a",
+      "caption": "Net gains (losses) recognized in earnings on assets reported at fair value under a fair value option"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKF552",
+      "item": "14.a.(1)",
+      "caption": "Estimated net gains (losses) on loans attributable to changes in instrument-specific credit risk"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKF554",
+      "item": "14.b.(1)",
+      "caption": "Estimated net gains (losses) on liabilities attributable to changes in instrument-specific credit risk"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKC409",
+      "item": "15",
+      "caption": "Stock-based employee compensation expense (net of tax effects) calculated under the fair value method"
+    },
+    {
+      "key": "HC — Memoranda",
+      "mdrm": "BHCKC884",
+      "item": "1",
+      "caption": "Has the bank holding company engaged in a full-scope independent external audit during the calendar year? (1=Yes, 0=No)"
+    },
+    {
+      "key": "HC-D",
+      "mdrm": "BHCKG334",
+      "item": "3.z",
+      "caption": "Trading assets: structured financial products by underlying collateral — issued by U.S. Government-sponsored enterprises"
+    },
+    {
+      "key": "HC-D",
+      "mdrm": "BHCKG380",
+      "item": "4.z",
+      "caption": "Trading assets: mortgage-backed securities — other residential MBS issued or guaranteed by U.S. agencies or GSEs"
+    },
+    {
+      "key": "HC-D",
+      "mdrm": "BHCKK197",
+      "item": "4.y",
+      "caption": "Trading assets: mortgage-backed securities — commercial MBS issued or guaranteed by U.S. agencies or GSEs"
+    },
+    {
+      "key": "HC-D",
+      "mdrm": "BHCKHT65",
+      "item": "6.z",
+      "caption": "Trading assets: loans to individuals for household, family, and other personal expenditures"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKHT68",
+      "item": "1",
+      "caption": "Unpaid principal balance of loans measured at fair value — loans to individuals (consumer loans)"
+    },
+    {
+      "key": "HC-H",
+      "mdrm": "BHCK3296",
+      "item": "2",
+      "caption": "Interest-bearing deposit liabilities that reprice or mature within one year"
+    },
+    {
+      "key": "HC-H",
+      "mdrm": "BHCK3298",
+      "item": "3",
+      "caption": "Long-term debt that reprices within one year"
+    },
+    {
+      "key": "HC-H",
+      "mdrm": "BHCK3409",
+      "item": "5",
+      "depth": 1,
+      "caption": "Long-term debt reported in Schedule HC that matures within one year (Interest Rate Risk Indicator)"
+    },
+    {
+      "key": "HC-K",
+      "mdrm": "BHDMB562",
+      "item": "3.a.(5).(b)",
+      "caption": "Loans to individuals for household, family, and other personal expenditures (domestic offices)"
+    },
+    {
+      "key": "HC-K",
+      "item": "10",
+      "caption": "Not applicable (reserved on the FR Y-9C — Schedule HC-K has no item 10; quarterly averages run 1–9, then 11. Equity capital)"
+    },
+    {
+      "key": "HC-C",
+      "item": "5",
+      "caption": "Not applicable (reserved on the FR Y-9C — Schedule HC-C has no item 5)"
+    },
+    {
+      "key": "HC-C",
+      "item": "8",
+      "caption": "Not applicable on the FR Y-9C (obligations of states and political subdivisions, other than securities and leases, are itemized on the Call Report RC-C item 8 = RCON2107, but are not separately collected on the Y-9C — no BHCK2107 exists in the panel)"
+    },
+    {
+      "key": "HC-P",
+      "mdrm": "BHCKHT82",
+      "item": "2.z",
+      "caption": "Wholesale originations and purchases during the quarter of 1-4 family residential mortgage loans for sale"
+    },
+    {
+      "key": "HC-P",
+      "mdrm": "BHCKFT05",
+      "item": "4.z",
+      "caption": "Quarter-end amount of 1-4 family residential mortgage loans held for sale"
+    },
+    {
+      "key": "HC-P",
+      "mdrm": "BHCKHT85",
+      "item": "5.z",
+      "caption": "Noninterest income for the quarter from the sale, securitization, and servicing of 1-4 family residential mortgage loans"
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKG634",
+      "item": "25.aa",
+      "caption": "Risk-weighted assets by risk-weight category: 0% category",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS569",
+      "item": "25.ab",
+      "caption": "Risk-weighted assets by risk-weight category: 2% category",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS570",
+      "item": "25.ac",
+      "caption": "Risk-weighted assets by risk-weight category: 4% category",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS571",
+      "item": "25.ad",
+      "caption": "Risk-weighted assets by risk-weight category: 10% category",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKG635",
+      "item": "25.ae",
+      "caption": "Risk-weighted assets by risk-weight category: 20% category",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKG636",
+      "item": "25.af",
+      "caption": "Risk-weighted assets by risk-weight category: 50% category",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKG637",
+      "item": "25.ag",
+      "caption": "Risk-weighted assets by risk-weight category: 100% category",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS572",
+      "item": "25.ah",
+      "caption": "Risk-weighted assets by risk-weight category: 150% category",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS573",
+      "item": "25.ai",
+      "caption": "Risk-weighted assets by risk-weight category: 250% category",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS574",
+      "item": "25.aj",
+      "caption": "Risk-weighted assets by risk-weight category: 300% category",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS575",
+      "item": "25.ak",
+      "caption": "Risk-weighted assets by risk-weight category: 400% category",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS576",
+      "item": "25.al",
+      "caption": "Risk-weighted assets by risk-weight category: 600% category",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS577",
+      "item": "25.am",
+      "caption": "Risk-weighted assets by risk-weight category: 625% category",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS578",
+      "item": "25.an",
+      "caption": "Risk-weighted assets by risk-weight category: 937.5% category",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS579",
+      "item": "25.ao",
+      "caption": "Risk-weighted assets by risk-weight category: 1,250% category",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH275",
+      "item": "4.aa",
+      "caption": "Loans and leases held for sale: high volatility commercial real estate — allocation by risk weight",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH276",
+      "item": "4.ab",
+      "caption": "Loans and leases held for sale: high volatility commercial real estate — application of other risk-weighting approaches",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH277",
+      "item": "4.ac",
+      "caption": "Loans and leases held for sale: exposures past due 90 days or more or nonaccrual — allocation by risk weight",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH278",
+      "item": "4.ad",
+      "caption": "Loans and leases held for sale: exposures past due 90 days or more or nonaccrual — application of other approaches",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH279",
+      "item": "4.ae",
+      "caption": "Loans and leases held for sale: all other exposures — application of other risk-weighting approaches (exposure)",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH280",
+      "item": "4.af",
+      "caption": "Loans and leases held for sale: all other exposures — application of other risk-weighting approaches (risk-weighted asset amount)",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH281",
+      "item": "5.aa",
+      "caption": "Loans and leases, net of unearned income: residential mortgage exposures — allocation by risk weight",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH282",
+      "item": "5.ab",
+      "caption": "Loans and leases, net of unearned income: residential mortgage exposures — application of other approaches",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH283",
+      "item": "5.ac",
+      "caption": "Loans and leases, net of unearned income: high volatility commercial real estate — allocation by risk weight",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH284",
+      "item": "5.ad",
+      "caption": "Loans and leases, net of unearned income: high volatility commercial real estate — application of other approaches",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH285",
+      "item": "5.ae",
+      "caption": "Loans and leases, net of unearned income: exposures past due 90 days or more or nonaccrual — allocation by risk weight",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH286",
+      "item": "5.af",
+      "caption": "Loans and leases, net of unearned income: exposures past due 90 days or more or nonaccrual — application of other approaches",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH287",
+      "item": "5.ag",
+      "caption": "Loans and leases, net of unearned income: all other exposures — application of other risk-weighting approaches (exposure)",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH288",
+      "item": "5.ah",
+      "caption": "Loans and leases, net of unearned income: all other exposures — application of other risk-weighting approaches (risk-weighted asset amount)",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH293",
+      "item": "7.aa",
+      "caption": "Trading assets: 250% risk-weight category",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH294",
+      "item": "7.ab",
+      "caption": "Trading assets: application of other risk-weighting approaches (exposure)",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH295",
+      "item": "7.ac",
+      "caption": "Trading assets: application of other risk-weighting approaches (risk-weighted asset amount)",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH188",
+      "item": "8.aa",
+      "caption": "All other assets: 300% risk-weight category",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH296",
+      "item": "8.ab",
+      "caption": "All other assets: separate account bank-owned life insurance — application of other approaches (exposure)",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH297",
+      "item": "8.ac",
+      "caption": "All other assets: separate account bank-owned life insurance — application of other approaches (risk-weighted asset amount)",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH298",
+      "item": "8.ad",
+      "caption": "All other assets: default fund contributions to central counterparties — exposure",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKH299",
+      "item": "8.ae",
+      "caption": "All other assets: default fund contributions to central counterparties — risk-weighted asset amount",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS470",
+      "item": "8.af",
+      "caption": "All other assets: 400% risk-weight category",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS471",
+      "item": "8.ag",
+      "caption": "All other assets: 600% risk-weight category",
+      "depth": 2
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS566",
+      "item": "22.aa",
+      "caption": "Total assets, derivatives, off-balance-sheet, and other items subject to risk weighting (column R subtotal)",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS567",
+      "item": "22.ab",
+      "caption": "Total assets, derivatives, off-balance-sheet, and other items subject to risk weighting (column S subtotal)",
+      "depth": 1
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS568",
+      "item": "22.ac",
+      "caption": "Total assets, derivatives, off-balance-sheet, and other items subject to risk weighting (column T subtotal)",
+      "depth": 1
+    },
+    {
+      "key": "HC",
+      "mdrm": "BHFN6631",
+      "item": "13.b.(1)",
+      "caption": "Noninterest-bearing (in foreign offices)",
+      "depth": 3
+    },
+    {
+      "key": "HC",
+      "mdrm": "BHFN6636",
+      "item": "13.b.(2)",
+      "caption": "Interest-bearing (in foreign offices)",
+      "depth": 3
+    },
+    {
+      "key": "HC",
+      "mdrm": "BHDMB993",
+      "item": "14.a",
+      "caption": "Federal funds purchased in domestic offices"
+    },
+    {
+      "key": "HC-B",
+      "item": "5.b.a",
+      "caption": "Of which: Structured financial products guaranteed by U.S. Government agencies or sponsored agencies (included in item 5.b):"
+    },
+    {
+      "key": "HC-B",
+      "mdrm": "BHCKPU98",
+      "item": "5.b.a.A",
+      "caption": "Held-to-maturity — Amortized cost"
+    },
+    {
+      "key": "HC-B",
+      "mdrm": "BHCKPU99",
+      "item": "5.b.a.B",
+      "caption": "Held-to-maturity — Fair value"
+    },
+    {
+      "key": "HC-B",
+      "mdrm": "BHCKPV00",
+      "item": "5.b.a.C",
+      "caption": "Available-for-sale — Amortized cost"
+    },
+    {
+      "key": "HC-B",
+      "mdrm": "BHCKPV01",
+      "item": "5.b.a.D",
+      "caption": "Available-for-sale — Fair value"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHDM1410",
+      "item": "1.B",
+      "caption": "Loans secured by real estate — domestic offices"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHDM1288",
+      "item": "2.B",
+      "caption": "Loans to depository institutions and acceptances of other banks — domestic offices"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHDM1766",
+      "item": "4.B",
+      "caption": "Commercial and industrial loans — domestic offices"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHDM1975",
+      "item": "6.B",
+      "caption": "Loans to individuals for household, family, and other personal expenditures — domestic offices"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHDM2081",
+      "item": "7.B",
+      "caption": "Loans to foreign governments and official institutions — domestic offices"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHDMKX57",
+      "item": "9.b.(3).B",
+      "caption": "Loans for purchasing or carrying securities and all other loans — domestic offices"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHCK2165",
+      "item": "10.A",
+      "caption": "Lease financing receivables (net of unearned income) — consolidated"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHCKKX62",
+      "item": "M.12.e.C",
+      "caption": "Best estimate at acquisition date of contractual cash flows not expected to be collected (purchased credit-deteriorated loans and leases)"
+    },
+    {
+      "key": "HC-C",
+      "item": "M.16",
+      "caption": "Loans to nondepository financial institutions by type (included in Schedule HC-C, item 9.a):"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHCKPV05",
+      "item": "M.16.a",
+      "caption": "Loans to mortgage credit intermediaries"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHCKPV06",
+      "item": "M.16.b",
+      "caption": "Loans to business credit intermediaries"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHCKPV07",
+      "item": "M.16.c",
+      "caption": "Loans to private equity funds"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHCKPV08",
+      "item": "M.16.d",
+      "caption": "Loans to consumer credit intermediaries"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHCKPV09",
+      "item": "M.16.e",
+      "caption": "Other loans to nondepository financial institutions"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHDMPV05",
+      "item": "M.16.a.B",
+      "caption": "Loans to mortgage credit intermediaries — domestic offices"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHDMPV06",
+      "item": "M.16.b.B",
+      "caption": "Loans to business credit intermediaries — domestic offices"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHDMPV07",
+      "item": "M.16.c.B",
+      "caption": "Loans to private equity funds — domestic offices"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHDMPV08",
+      "item": "M.16.d.B",
+      "caption": "Loans to consumer credit intermediaries — domestic offices"
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "BHDMPV09",
+      "item": "M.16.e.B",
+      "caption": "Other loans to nondepository financial institutions — domestic offices"
+    },
+    {
+      "key": "HC-K",
+      "mdrm": "BHBC3516",
+      "item": "3.a.B",
+      "caption": "Quarterly averages of loans and leases — bank consolidated (bank subsidiary only)"
+    },
+    {
+      "key": "HC-K",
+      "mdrm": "BHDM3516",
+      "item": "3.a.C",
+      "caption": "Quarterly averages of loans and leases — domestic offices"
+    },
+    {
+      "key": "HC-K",
+      "mdrm": "BHFN3360",
+      "item": "3.b",
+      "caption": "Total loans and leases in foreign offices, Edge and agreement subsidiaries, and IBFs"
+    },
+    {
+      "key": "HC-K",
+      "mdrm": "BHBC3368",
+      "item": "5.B",
+      "caption": "Quarterly average of total assets — bank consolidated (bank subsidiary only)"
+    },
+    {
+      "key": "HC-K",
+      "mdrm": "BHBC3519",
+      "item": "11.B",
+      "caption": "Quarterly average of equity capital — bank consolidated (bank subsidiary only)"
+    },
+    {
+      "key": "HC-L",
+      "item": "1.e.(2).a",
+      "caption": "Other unused commitments — loans to depository financial institutions (included in item 1.e.(2)):"
+    },
+    {
+      "key": "HC-L",
+      "mdrm": "BHCKPV10",
+      "item": "1.e.(2).a.i",
+      "caption": "Other unused commitments: Loans to depository financial institutions"
+    },
+    {
+      "key": "HC-L",
+      "mdrm": "BHCKPV11",
+      "item": "1.e.(2).b",
+      "caption": "Other unused commitments: Loans to nondepository financial institutions"
+    },
+    {
+      "key": "HC-L",
+      "mdrm": "BHCKPV12",
+      "item": "1.e.(2).c",
+      "caption": "Other unused commitments: Loans to mortgage credit intermediaries"
+    },
+    {
+      "key": "HC-L",
+      "mdrm": "BHCKPV13",
+      "item": "1.e.(2).d",
+      "caption": "Other unused commitments: Loans to business credit intermediaries"
+    },
+    {
+      "key": "HC-L",
+      "mdrm": "BHCKPV14",
+      "item": "1.e.(2).e",
+      "caption": "Other unused commitments: Loans to private equity funds"
+    },
+    {
+      "key": "HC-L",
+      "mdrm": "BHCKPV15",
+      "item": "1.e.(2).f",
+      "caption": "Other unused commitments: Loans to consumer credit intermediaries"
+    },
+    {
+      "key": "HC-L",
+      "mdrm": "BHCKPV16",
+      "item": "1.e.(2).g",
+      "caption": "Other unused commitments: Other loans to nondepository financial institutions"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCWP851",
+      "item": "11.S",
+      "caption": "LESS: Non-significant investments in the capital of unconsolidated financial institutions in the form of common stock that exceed the 10 percent threshold for non-significant investments (standardized approach)"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCWP852",
+      "item": "12.S",
+      "caption": "Subtotal of common equity tier 1 capital: adjustments and deductions (standardized approach)"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCWP857",
+      "item": "17.S",
+      "caption": "LESS: Deductions applied to common equity tier 1 capital due to insufficient amounts of additional tier 1 capital and tier 2 capital to cover deductions (standardized approach)"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCWP858",
+      "item": "18.S",
+      "caption": "Total adjustments and deductions for common equity tier 1 capital (standardized approach)"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCWP859",
+      "item": "19.S",
+      "caption": "Common equity tier 1 capital (standardized approach)"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCKK141",
+      "item": "M.K141",
+      "caption": "Outstanding issuances of perpetual preferred stock associated with the U.S. Department of Treasury CDCI program included in perpetual preferred stock and related surplus"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCAMK66",
+      "item": "57.A",
+      "caption": "Top-tier BHCs of U.S. GSIBs only: LTD and TLAC total risk-weighted assets ratios using advanced approaches rule"
+    },
+    {
+      "key": "HC-V",
+      "mdrm": "BHBC3402",
+      "item": "M.1",
+      "caption": "Quarterly average of earning assets — bank consolidated (bank subsidiary only)"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCA5310",
+      "item": "40.a",
+      "depth": 2,
+      "caption": "Adjusted allowances for credit losses (AACL) includable in tier 2 capital"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCW5310",
+      "item": "40.b",
+      "depth": 2,
+      "caption": "Eligible credit reserves includable in tier 2 capital (advanced approach)"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCAP870",
+      "item": "42.a",
+      "depth": 2,
+      "caption": "Tier 2 capital before deductions (sum of items 37, 38, 39, and 40) — standardized"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCWP870",
+      "item": "42.b",
+      "depth": 2,
+      "caption": "Tier 2 capital before deductions (advanced approach)"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCA5311",
+      "item": "44.a",
+      "depth": 2,
+      "caption": "Tier 2 capital (greater of item 42.a minus item 43, or zero) — standardized"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCW5311",
+      "item": "44.b",
+      "depth": 2,
+      "caption": "Tier 2 capital (advanced approach)"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCA3792",
+      "item": "45.a",
+      "depth": 2,
+      "caption": "Total capital (sum of items 26 and 44.a) — standardized approach"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCW3792",
+      "item": "45.b",
+      "depth": 2,
+      "caption": "Total capital (advanced approach)"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCAA223",
+      "item": "46.a",
+      "depth": 2,
+      "caption": "Total risk-weighted assets (from Schedule HC-R, Part II, item 25) — standardized"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCWA223",
+      "item": "46.b",
+      "depth": 2,
+      "caption": "Total risk-weighted assets (advanced approach)"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKG387",
+      "item": "4.a",
+      "depth": 1,
+      "caption": "Pledged trading assets: Pledged securities"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKG388",
+      "item": "4.b",
+      "depth": 1,
+      "caption": "Pledged trading assets: Pledged loans"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCALB58",
+      "item": "13.a",
+      "depth": 2,
+      "caption": "LESS: Investments in the capital of unconsolidated financial institutions, net of associated DTLs (standardized)"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCWP853",
+      "item": "13.b",
+      "depth": 2,
+      "caption": "LESS: Significant investments in the capital of unconsolidated financial institutions in the form of common stock (advanced)"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCALB59",
+      "item": "14.a",
+      "depth": 2,
+      "caption": "LESS: MSAs, net of associated DTLs, that exceed 25 percent of line 12 (standardized)"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCWP854",
+      "item": "14.b",
+      "depth": 2,
+      "caption": "LESS: MSAs, net of associated DTLs, exceeding the threshold for non-significant investments (advanced)"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCALB60",
+      "item": "15.a",
+      "depth": 2,
+      "caption": "LESS: DTAs arising from temporary differences that could not be realized through net operating loss carrybacks (standardized)"
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "BHCWP855",
+      "item": "15.b",
+      "depth": 2,
+      "caption": "LESS: DTAs arising from temporary differences exceeding the threshold for non-significant investments (advanced)"
+    },
+    {
+      "_note": "Notes to the Income Statement — Predecessor Financial Items (Y-9C form p.14), item 1.a. Key fixed from HI-C: parser correctly skips Notes pages (NOTES regex -> cur=None); add_missing_codes.py wrongly used key=HI-C.",
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "BHBC4094",
+      "item": "1.a",
+      "caption": "Interest income on loans and leases — bank consolidated",
+      "depth": 2
+    },
+    {
+      "_note": "Notes to the Income Statement — Predecessor Financial Items (Y-9C form p.14), item 1.b. Key fixed from HI-C: parser correctly skips Notes pages (NOTES regex -> cur=None); add_missing_codes.py wrongly used key=HI-C.",
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "BHBC4218",
+      "item": "1.b",
+      "caption": "Interest income on investment securities — bank consolidated",
+      "depth": 2
+    },
+    {
+      "_note": "Notes to the Income Statement — Predecessor Financial Items (Y-9C form p.14), item 2. Key fixed from HI-C: parser correctly skips Notes pages (NOTES regex -> cur=None); add_missing_codes.py wrongly used key=HI-C.",
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "BHBC4073",
+      "item": "2",
+      "caption": "Total interest expense — bank consolidated",
+      "depth": 1
+    },
+    {
+      "_note": "Notes to the Income Statement — Predecessor Financial Items (Y-9C form p.14), item 2.a. Key fixed from HI-C: parser correctly skips Notes pages (NOTES regex -> cur=None); add_missing_codes.py wrongly used key=HI-C.",
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "BHBC4421",
+      "item": "2.a",
+      "caption": "Interest expense on deposits — bank consolidated",
+      "depth": 2
+    },
+    {
+      "_note": "Notes to the Income Statement — Predecessor Financial Items (Y-9C form p.14), item 3. Key fixed from HI-C: parser correctly skips Notes pages (NOTES regex -> cur=None); add_missing_codes.py wrongly used key=HI-C.",
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "BHBC4074",
+      "item": "3",
+      "caption": "Net interest income — bank consolidated",
+      "depth": 1
+    },
+    {
+      "_note": "Notes to the Income Statement — Predecessor Financial Items (Y-9C form p.14), item 5.a. Key fixed from HI-C: parser correctly skips Notes pages (NOTES regex -> cur=None); add_missing_codes.py wrongly used key=HI-C.",
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "BHBC4070",
+      "item": "5.a",
+      "caption": "Income from fiduciary activities — bank consolidated",
+      "depth": 2
+    },
+    {
+      "_note": "Notes to the Income Statement — Predecessor Financial Items (Y-9C form p.14), item 5.c. Key fixed from HI-C: parser correctly skips Notes pages (NOTES regex -> cur=None); add_missing_codes.py wrongly used key=HI-C.",
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "BHBCB490",
+      "item": "5.c",
+      "caption": "Investment banking, advisory, brokerage, and underwriting fees and commissions — bank consolidated",
+      "depth": 2
+    },
+    {
+      "_note": "Notes to the Income Statement — Predecessor Financial Items (Y-9C form p.14), item 5.f. Key fixed from HI-C: parser correctly skips Notes pages (NOTES regex -> cur=None); add_missing_codes.py wrongly used key=HI-C.",
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "BHBCB494",
+      "item": "5.f",
+      "caption": "Insurance commissions and fees — bank consolidated",
+      "depth": 2
+    },
+    {
+      "_note": "Notes to the Income Statement — Predecessor Financial Items (Y-9C form p.14), item 6. Key fixed from HI-C: parser correctly skips Notes pages (NOTES regex -> cur=None); add_missing_codes.py wrongly used key=HI-C.",
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "BHBC4091",
+      "item": "6",
+      "caption": "Realized gains (losses) on held-to-maturity and available-for-sale securities — bank consolidated",
+      "depth": 1
+    },
+    {
+      "_note": "Notes to the Income Statement — Predecessor Financial Items (Y-9C form p.14), item 10. Key fixed from HI-C: parser correctly skips Notes pages (NOTES regex -> cur=None); add_missing_codes.py wrongly used key=HI-C.",
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "BHBC4484",
+      "item": "10",
+      "caption": "Noncontrolling (minority) interest — bank consolidated",
+      "depth": 1
+    },
+    {
+      "_note": "Notes to the Income Statement — Predecessor Financial Items (Y-9C form p.14), item 11. Key fixed from HI-C: parser correctly skips Notes pages (NOTES regex -> cur=None); add_missing_codes.py wrongly used key=HI-C.",
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "BHCKFT41",
+      "item": "11",
+      "caption": "Discontinued operations, net of applicable income taxes and noncontrolling interest",
+      "depth": 1
+    },
+    {
+      "_note": "Notes to the Income Statement — Predecessor Financial Items (Y-9C form p.14), item 12. Key fixed from HI-C: parser correctly skips Notes pages (NOTES regex -> cur=None); add_missing_codes.py wrongly used key=HI-C.",
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "BHBC4340",
+      "item": "12",
+      "caption": "Net income (loss) — bank consolidated",
+      "depth": 1
+    },
+    {
+      "_note": "Notes to the Income Statement — Predecessor Financial Items (Y-9C form p.14), item 13. Key fixed from HI-C: parser correctly skips Notes pages (NOTES regex -> cur=None); add_missing_codes.py wrongly used key=HI-C.",
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "BHBC4475",
+      "item": "13",
+      "caption": "Cash dividends declared — bank consolidated",
+      "depth": 1
+    },
+    {
+      "_note": "Notes to the Income Statement — Predecessor Financial Items (Y-9C form p.14), item 14. Key fixed from HI-C: parser correctly skips Notes pages (NOTES regex -> cur=None); add_missing_codes.py wrongly used key=HI-C.",
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "BHBC6061",
+      "item": "14",
+      "caption": "Net charge-offs — bank consolidated",
+      "depth": 1
+    },
+    {
+      "key": "HC-F",
+      "mdrm": "BHCKB556",
+      "item": "1",
+      "depth": 1,
+      "caption": "ACCRUED INTEREST RECEIVABLE"
+    },
+    {
+      "key": "HC-F",
+      "mdrm": "BHCK2148",
+      "item": "2",
+      "depth": 1,
+      "caption": "NET DEFERRED TAX ASSETS"
+    },
+    {
+      "_note": "HC-F item 3: Interest-only strips receivable — BHCKA519/520 in panel 2001-2018; removed from the form ~2018 but preserved for historical browsing",
+      "key": "HC-F",
+      "mdrm": "",
+      "item": "3",
+      "depth": 1,
+      "caption": "Interest-only strips receivable (not in the form of a security)",
+      "header": true
+    },
+    {
+      "key": "HC-F",
+      "mdrm": "BHCKA519",
+      "item": "3.a",
+      "depth": 2,
+      "caption": "ON MORTGAGE LOANS"
+    },
+    {
+      "key": "HC-F",
+      "mdrm": "BHCKA520",
+      "item": "3.b",
+      "depth": 2,
+      "caption": "ON OTHER FINANCIAL ASSETS"
+    },
+    {
+      "key": "HC-H",
+      "mdrm": "BHCKHT80",
+      "item": "6",
+      "depth": 1,
+      "caption": "Interest-only strips receivable (not in the form of a security)"
+    },
+    {
+      "key": "HC-F",
+      "mdrm": "BHCK1752",
+      "item": "4",
+      "depth": 1,
+      "caption": "HISTORICAL COST OF ALL OTHER AVAILABLE-FOR-SALE EQUITY SECURITIES"
+    },
+    {
+      "key": "HC-F",
+      "mdrm": "BHCKK201",
+      "item": "5.a",
+      "depth": 2,
+      "caption": "LIFE INSURANCE ASSETS: GENERAL ACCOUNT LIFE INSURANCE ASSETS"
+    },
+    {
+      "key": "HC-F",
+      "mdrm": "BHCKK202",
+      "item": "5.b",
+      "depth": 2,
+      "caption": "LIFE INSURANCE ASSETS: SEPARATE ACCOUNT LIFE INSURANCE ASSETS"
+    },
+    {
+      "key": "HC-F",
+      "mdrm": "BHCKK270",
+      "item": "5.c",
+      "depth": 2,
+      "caption": "LIFE INSURANCE ASSETS: HYBRID ACCOUNT LIFE INSURANCE ASSETS"
+    },
+    {
+      "key": "HC-F",
+      "mdrm": "BHCK2168",
+      "item": "6",
+      "depth": 1,
+      "caption": "OTHER ASSETS"
+    },
+    {
+      "key": "HC-G — Memoranda",
+      "mdrm": "BHCK3049",
+      "item": "2",
+      "depth": 1,
+      "caption": "NET DEFERRED TAX LIABILITIES"
+    },
+    {
+      "key": "HC-G — Memoranda",
+      "mdrm": "BHCKB557",
+      "item": "3",
+      "depth": 1,
+      "caption": "ALLOWANCE FOR CREDIT LOSSES ON OFF-BALANCE SHEET CREDIT EXPOSURES"
+    },
+    {
+      "key": "HC-G — Memoranda",
+      "mdrm": "BHCKB984",
+      "item": "4",
+      "depth": 1,
+      "caption": "OTHER"
+    },
+    {
+      "key": "HC-H",
+      "mdrm": "BHCK3197",
+      "item": "1",
+      "depth": 1,
+      "caption": "EARNING ASSETS THAT ARE REPRICEABLE WITHIN ONE YEAR OR MATURES WITHIN ONE YEAR"
+    },
+    {
+      "key": "HC-H",
+      "mdrm": "BHCK3408",
+      "item": "4",
+      "depth": 1,
+      "caption": "VARIABLE RATE PREFERRED STOCK (INCLUDES BOTH LIMITED-LIFE AND PERPETUAL PREFERRED STOCK)"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKF553",
+      "item": "14.b",
+      "depth": 2,
+      "caption": "Net gains (losses) recognized in earnings on liabilities reported at fair value option"
+    },
+    {
+      "key": "HI-C",
+      "mdrm": "BHCKJJ27",
+      "item": "M.1",
+      "depth": 1,
+      "caption": "Initial allowances for credit losses recognized upon the acquisition of purchased credit-deteriorated assets"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "",
+      "item": "12",
+      "depth": 1,
+      "caption": "Income from the sale and servicing of mutual funds and annuities",
+      "header": true
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "",
+      "item": "14",
+      "depth": 1,
+      "caption": "Net gains (losses) on assets and liabilities reported at fair value option",
+      "header": true
+    },
+    {
+      "key": "HC-B",
+      "mdrm": "",
+      "item": "M",
+      "depth": 1,
+      "caption": "Memoranda",
+      "header": true
+    },
+    {
+      "key": "HC-C",
+      "mdrm": "",
+      "item": "M",
+      "depth": 1,
+      "caption": "Memoranda",
+      "header": true
+    },
+    {
+      "key": "HC-L",
+      "mdrm": "",
+      "item": "M",
+      "depth": 1,
+      "caption": "Memoranda",
+      "header": true
+    },
+    {
+      "key": "HC-N",
+      "mdrm": "",
+      "item": "M",
+      "depth": 1,
+      "caption": "Memoranda",
+      "header": true
+    },
+    {
+      "key": "HC-Q",
+      "mdrm": "",
+      "item": "M",
+      "depth": 1,
+      "caption": "Memoranda",
+      "header": true
+    },
+    {
+      "key": "HI-B — Part II (Allowance Changes)",
+      "mdrm": "",
+      "item": "M",
+      "depth": 1,
+      "caption": "Memoranda",
+      "header": true
+    },
+    {
+      "key": "HI-C",
+      "mdrm": "",
+      "item": "M",
+      "depth": 1,
+      "caption": "Memoranda",
+      "header": true
+    },
+    {
+      "key": "HC",
+      "mdrm": "",
+      "item": "13.b",
+      "depth": 2,
+      "caption": "In foreign offices, Edge and Agreement subsidiaries, and IBFs",
+      "header": true
+    },
+    {
+      "key": "HC-K",
+      "mdrm": "",
+      "item": "3.a.(5)",
+      "depth": 3,
+      "caption": "Loans to individuals for household, family, and other personal expenditures",
+      "header": true
+    },
+    {
+      "key": "HC-P",
+      "mdrm": "",
+      "item": "2",
+      "depth": 1,
+      "caption": "Wholesale originations and purchases",
+      "header": true
+    },
+    {
+      "key": "HC-P",
+      "mdrm": "",
+      "item": "4",
+      "depth": 1,
+      "caption": "Mortgage loans held for sale or trading",
+      "header": true
+    },
+    {
+      "key": "HC-P",
+      "mdrm": "",
+      "item": "5",
+      "depth": 1,
+      "caption": "Noninterest income from 1-4 family mortgage banking activities",
+      "header": true
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "",
+      "item": "13",
+      "depth": 1,
+      "caption": "Less: Investments in the capital of unconsolidated financial institutions",
+      "header": true
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "",
+      "item": "14",
+      "depth": 1,
+      "caption": "Less: MSAs, net of associated DTLs",
+      "header": true
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "",
+      "item": "15",
+      "depth": 1,
+      "caption": "Less: DTAs arising from temporary differences",
+      "header": true
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "",
+      "item": "40",
+      "depth": 1,
+      "caption": "Eligible credit reserves / AACL includable in tier 2 capital",
+      "header": true
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "",
+      "item": "42",
+      "depth": 1,
+      "caption": "Tier 2 capital before deductions",
+      "header": true
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "",
+      "item": "44",
+      "depth": 1,
+      "caption": "Tier 2 capital",
+      "header": true
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "",
+      "item": "45",
+      "depth": 1,
+      "caption": "Total capital",
+      "header": true
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "",
+      "item": "46",
+      "depth": 1,
+      "caption": "Total risk-weighted assets",
+      "header": true
+    },
+    {
+      "key": "HC-R",
+      "mdrm": "",
+      "item": "62",
+      "depth": 1,
+      "caption": "TLAC buffers",
+      "header": true
+    },
+    {
+      "key": "HI",
+      "mdrm": "",
+      "item": "5.d",
+      "depth": 2,
+      "caption": "Income from securities-related and insurance activities",
+      "header": true
+    },
+    {
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "",
+      "item": "1",
+      "depth": 1,
+      "caption": "Total interest income -- bank consolidated (predecessor)",
+      "header": true
+    },
+    {
+      "key": "HI — Notes (Predecessor)",
+      "mdrm": "",
+      "item": "5",
+      "depth": 1,
+      "caption": "Total noninterest income -- bank consolidated (predecessor)",
+      "header": true
+    },
+    {
+      "key": "HI",
+      "mdrm": "BHCKC886",
+      "item": "5.d.(1)",
+      "depth": 3,
+      "caption": "Fees and commissions from securities brokerage"
+    },
+    {
+      "key": "HI",
+      "mdrm": "BHCKC888",
+      "item": "5.d.(2)",
+      "depth": 3,
+      "caption": "Investment banking, advisory, and underwriting fees and commissions"
+    },
+    {
+      "key": "HI",
+      "mdrm": "BHCKC887",
+      "item": "5.d.(3)",
+      "depth": 3,
+      "caption": "Fees and commissions from annuity sales"
+    },
+    {
+      "key": "HI",
+      "mdrm": "BHCKC386",
+      "item": "5.d.(4)",
+      "depth": 3,
+      "caption": "Underwriting income from insurance and reinsurance activities"
+    },
+    {
+      "key": "HI",
+      "mdrm": "BHCKC387",
+      "item": "5.d.(5)",
+      "depth": 3,
+      "caption": "Income from other insurance activities"
+    },
+    {
+      "key": "HI",
+      "mdrm": "BHCKKX47",
+      "item": "5.d.(7)",
+      "depth": 3,
+      "caption": "Income from insurance activities"
+    },
+    {
+      "key": "HI",
+      "mdrm": "",
+      "item": "7.c",
+      "depth": 2,
+      "caption": "Goodwill impairment losses",
+      "header": true
+    },
+    {
+      "key": "HI",
+      "mdrm": "BHCKC216",
+      "item": "7.c.(1)",
+      "depth": 3,
+      "caption": "Goodwill impairment losses"
+    },
+    {
+      "key": "HC",
+      "mdrm": "",
+      "item": "13",
+      "depth": 1,
+      "caption": "Deposits",
+      "header": true
+    },
+    {
+      "key": "HC",
+      "mdrm": "",
+      "item": "13.a",
+      "depth": 2,
+      "caption": "In domestic offices (from Schedule HC-E)",
+      "header": true
+    },
+    {
+      "key": "HC",
+      "mdrm": "BHDM6631",
+      "item": "13.a.(1)",
+      "depth": 3,
+      "caption": "Noninterest-bearing"
+    },
+    {
+      "key": "HC",
+      "mdrm": "BHDM6636",
+      "item": "13.a.(2)",
+      "depth": 3,
+      "caption": "Interest-bearing"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "",
+      "item": "10",
+      "depth": 1,
+      "header": true,
+      "caption": "Net gains (losses) recognized in earnings on credit derivatives that economically hedge credit exposures held outside the trading account"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKC889",
+      "item": "10.a",
+      "depth": 2,
+      "caption": "Net gains (losses) on credit derivatives held for trading"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKC890",
+      "item": "10.b",
+      "depth": 2,
+      "caption": "Net gains (losses) on credit derivatives held for purposes other than trading"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKA251",
+      "item": "11",
+      "depth": 1,
+      "caption": "Credit losses on derivatives"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "",
+      "item": "12.b",
+      "depth": 2,
+      "header": true,
+      "caption": "Insurance premiums"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKC242",
+      "item": "12.b.(1)",
+      "depth": 3,
+      "caption": "Premiums on insurance related to the extension of credit"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKC243",
+      "item": "12.b.(2)",
+      "depth": 3,
+      "caption": "All other insurance premiums"
+    },
+    {
+      "key": "HI — Memoranda",
+      "mdrm": "BHCKB983",
+      "item": "12.c",
+      "depth": 2,
+      "caption": "Benefits, losses, and expenses from insurance-related activities"
+    }
+  ],
+  "drop_items": [
+    {
+      "key": "HC",
+      "item": "9.a"
+    },
+    {
+      "key": "HI — Memoranda",
+      "item": "11"
+    }
+  ]
+}

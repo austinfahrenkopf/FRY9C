@@ -1,0 +1,14 @@
+# FR Y-9C explorer — Python dependencies
+# Install:  pip install -r requirements.txt
+#           playwright install chrome        # one-time, for the downloader
+#
+# pandas/pyarrow : parse the BHCF bulk files, build/read the parquet panel
+# playwright     : real-Chrome downloader for the NIC Financial Data Download (Akamai/WAF)
+# pypdf          : build_hierarchy_fry9c.py reads the blank FR Y-9C form PDF
+# requests       : build_fry9c_dictionary.py downloads the Fed MDRM master dictionary
+# (DuckDB runs client-side as DuckDB-WASM in the browser — no Python duckdb needed here.)
+pandas>=2.0
+pyarrow>=12.0
+playwright>=1.40
+pypdf>=4.0
+requests>=2.28
