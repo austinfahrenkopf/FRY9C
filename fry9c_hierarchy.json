@@ -640,34 +640,6 @@
 },
 {
 "mdrm": "",
-"caption": "Of which: Loans to nondepository financial institutions (included in Schedule HC-N, item 7):",
-"item": "7.a",
-"depth": 2,
-"header": true
-},
-{
-"mdrm": "BHCKPV23",
-"caption": "Past due 30 through 89 days and still accruing",
-"item": "7.a.A",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKPV24",
-"caption": "Past due 90 days or more and still accruing",
-"item": "7.a.B",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKPV25",
-"caption": "Nonaccrual",
-"item": "7.a.C",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "",
 "caption": "Lease financing receivables",
 "item": "8",
 "depth": 1,
@@ -951,6 +923,13 @@
 "depth": 2,
 "header": false,
 "col": true
+},
+{
+"mdrm": "",
+"caption": "Memoranda",
+"item": "M",
+"depth": 1,
+"header": true
 },
 {
 "mdrm": "",
@@ -1754,7 +1733,7 @@
 },
 {
 "mdrm": "BHCK1292",
-"caption": "To U.S. depository institutions and acceptances of U.S. banks",
+"caption": "LOANS TO U.S. BANKS AND OTHER U.S. DEPOSITORY INSTITUTIONS",
 "item": "2.a",
 "depth": 2,
 "header": false
@@ -1814,14 +1793,14 @@
 },
 {
 "mdrm": "BHCK1763",
-"caption": "To U.S. addressees (domicile)",
+"caption": "COMMERCIAL AND INDUSTRIAL LOANS TO U.S. ADDRESSEES",
 "item": "4.a",
 "depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCK1764",
-"caption": "To non-U.S. addressees (domicile)",
+"caption": "COMMERCIAL AND INDUSTRIAL LOANS TO NON-U.S. ADDRESSEES",
 "item": "4.b",
 "depth": 2,
 "header": false
@@ -1832,13 +1811,6 @@
 "item": "4.c",
 "depth": 2,
 "header": false
-},
-{
-"mdrm": "",
-"caption": "Not applicable (reserved on the FR Y-9C — Schedule HC-C has no item 5)",
-"item": "5",
-"depth": 1,
-"header": true
 },
 {
 "mdrm": "",
@@ -1913,13 +1885,6 @@
 "depth": 2,
 "header": false,
 "col": true
-},
-{
-"mdrm": "",
-"caption": "Not applicable on the FR Y-9C (obligations of states and political subdivisions, other than securities and leases, are itemized on the Call Report RC-C item 8 = RCON2107, but are not separately collected on the Y-9C — no BHCK2107 exists in the panel)",
-"item": "8",
-"depth": 1,
-"header": true
 },
 {
 "mdrm": "",
@@ -2059,7 +2024,7 @@
 },
 {
 "mdrm": "BHCKF163",
-"caption": "All other leases",
+"caption": "ALL OTHER LEASE FINANCING RECEIVABLES",
 "item": "10.b",
 "depth": 2,
 "header": false
@@ -2848,6 +2813,59 @@
 },
 {
 "mdrm": "",
+"caption": "Loans to depository institutions and acceptances of other banks",
+"item": "2",
+"depth": 1,
+"header": true
+},
+{
+"mdrm": "",
+"caption": "To U.S. banks and other depository institutions",
+"item": "2.a",
+"depth": 2,
+"header": true
+},
+{
+"mdrm": "BHCK4653",
+"caption": "Charge-offs",
+"item": "2.a.A",
+"depth": 3,
+"header": false,
+"col": true
+},
+{
+"mdrm": "BHCK4663",
+"caption": "Recoveries",
+"item": "2.a.B",
+"depth": 3,
+"header": false,
+"col": true
+},
+{
+"mdrm": "",
+"caption": "To foreign banks",
+"item": "2.b",
+"depth": 2,
+"header": true
+},
+{
+"mdrm": "BHCK4654",
+"caption": "Charge-offs",
+"item": "2.b.A",
+"depth": 3,
+"header": false,
+"col": true
+},
+{
+"mdrm": "BHCK4664",
+"caption": "Recoveries",
+"item": "2.b.B",
+"depth": 3,
+"header": false,
+"col": true
+},
+{
+"mdrm": "",
 "caption": "Loans to finance agricultural production and other loans to farmers",
 "item": "3",
 "depth": 1,
@@ -3446,6 +3464,13 @@
 "col": true
 },
 {
+"mdrm": "",
+"caption": "Memoranda",
+"item": "M",
+"depth": 1,
+"header": true
+},
+{
 "mdrm": "BHCKC435",
 "caption": "Allocated transfer risk reserve included in Schedule HI-B, Part II, item 7, column A, above",
 "item": "M.1",
@@ -3880,13 +3905,6 @@
 "header": true
 },
 {
-"mdrm": "",
-"caption": "Positions covered under the Market Risk Rule:",
-"item": "7.c.(1)",
-"depth": 3,
-"header": true
-},
-{
 "mdrm": "BHCKG401",
 "caption": "Sold protection",
 "item": "7.c.(1)(a)",
@@ -3899,13 +3917,6 @@
 "item": "7.c.(1)(b)",
 "depth": 4,
 "header": false
-},
-{
-"mdrm": "",
-"caption": "All other positions:",
-"item": "7.c.(2)",
-"depth": 3,
-"header": true
 },
 {
 "mdrm": "BHCKG403",
@@ -3933,13 +3944,6 @@
 "caption": "Notional amounts by remaining maturity:",
 "item": "7.d",
 "depth": 2,
-"header": true
-},
-{
-"mdrm": "",
-"caption": "Sold credit protection:",
-"item": "7.d.(1)",
-"depth": 3,
 "header": true
 },
 {
@@ -4003,13 +4007,6 @@
 "depth": 5,
 "header": false,
 "col": true
-},
-{
-"mdrm": "",
-"caption": "Purchased credit protection:",
-"item": "7.d.(2)",
-"depth": 3,
-"header": true
 },
 {
 "mdrm": "",
@@ -4089,42 +4086,42 @@
 },
 {
 "mdrm": "BHCK3434",
-"caption": "Commitments to purchase when-issued securities",
+"caption": "GROSS COMMITMENTS TO PURCHASE",
 "item": "9.a",
 "depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCK3435",
-"caption": "Commitments to sell when-issued securities",
+"caption": "GROSS COMMITMENTS TO SELL",
 "item": "9.b",
 "depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCK6561",
-"caption": "All other off-balance-sheet items (itemized)",
+"caption": "FIRST COMPONENT OF OTHER SIGNIFICANT OFF-BALANCE SHEET ITEMS THAT IS OVER 25% OF TOTAL EQUITY CAPITAL (3210)",
 "item": "9.c",
 "depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCK6562",
-"caption": "All other off-balance-sheet items (itemized)",
+"caption": "SECOND COMPONENT OF OTHER SIGNIFICANT OFF-BALANCE SHEET ITEMS THAT IS OVER 25% OF TOTAL EQUITY CAPITAL (3210)",
 "item": "9.d",
 "depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCK6568",
-"caption": "All other off-balance-sheet items (itemized)",
+"caption": "THIRD COMPONENT OF OTHER SIGNIFICANT OFF-BALANCE SHEET ITEMS THAT IS OVER 25% OF TOTAL EQUITY CAPITAL (3210)",
 "item": "9.e",
 "depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCK6586",
-"caption": "All other off-balance-sheet items (itemized)",
+"caption": "FOURTH COMPONENT OF OTHER SIGNIFICANT OFF-BALANCE SHEET ITEMS THAT IS OVER 25% OF TOTAL EQUITY CAPITAL (3210)",
 "item": "9.f",
 "depth": 2,
 "header": false
@@ -5044,6 +5041,13 @@
 "col": true
 },
 {
+"mdrm": "",
+"caption": "Memoranda",
+"item": "M",
+"depth": 1,
+"header": true
+},
+{
 "mdrm": "BHCKA251",
 "caption": "Credit losses on off-balance-sheet derivatives",
 "item": "M.1",
@@ -5058,14 +5062,6 @@
 "item": "1",
 "depth": 1,
 "header": true
-},
-{
-"mdrm": "BHCKJA36",
-"caption": "Total fair value (Schedule HC)",
-"item": "1.A",
-"depth": 2,
-"header": false,
-"col": true
 },
 {
 "mdrm": "BHCKG474",
@@ -5864,6 +5860,13 @@
 "depth": 2,
 "header": false,
 "col": true
+},
+{
+"mdrm": "",
+"caption": "Memoranda",
+"item": "M",
+"depth": 1,
+"header": true
 },
 {
 "mdrm": "",
@@ -7536,45 +7539,66 @@
 "header": false
 },
 {
+"mdrm": "",
+"caption": "Less: Investments in the capital of unconsolidated financial institutions",
+"item": "13",
+"depth": 1,
+"header": true
+},
+{
 "mdrm": "BHCALB58",
 "caption": "LESS: Investments in the capital of unconsolidated financial institutions, net of associated DTLs (standardized)",
 "item": "13.a",
-"depth": 1,
+"depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCWP853",
 "caption": "LESS: Significant investments in the capital of unconsolidated financial institutions in the form of common stock (advanced)",
 "item": "13.b",
-"depth": 1,
+"depth": 2,
 "header": false
+},
+{
+"mdrm": "",
+"caption": "Less: MSAs, net of associated DTLs",
+"item": "14",
+"depth": 1,
+"header": true
 },
 {
 "mdrm": "BHCALB59",
 "caption": "LESS: MSAs, net of associated DTLs, that exceed 25 percent of line 12 (standardized)",
 "item": "14.a",
-"depth": 1,
+"depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCWP854",
 "caption": "LESS: MSAs, net of associated DTLs, exceeding the threshold for non-significant investments (advanced)",
 "item": "14.b",
-"depth": 1,
+"depth": 2,
 "header": false
+},
+{
+"mdrm": "",
+"caption": "Less: DTAs arising from temporary differences",
+"item": "15",
+"depth": 1,
+"header": true
 },
 {
 "mdrm": "BHCALB60",
 "caption": "LESS: DTAs arising from temporary differences that could not be realized through net operating loss carrybacks (standardized)",
 "item": "15.a",
-"depth": 1,
+"depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCWP855",
 "caption": "LESS: DTAs arising from temporary differences exceeding the threshold for non-significant investments (advanced)",
 "item": "15.b",
-"depth": 1,
+"depth": 2,
 "header": false
 },
 {
@@ -7698,14 +7722,14 @@
 },
 {
 "mdrm": "BHCAA224",
-"caption": "Total assets for the leverage ratio (item 27 minus items 28 and 29)",
+"caption": "AVERAGE TOTAL ASSETS (NET OF DEDUCTIONS)",
 "item": "30",
 "depth": 1,
 "header": false
 },
 {
 "mdrm": "BHCA7204",
-"caption": "Leverage ratio (item 26 divided by item 30)",
+"caption": "TIER 1 LEVERAGE CAPITAL RATIO",
 "item": "31",
 "depth": 1,
 "header": false
@@ -7841,31 +7865,45 @@
 "header": false
 },
 {
+"mdrm": "",
+"caption": "Eligible credit reserves / AACL includable in tier 2 capital",
+"item": "40",
+"depth": 1,
+"header": true
+},
+{
 "mdrm": "BHCA5310",
 "caption": "Adjusted allowances for credit losses (AACL) includable in tier 2 capital",
 "item": "40.a",
-"depth": 1,
+"depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCW5310",
 "caption": "Eligible credit reserves includable in tier 2 capital (advanced approach)",
 "item": "40.b",
-"depth": 1,
+"depth": 2,
 "header": false
+},
+{
+"mdrm": "",
+"caption": "Tier 2 capital before deductions",
+"item": "42",
+"depth": 1,
+"header": true
 },
 {
 "mdrm": "BHCAP870",
 "caption": "Tier 2 capital before deductions (sum of items 37, 38, 39, and 40) — standardized",
 "item": "42.a",
-"depth": 1,
+"depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCWP870",
 "caption": "Tier 2 capital before deductions (advanced approach)",
 "item": "42.b",
-"depth": 1,
+"depth": 2,
 "header": false
 },
 {
@@ -7876,45 +7914,66 @@
 "header": false
 },
 {
+"mdrm": "",
+"caption": "Tier 2 capital",
+"item": "44",
+"depth": 1,
+"header": true
+},
+{
 "mdrm": "BHCA5311",
 "caption": "Tier 2 capital (greater of item 42.a minus item 43, or zero) — standardized",
 "item": "44.a",
-"depth": 1,
+"depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCW5311",
 "caption": "Tier 2 capital (advanced approach)",
 "item": "44.b",
-"depth": 1,
+"depth": 2,
 "header": false
+},
+{
+"mdrm": "",
+"caption": "Total capital",
+"item": "45",
+"depth": 1,
+"header": true
 },
 {
 "mdrm": "BHCA3792",
 "caption": "Total capital (sum of items 26 and 44.a) — standardized approach",
 "item": "45.a",
-"depth": 1,
+"depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCW3792",
 "caption": "Total capital (advanced approach)",
 "item": "45.b",
-"depth": 1,
+"depth": 2,
 "header": false
+},
+{
+"mdrm": "",
+"caption": "Total risk-weighted assets",
+"item": "46",
+"depth": 1,
+"header": true
 },
 {
 "mdrm": "BHCAA223",
 "caption": "Total risk-weighted assets (from Schedule HC-R, Part II, item 25) — standardized",
 "item": "46.a",
-"depth": 1,
+"depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCWA223",
 "caption": "Total risk-weighted assets (advanced approach)",
 "item": "46.b",
-"depth": 1,
+"depth": 2,
 "header": false
 },
 {
@@ -8209,6 +8268,13 @@
 "depth": 2,
 "header": false,
 "col": true
+},
+{
+"mdrm": "",
+"caption": "TLAC buffers",
+"item": "62",
+"depth": 1,
+"header": true
 },
 {
 "mdrm": "BHCALF27",
@@ -8557,13 +8623,6 @@
 "col": true
 },
 {
-"mdrm": "BHBC4094",
-"caption": "Interest and fees on loans and lease financing receivables — bank consolidated",
-"item": "B.1.a",
-"depth": 2,
-"header": false
-},
-{
 "mdrm": "",
 "caption": "Commercial real estate loans",
 "item": "1.b",
@@ -8585,13 +8644,6 @@
 "depth": 3,
 "header": false,
 "col": true
-},
-{
-"mdrm": "BHBC4218",
-"caption": "Interest and dividend income on securities — bank consolidated",
-"item": "B.1.b",
-"depth": 2,
-"header": false
 },
 {
 "mdrm": "",
@@ -8640,20 +8692,6 @@
 "col": true
 },
 {
-"mdrm": "BHCKJJ27",
-"caption": "Initial allowances for credit losses recognized upon the acquisition of purchased credit-deteriorated assets",
-"item": "2",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHBC4421",
-"caption": "Net interest expense on deposits — bank consolidated",
-"item": "B.2.a",
-"depth": 2,
-"header": false
-},
-{
 "mdrm": "",
 "caption": "Credit cards",
 "item": "3",
@@ -8675,13 +8713,6 @@
 "depth": 2,
 "header": false,
 "col": true
-},
-{
-"mdrm": "BHBC6061",
-"caption": "Net charge-offs on loans and leases — bank consolidated",
-"item": "B.3",
-"depth": 1,
-"header": false
 },
 {
 "mdrm": "",
@@ -8707,31 +8738,10 @@
 "col": true
 },
 {
-"mdrm": "BHBC4091",
-"caption": "Gains (losses) on securities not held in trading accounts — bank consolidated",
-"item": "B.4",
-"depth": 1,
-"header": false
-},
-{
 "mdrm": "BHCKJJ18",
 "caption": "Unallocated, if any",
 "item": "5",
 "depth": 1,
-"header": false
-},
-{
-"mdrm": "BHBCB490",
-"caption": "Investment banking, advisory, brokerage, and underwriting fees and commissions — bank consolidated",
-"item": "B.5.a",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHBCB494",
-"caption": "Insurance commissions and fees — bank consolidated",
-"item": "B.5.b",
-"depth": 2,
 "header": false
 },
 {
@@ -8758,23 +8768,9 @@
 "col": true
 },
 {
-"mdrm": "BHBC4475",
-"caption": "Cash dividends declared — equity capital — bank consolidated",
-"item": "B.6",
-"depth": 1,
-"header": false
-},
-{
 "mdrm": "BHCKJJ20",
 "caption": "Securities issued by states and political subdivisions in the U.S.",
 "item": "7",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHBC4484",
-"caption": "Minority interest — bank consolidated",
-"item": "B.7",
 "depth": 1,
 "header": false
 },
@@ -8786,23 +8782,9 @@
 "header": false
 },
 {
-"mdrm": "BHCKFT41",
-"caption": "Discontinued operations, net of applicable income taxes and noncontrolling (minority) interest",
-"item": "B.8",
-"depth": 1,
-"header": false
-},
-{
 "mdrm": "BHCKJJ23",
 "caption": "Asset-backed securities and structured financial products",
 "item": "9",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHBC4340",
-"caption": "Net income (loss) — bank consolidated",
-"item": "B.9",
 "depth": 1,
 "header": false
 },
@@ -8814,13 +8796,6 @@
 "header": false
 },
 {
-"mdrm": "BHBC4070",
-"caption": "Income from fiduciary activities — bank consolidated",
-"item": "B.10",
-"depth": 1,
-"header": false
-},
-{
 "mdrm": "BHCKJJ25",
 "caption": "Total (sum of items 7 through 10)",
 "item": "11",
@@ -8828,16 +8803,16 @@
 "header": false
 },
 {
-"mdrm": "BHBC4073",
-"caption": "Total interest expense — bank consolidated",
-"item": "B.11",
+"mdrm": "",
+"caption": "Memoranda",
+"item": "M",
 "depth": 1,
-"header": false
+"header": true
 },
 {
-"mdrm": "BHBC4074",
-"caption": "Net interest income — bank consolidated",
-"item": "B.12",
+"mdrm": "BHCKJJ27",
+"caption": "Initial allowances for credit losses recognized upon the acquisition of purchased credit-deteriorated assets",
+"item": "M.1",
 "depth": 1,
 "header": false
 }
@@ -9263,13 +9238,6 @@
 },
 {
 "mdrm": "",
-"caption": "Commercial mortgage pass-through securities:",
-"item": "4.c.(1)",
-"depth": 3,
-"header": true
-},
-{
-"mdrm": "",
 "caption": "Issued or guaranteed by FNMA, FHLMC, or GNMA",
 "item": "4.c.(1)(a)",
 "depth": 4,
@@ -9345,13 +9313,6 @@
 "depth": 5,
 "header": false,
 "col": true
-},
-{
-"mdrm": "",
-"caption": "Other commercial MBS:",
-"item": "4.c.(2)",
-"depth": 3,
-"header": true
 },
 {
 "mdrm": "",
@@ -9683,6 +9644,13 @@
 "col": true
 },
 {
+"mdrm": "",
+"caption": "Memoranda",
+"item": "M",
+"depth": 1,
+"header": true
+},
+{
 "mdrm": "BHCK0416",
 "caption": "Pledged securities",
 "item": "M.1",
@@ -9733,14 +9701,14 @@
 },
 {
 "mdrm": "BHCK8782",
-"caption": "Amortized cost",
+"caption": "AMORTIZED COST OF STRUCTURED NOTES",
 "item": "M.4.a",
 "depth": 2,
 "header": false
 },
 {
 "mdrm": "BHCK8783",
-"caption": "Fair value",
+"caption": "FAIR VALUE OF STRUCTURED NOTES",
 "item": "M.4.b",
 "depth": 2,
 "header": false
@@ -13704,6 +13672,13 @@
 "header": false
 },
 {
+"mdrm": "",
+"caption": "Fees and commissions from securities brokerage, investment advisory, and related services",
+"item": "5.d",
+"depth": 2,
+"header": true
+},
+{
 "mdrm": "BHCKKX46",
 "caption": "Fees and commissions from securities brokerage, investment banking, advisory, and underwriting",
 "item": "5.d.(6)",
@@ -14189,13 +14164,6 @@
 "header": false
 },
 {
-"mdrm": "BHCKC889",
-"caption": "NET GAINS (LOSSES) ON CREDIT DERIVATIVES HELD FOR TRADING",
-"item": "9.a",
-"depth": 2,
-"header": false
-},
-{
 "mdrm": "BHCK8758",
 "caption": "FOREIGN EXCHANGE EXPOSURES",
 "item": "9.b",
@@ -14203,43 +14171,8 @@
 "header": false
 },
 {
-"mdrm": "BHCKC890",
-"caption": "NET GAINS (LOSSES) ON CREDIT DERIVATIVES HELD FOR PURPOSES OTHER THAN TRADING",
-"item": "9.b",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKC242",
-"caption": "PREMIUMS ON INSURANCE RELATED TO THE EXTENSION OF CREDIT",
-"item": "9.b",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKF553",
-"caption": "NET GAINS (LOSSES) RECOGNIZED IN EARNINGS ON LIABILITIES THAT ARE REPORTED AT FAIR VALUE OPTION",
-"item": "9.b",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKC243",
-"caption": "ALL OTHER PREMIUMS",
-"item": "9.b.(2)",
-"depth": 3,
-"header": false
-},
-{
 "mdrm": "BHCK8759",
 "caption": "EQUITY SECURITY OR INDEX EXPOSURES",
-"item": "9.c",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKB983",
-"caption": "BENEFITS; LOSSES; AND EXPENSES FROM INSURANCE-RELATED ACTIVITIES",
 "item": "9.c",
 "depth": 2,
 "header": false
@@ -14273,6 +14206,62 @@
 "header": false
 },
 {
+"mdrm": "BHCKC889",
+"caption": "Net gains (losses) on credit derivatives held for trading",
+"item": "9.h",
+"depth": 2,
+"header": false
+},
+{
+"mdrm": "BHCKC890",
+"caption": "Net gains (losses) on credit derivatives held for purposes other than trading",
+"item": "9.i",
+"depth": 2,
+"header": false
+},
+{
+"mdrm": "",
+"caption": "Insurance premiums",
+"item": "10",
+"depth": 1,
+"header": true
+},
+{
+"mdrm": "BHCKC242",
+"caption": "Premiums on insurance related to the extension of credit",
+"item": "10.a",
+"depth": 2,
+"header": false
+},
+{
+"mdrm": "BHCKC243",
+"caption": "All other premiums",
+"item": "10.a.(2)",
+"depth": 3,
+"header": false
+},
+{
+"mdrm": "",
+"caption": "Insurance benefits, losses, and expenses",
+"item": "11",
+"depth": 1,
+"header": true
+},
+{
+"mdrm": "BHCKB983",
+"caption": "Benefits, losses, and expenses from insurance-related activities",
+"item": "11.a",
+"depth": 2,
+"header": false
+},
+{
+"mdrm": "",
+"caption": "Income from the sale and servicing of mutual funds and annuities",
+"item": "12",
+"depth": 1,
+"header": true
+},
+{
 "mdrm": "BHCK8431",
 "caption": "Income from the sale and servicing of mutual funds and annuities (in domestic offices)",
 "item": "12.a",
@@ -14287,6 +14276,13 @@
 "header": false
 },
 {
+"mdrm": "",
+"caption": "Net gains (losses) on assets and liabilities reported at fair value option",
+"item": "14",
+"depth": 1,
+"header": true
+},
+{
 "mdrm": "BHCKF551",
 "caption": "Net gains (losses) recognized in earnings on assets reported at fair value under a fair value option",
 "item": "14.a",
@@ -14298,6 +14294,13 @@
 "caption": "Estimated net gains (losses) on loans attributable to changes in instrument-specific credit risk",
 "item": "14.a.(1)",
 "depth": 3,
+"header": false
+},
+{
+"mdrm": "BHCKF553",
+"caption": "Net gains (losses) recognized in earnings on liabilities reported at fair value option",
+"item": "14.b",
+"depth": 2,
 "header": false
 },
 {
@@ -14627,6 +14630,13 @@
 "header": false
 },
 {
+"mdrm": "",
+"caption": "In foreign offices",
+"item": "9.b",
+"depth": 2,
+"header": true
+},
+{
 "mdrm": "BHFN6631",
 "caption": "Deposits: noninterest-bearing (in foreign offices)",
 "item": "9.b.(1)",
@@ -14669,16 +14679,9 @@
 "header": true
 },
 {
-"mdrm": "BHCKB993",
-"caption": "FEDERAL FUNDS PURCHASED IN DOMESTIC OFFICES",
-"item": "14.a",
-"depth": 2,
-"header": false
-},
-{
 "mdrm": "BHDMB993",
-"caption": "Federal funds purchased in domestic offices (domestic offices only)",
-"item": "14.a.B",
+"caption": "Federal funds purchased in domestic offices",
+"item": "14.a",
 "depth": 2,
 "header": false
 },
@@ -14837,55 +14840,6 @@
 "item": "2",
 "depth": 1,
 "header": true
-},
-{
-"mdrm": "",
-"caption": "b.",
-"item": "2.a",
-"depth": 2,
-"header": true
-},
-{
-"mdrm": "BHCKC703",
-"caption": "BHCKC703",
-"item": "2.a.(1)",
-"depth": 3,
-"header": false
-},
-{
-"mdrm": "BHCKC704",
-"caption": "BHCKC704",
-"item": "2.a.(1)",
-"depth": 3,
-"header": false
-},
-{
-"mdrm": "BHCKC708",
-"caption": "BHCKC708",
-"item": "2.a.(2)",
-"depth": 3,
-"header": false
-},
-{
-"mdrm": "BHCKC705",
-"caption": "BHCKC705",
-"item": "2.a.(2)",
-"depth": 3,
-"header": false
-},
-{
-"mdrm": "BHCKC714",
-"caption": "BHCKC714",
-"item": "2.a.(3)",
-"depth": 3,
-"header": false
-},
-{
-"mdrm": "BHCKC715",
-"caption": "BHCKC715",
-"item": "2.a.(3)",
-"depth": 3,
-"header": false
 }
 ],
 "HC-D": [
@@ -15074,24 +15028,10 @@
 "header": false
 },
 {
-"mdrm": "BHCKB556",
-"caption": "ACCRUED INTEREST RECEIVABLE",
-"item": "1",
-"depth": 1,
-"header": false
-},
-{
 "mdrm": "BHCKHT68",
 "caption": "Unpaid principal balance of loans measured at fair value — loans to individuals (consumer loans)",
 "item": "1",
 "depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCK2210",
-"caption": "BHCK2210",
-"item": "1.a",
-"depth": 2,
 "header": false
 },
 {
@@ -15158,13 +15098,6 @@
 "header": false
 },
 {
-"mdrm": "BHCK2148",
-"caption": "NET DEFERRED TAX ASSETS",
-"item": "2",
-"depth": 1,
-"header": false
-},
-{
 "mdrm": "BHCKF639",
 "caption": "LOANS MEASURED AT FAIR VALUE THAT ARE PAST DUE BY 90 DAYS OR MORE:  FAIR VALUE",
 "item": "2.a",
@@ -15188,13 +15121,6 @@
 {
 "mdrm": "BHDMHK32",
 "caption": "TIME DEPOSITS OF $250;000 OR MORE WITH A REMAINING MATURITY OF ONE YEAR OR LESS",
-"item": "3",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCKHT80",
-"caption": "Other Assets; Interest-only strips receivable (not in the form of a security)",
 "item": "3",
 "depth": 1,
 "header": false
@@ -15249,13 +15175,6 @@
 "header": false
 },
 {
-"mdrm": "BHCK1752",
-"caption": "HISTORICAL COST OF ALL OTHER AVAILABLE-FOR-SALE EQUITY SECURITIES",
-"item": "4",
-"depth": 1,
-"header": false
-},
-{
 "mdrm": "BHCKG387",
 "caption": "Pledged trading assets: Pledged securities",
 "item": "4.a",
@@ -15284,13 +15203,6 @@
 "header": false
 },
 {
-"mdrm": "BHCKK201",
-"caption": "LIFE INSURANCE ASSETS: GENERAL ACCOUNT LIFE INSURANCE ASSETS",
-"item": "5.a",
-"depth": 2,
-"header": false
-},
-{
 "mdrm": "BHCKF644",
 "caption": "TRADING ASSETS: ASSET-BACKED SECURITIES:  HOME EQUITY LINES",
 "item": "5.b",
@@ -15298,22 +15210,8 @@
 "header": false
 },
 {
-"mdrm": "BHCKK202",
-"caption": "LIFE INSURANCE ASSETS: SEPARATE ACCOUNT LIFE INSURANCE ASSETS",
-"item": "5.b",
-"depth": 2,
-"header": false
-},
-{
 "mdrm": "BHCKF645",
 "caption": "TRADING ASSETS: ASSET-BACKED SECURITIES:  AUTOMOBILE LOANS",
-"item": "5.c",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKK270",
-"caption": "LIFE INSURANCE ASSETS: HYBRID ACCOUNT LIFE INSURANCE ASSETS",
 "item": "5.c",
 "depth": 2,
 "header": false
@@ -15337,13 +15235,6 @@
 "caption": "TRADING ASSETS: ASSET-BACKED SECURITIES: OTHER LOANS",
 "item": "5.f",
 "depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCK2168",
-"caption": "OTHER ASSETS",
-"item": "6",
-"depth": 1,
 "header": false
 },
 {
@@ -15433,27 +15324,6 @@
 ],
 "HC-D — Supplemental 2": [
 {
-"mdrm": "BHCK3049",
-"caption": "NET DEFERRED TAX LIABILITIES",
-"item": "2",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCKB557",
-"caption": "ALLOWANCE FOR CREDIT LOSSES ON OFF-BALANCE SHEET CREDIT EXPOSURES",
-"item": "3",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCKB984",
-"caption": "OTHER",
-"item": "4",
-"depth": 1,
-"header": false
-},
-{
 "mdrm": "BHCK2750",
 "caption": "OTHER LIABILITIES",
 "item": "5",
@@ -15461,22 +15331,7 @@
 "header": false
 }
 ],
-"HC-D — Supplemental 3": [
-{
-"mdrm": "BHCK3197",
-"caption": "EARNING ASSETS THAT ARE REPRICEABLE WITHIN ONE YEAR OR MATURES WITHIN ONE YEAR",
-"item": "1",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCK3408",
-"caption": "VARIABLE RATE PREFERRED STOCK (INCLUDES BOTH LIMITED-LIFE AND PERPETUAL PREFERRED STOCK)",
-"item": "4",
-"depth": 1,
-"header": false
-}
-],
+"HC-D — Supplemental 3": [],
 "HC-F": [
 {
 "mdrm": "BHCKB556",
@@ -15493,10 +15348,24 @@
 "header": false
 },
 {
-"mdrm": "BHCKHT80",
-"caption": "Other Assets; Interest-only strips receivable (not in the form of a security)",
+"mdrm": "",
+"caption": "Interest-only strips receivable (not in the form of a security)",
 "item": "3",
 "depth": 1,
+"header": true
+},
+{
+"mdrm": "BHCKA519",
+"caption": "ON MORTGAGE LOANS",
+"item": "3.a",
+"depth": 2,
+"header": false
+},
+{
+"mdrm": "BHCKA520",
+"caption": "ON OTHER FINANCIAL ASSETS",
+"item": "3.b",
+"depth": 2,
 "header": false
 },
 {
@@ -15551,27 +15420,6 @@
 ],
 "HC-F — Memoranda": [
 {
-"mdrm": "BHCK3049",
-"caption": "NET DEFERRED TAX LIABILITIES",
-"item": "2",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCKB557",
-"caption": "ALLOWANCE FOR CREDIT LOSSES ON OFF-BALANCE SHEET CREDIT EXPOSURES",
-"item": "3",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCKB984",
-"caption": "OTHER",
-"item": "4",
-"depth": 1,
-"header": false
-},
-{
 "mdrm": "BHCK2750",
 "caption": "OTHER LIABILITIES",
 "item": "5",
@@ -15579,86 +15427,8 @@
 "header": false
 }
 ],
-"HC-F — Supplemental 2": [
-{
-"mdrm": "BHCK3197",
-"caption": "EARNING ASSETS THAT ARE REPRICEABLE WITHIN ONE YEAR OR MATURES WITHIN ONE YEAR",
-"item": "1",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCK3408",
-"caption": "VARIABLE RATE PREFERRED STOCK (INCLUDES BOTH LIMITED-LIFE AND PERPETUAL PREFERRED STOCK)",
-"item": "4",
-"depth": 1,
-"header": false
-}
-],
+"HC-F — Supplemental 2": [],
 "HC-G": [
-{
-"mdrm": "BHCKB556",
-"caption": "ACCRUED INTEREST RECEIVABLE",
-"item": "1",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCK2148",
-"caption": "NET DEFERRED TAX ASSETS",
-"item": "2",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCKHT80",
-"caption": "Other Assets; Interest-only strips receivable (not in the form of a security)",
-"item": "3",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCK1752",
-"caption": "HISTORICAL COST OF ALL OTHER AVAILABLE-FOR-SALE EQUITY SECURITIES",
-"item": "4",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "",
-"caption": "Life insurance assets",
-"item": "5",
-"depth": 1,
-"header": true
-},
-{
-"mdrm": "BHCKK201",
-"caption": "LIFE INSURANCE ASSETS: GENERAL ACCOUNT LIFE INSURANCE ASSETS",
-"item": "5.a",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKK202",
-"caption": "LIFE INSURANCE ASSETS: SEPARATE ACCOUNT LIFE INSURANCE ASSETS",
-"item": "5.b",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKK270",
-"caption": "LIFE INSURANCE ASSETS: HYBRID ACCOUNT LIFE INSURANCE ASSETS",
-"item": "5.c",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCK2168",
-"caption": "OTHER ASSETS",
-"item": "6",
-"depth": 1,
-"header": false
-},
 {
 "mdrm": "BHCK2160",
 "caption": "OTHER ASSETS",
@@ -15697,34 +15467,12 @@
 "header": false
 }
 ],
-"HC-G — Supplemental 2": [
+"HC-G — Supplemental 2": [],
+"HC-H": [
 {
 "mdrm": "BHCK3197",
 "caption": "EARNING ASSETS THAT ARE REPRICEABLE WITHIN ONE YEAR OR MATURES WITHIN ONE YEAR",
 "item": "1",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCK3408",
-"caption": "VARIABLE RATE PREFERRED STOCK (INCLUDES BOTH LIMITED-LIFE AND PERPETUAL PREFERRED STOCK)",
-"item": "4",
-"depth": 1,
-"header": false
-}
-],
-"HC-H": [
-{
-"mdrm": "BHCKB556",
-"caption": "ACCRUED INTEREST RECEIVABLE",
-"item": "1",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCK2148",
-"caption": "NET DEFERRED TAX ASSETS",
-"item": "2",
 "depth": 1,
 "header": false
 },
@@ -15736,13 +15484,6 @@
 "header": false
 },
 {
-"mdrm": "BHCKHT80",
-"caption": "Other Assets; Interest-only strips receivable (not in the form of a security)",
-"item": "3",
-"depth": 1,
-"header": false
-},
-{
 "mdrm": "BHCK3298",
 "caption": "Long-term debt that reprices within one year",
 "item": "3",
@@ -15750,50 +15491,22 @@
 "header": false
 },
 {
-"mdrm": "BHCK1752",
-"caption": "HISTORICAL COST OF ALL OTHER AVAILABLE-FOR-SALE EQUITY SECURITIES",
+"mdrm": "BHCK3408",
+"caption": "VARIABLE RATE PREFERRED STOCK (INCLUDES BOTH LIMITED-LIFE AND PERPETUAL PREFERRED STOCK)",
 "item": "4",
 "depth": 1,
 "header": false
 },
 {
-"mdrm": "",
-"caption": "Life insurance assets",
-"item": "5",
-"depth": 1,
-"header": true
-},
-{
-"mdrm": "BHCKK201",
-"caption": "LIFE INSURANCE ASSETS: GENERAL ACCOUNT LIFE INSURANCE ASSETS",
-"item": "5.a",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKK202",
-"caption": "LIFE INSURANCE ASSETS: SEPARATE ACCOUNT LIFE INSURANCE ASSETS",
-"item": "5.b",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHCKK270",
-"caption": "LIFE INSURANCE ASSETS: HYBRID ACCOUNT LIFE INSURANCE ASSETS",
-"item": "5.c",
-"depth": 2,
-"header": false
-},
-{
 "mdrm": "BHCK3409",
 "caption": "Long-term debt reported in Schedule HC that matures within one year (Interest Rate Risk Indicator)",
-"item": "5.zz",
+"item": "5",
 "depth": 1,
 "header": false
 },
 {
-"mdrm": "BHCK2168",
-"caption": "OTHER ASSETS",
+"mdrm": "BHCKHT80",
+"caption": "Interest-only strips receivable (not in the form of a security)",
 "item": "6",
 "depth": 1,
 "header": false
@@ -15808,27 +15521,6 @@
 ],
 "HC-H — Memoranda": [
 {
-"mdrm": "BHCK3049",
-"caption": "NET DEFERRED TAX LIABILITIES",
-"item": "2",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCKB557",
-"caption": "ALLOWANCE FOR CREDIT LOSSES ON OFF-BALANCE SHEET CREDIT EXPOSURES",
-"item": "3",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCKB984",
-"caption": "OTHER",
-"item": "4",
-"depth": 1,
-"header": false
-},
-{
 "mdrm": "BHCK2750",
 "caption": "OTHER LIABILITIES",
 "item": "5",
@@ -15836,22 +15528,7 @@
 "header": false
 }
 ],
-"HC-H — Supplemental 2": [
-{
-"mdrm": "BHCK3197",
-"caption": "EARNING ASSETS THAT ARE REPRICEABLE WITHIN ONE YEAR OR MATURES WITHIN ONE YEAR",
-"item": "1",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCK3408",
-"caption": "VARIABLE RATE PREFERRED STOCK (INCLUDES BOTH LIMITED-LIFE AND PERPETUAL PREFERRED STOCK)",
-"item": "4",
-"depth": 1,
-"header": false
-}
-],
+"HC-H — Supplemental 2": [],
 "HC-I": [
 {
 "mdrm": "BHCKB988",
@@ -16054,6 +15731,13 @@
 "header": false
 },
 {
+"mdrm": "",
+"caption": "Loans to individuals for household, family, and other personal expenditures",
+"item": "3.a.(5)",
+"depth": 3,
+"header": true
+},
+{
 "mdrm": "BHDMB562",
 "caption": "Loans to individuals for household, family, and other personal expenditures (domestic offices)",
 "item": "3.a.(5).(b)",
@@ -16061,16 +15745,9 @@
 "header": false
 },
 {
-"mdrm": "BHCK3360",
+"mdrm": "BHFN3360",
 "caption": "Total loans and leases in foreign offices, Edge and agreement subsidiaries, and IBFs",
 "item": "3.b",
-"depth": 2,
-"header": false
-},
-{
-"mdrm": "BHFN3360",
-"caption": "Quarterly average of total loans — foreign offices",
-"item": "3.b.B",
 "depth": 2,
 "header": false
 },
@@ -16136,13 +15813,6 @@
 "item": "9",
 "depth": 1,
 "header": false
-},
-{
-"mdrm": "",
-"caption": "Not applicable (reserved on the FR Y-9C — Schedule HC-K has no item 10; quarterly averages run 1–9, then 11. Equity capital)",
-"item": "10",
-"depth": 1,
-"header": true
 },
 {
 "mdrm": "BHCK3519",
@@ -16470,14 +16140,14 @@
 },
 {
 "mdrm": "",
-"caption": "",
+"caption": "Secured liabilities",
 "item": "23",
 "depth": 1,
 "header": true
 },
 {
 "mdrm": "BHCKF064",
-"caption": "SECURED LIABILITES: AMOUNT OF 'FEDERAL FUNDS PURCHASED' THAT ARE SECURED",
+"caption": "SECURED LIABILITIES: AMOUNT OF 'FEDERAL FUNDS PURCHASED' THAT ARE SECURED",
 "item": "23.a",
 "depth": 2,
 "header": false
@@ -16491,7 +16161,7 @@
 },
 {
 "mdrm": "",
-"caption": "",
+"caption": "Issuances associated with the U.S. Department of the Treasury Capital Purchase Program",
 "item": "24",
 "depth": 1,
 "header": true
@@ -16520,6 +16190,13 @@
 "header": false
 },
 {
+"mdrm": "",
+"caption": "Wholesale originations and purchases",
+"item": "2",
+"depth": 1,
+"header": true
+},
+{
 "mdrm": "BHCKHT82",
 "caption": "Wholesale originations and purchases during the quarter of 1-4 family residential mortgage loans for sale",
 "item": "2.z",
@@ -16534,11 +16211,25 @@
 "header": false
 },
 {
+"mdrm": "",
+"caption": "Mortgage loans held for sale or trading",
+"item": "4",
+"depth": 1,
+"header": true
+},
+{
 "mdrm": "BHCKFT05",
 "caption": "Quarter-end amount of 1-4 family residential mortgage loans held for sale",
 "item": "4.z",
 "depth": 2,
 "header": false
+},
+{
+"mdrm": "",
+"caption": "Noninterest income from 1-4 family mortgage banking activities",
+"item": "5",
+"depth": 1,
+"header": true
 },
 {
 "mdrm": "BHCKHT85",
@@ -16562,24 +16253,124 @@
 "header": true
 },
 {
-"mdrm": "BHCKL192",
-"caption": "REPRESENTATION AND WARRANTY RESERVES FOR 1-4 FAMILY RESIDENTIAL MORTGAGE LOANS SOLD: FOR REPRESENTATIONS AND WARRANTIES MADE TO OTHER PARTIES",
-"item": "7.b",
-"depth": 2,
-"header": false
-},
-{
 "mdrm": "BHCKM288",
 "caption": "REPRESENTATION AND WARRANTY RESERVES FOR 1-4 FAMILY RESIDENTIAL MORTGAGE LOANS SOLD: TOTAL",
 "item": "7.c",
 "depth": 2,
 "header": false
+}
+],
+"HI — Notes (Predecessor)": [
+{
+"mdrm": "",
+"caption": "Total interest income -- bank consolidated (predecessor)",
+"item": "1",
+"depth": 1,
+"header": true
 },
 {
-"mdrm": "BHCKL191",
-"caption": "Representation and warranty reserves for 1-4 family residential mortgage loans sold",
-"item": "7.z",
+"mdrm": "BHBC4094",
+"caption": "Interest income on loans and leases — bank consolidated",
+"item": "1.a",
 "depth": 2,
+"header": false
+},
+{
+"mdrm": "BHBC4218",
+"caption": "Interest income on investment securities — bank consolidated",
+"item": "1.b",
+"depth": 2,
+"header": false
+},
+{
+"mdrm": "BHBC4073",
+"caption": "Total interest expense — bank consolidated",
+"item": "2",
+"depth": 1,
+"header": false
+},
+{
+"mdrm": "BHBC4421",
+"caption": "Interest expense on deposits — bank consolidated",
+"item": "2.a",
+"depth": 2,
+"header": false
+},
+{
+"mdrm": "BHBC4074",
+"caption": "Net interest income — bank consolidated",
+"item": "3",
+"depth": 1,
+"header": false
+},
+{
+"mdrm": "",
+"caption": "Total noninterest income -- bank consolidated (predecessor)",
+"item": "5",
+"depth": 1,
+"header": true
+},
+{
+"mdrm": "BHBC4070",
+"caption": "Income from fiduciary activities — bank consolidated",
+"item": "5.a",
+"depth": 2,
+"header": false
+},
+{
+"mdrm": "BHBCB490",
+"caption": "Investment banking, advisory, brokerage, and underwriting fees and commissions — bank consolidated",
+"item": "5.c",
+"depth": 2,
+"header": false
+},
+{
+"mdrm": "BHBCB494",
+"caption": "Insurance commissions and fees — bank consolidated",
+"item": "5.f",
+"depth": 2,
+"header": false
+},
+{
+"mdrm": "BHBC4091",
+"caption": "Realized gains (losses) on held-to-maturity and available-for-sale securities — bank consolidated",
+"item": "6",
+"depth": 1,
+"header": false
+},
+{
+"mdrm": "BHBC4484",
+"caption": "Noncontrolling (minority) interest — bank consolidated",
+"item": "10",
+"depth": 1,
+"header": false
+},
+{
+"mdrm": "BHCKFT41",
+"caption": "Discontinued operations, net of applicable income taxes and noncontrolling interest",
+"item": "11",
+"depth": 1,
+"header": false
+},
+{
+"mdrm": "BHBC4340",
+"caption": "Net income (loss) — bank consolidated",
+"item": "12",
+"depth": 1,
+"header": false
+},
+{
+"mdrm": "BHBC4475",
+"caption": "Cash dividends declared — bank consolidated",
+"item": "13",
+"depth": 1,
+"header": false
+},
+{
+"mdrm": "BHBC6061",
+"caption": "Net charge-offs — bank consolidated",
+"item": "14",
+"depth": 1,
 "header": false
 }
 ]
