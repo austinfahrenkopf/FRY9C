@@ -455,18 +455,19 @@ const fmtUnit=(v,pct)=>v==null?'—':pct?(+v).toFixed(2)+'%':(Math.abs(v)>=1e9?(
 
 let conn,db,HIER=null,treeBuilt=false,sqlC=[],sqlR=[],ALLQ=[],SPLICEQ=[];
 const SUB_AGG_DESCS={
-  // Column-sum matrix schedules — row-subtotal sums across columns
-  'HC-N':'Total Past Due & Nonaccrual',     // cols A/B/C = 30-89d / 90+d / nonaccrual
-  'HC-Q':'Total Fair Value',                // cols = measurement levels L1/L2/L3 + netting adj
-  'HC-R':'Total Capital & Risk Weights',    // $ col only (% excluded via PCTC); HC-R Part II shares this key
-  'HC-S':'Total Securitized',              // cols = securitization product types (residential, auto, CC…)
-  'HC-V':'Total VIE Exposure',             // cols = securitization vehicles + other VIEs
-  'HI-B':'Gross Charge-offs & Recoveries', // cols A/B = charge-offs / recoveries (HI-B Part II shares key)
-  // Roll-up only (no descriptor needed — form captions already identify what is summed):
-  // HC, HC-B (4 measures: HTM/AFS × amortized/FV), HC-C (Consolidated⊇Domestic — overcounts),
-  // HC-D, HC-F, HC-G, HC-H, HC-I, HC-K, HC-L (mixed col structures: credit-deriv/maturity/type/counterparty),
-  // HC-M, HC-P, HC-R Part II uses HC-R key above, HI, HI-A, HI-B Part II uses HI-B key above,
-  // HI-C (amortized cost + allowance — different measures), HI — Memo/Notes
+  // ONLY schedules whose row-subtotal (sum ACROSS columns) is a meaningful ADDITIVE total:
+  // columns must be mutually-exclusive partitions in the SAME unit, with NO redundant
+  // "Total"/"Memo" column. Verified against panel + hierarchy (see ORCHESTRATION_STATE §68 v2).
+  'HC-N':'Total Past Due & Nonaccrual',   // cols = 30-89d / 90+d / nonaccrual — mutually-exclusive states
+  'HC-S':'Total Securitized',             // cols = collateral types (residential/HELOC/CC/auto/C&I/…) — exclusive
+  'HC-V':'Total VIE Exposure',            // cols = securitization vehicles / other VIEs — exclusive
+  // NOT clean column-sum matrices (header-sum would double-count or mix units → plain roll-up, no descriptor):
+  //   HC-Q : each row carries a "Total fair value" column PLUS Level 1/2/3 → sum ≈ 2× total (G478/G483 populated)
+  //   HC-R : Part I rows are single-$ capital line items (a roll-up, not a matrix); Part II "approach" columns
+  //          (non-advanced / advanced / standardized) are mutually-exclusive frameworks → summing double-counts
+  //   HI-B : cols = charge-offs / recoveries; the real metric is NET (CO − Rec), not the sum of the two
+  //   HC-B : cols = {HTM,AFS}×{amortized cost, fair value} crosstab → sum values the same securities twice
+  //   HC-C (Consolidated⊇Domestic), HC-L (mixed col structures), HI-C (cost + allowance) — roll-up
 };
 const _fullCap=new Map();
 function _walkFC(nodes,parts,sch){for(const nd of nodes){if(!nd.placeholder&&!nd.derived&&!nd.header&&nd.code&&!/^(H:|SEC:|SUB:|EMPTY:)/.test(nd.code)){const cap=nd.caption||'';const anc=parts.filter(Boolean);_fullCap.set(nd.code,anc.length?anc.join(' — ')+' — '+cap:cap);}if(nd.header&&nd.code){const _sn=sch&&SCHED_NAMES[sch]?SCHED_NAMES[sch]:(parts.length?parts[0]:'');const _si=_sn.indexOf(' — ');const _sk=_si>=0?_sn.slice(0,_si):_sn;const _agg=sch?SUB_AGG_DESCS[sch]||'':'';const _cnt=(function c(n){let k=0;for(const x of(n.children||[])){if(x.header)k+=c(x);else if(x.code&&!x.placeholder&&!/^(H:|SEC:|SUB:|EMPTY:)/.test(x.code))k++;}return k;})(nd);if(_cnt>0){const _rl=_agg?_sk+' '+_agg+': '+(nd.caption||''):_sk?_sk+' '+(nd.caption||''):(nd.caption||'');_fullCap.set('SUB:'+nd.code,_rl);if(!/^(H:|SEC:|EMPTY:)/.test(nd.code)&&!_fullCap.has(nd.code))_fullCap.set(nd.code,_rl);}}if(nd.children&&nd.children.length)_walkFC(nd.children,nd.header?[...parts,nd.caption||'']:parts,sch);}}
