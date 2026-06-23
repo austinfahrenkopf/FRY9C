@@ -9498,29 +9498,33 @@
 "mdrm": "BHCKPU98",
 "caption": "Held-to-maturity — Amortized cost",
 "item": "5.b.a.A",
-"depth": 3,
-"header": false
+"depth": 4,
+"header": false,
+"col": true
 },
 {
 "mdrm": "BHCKPU99",
 "caption": "Held-to-maturity — Fair value",
 "item": "5.b.a.B",
-"depth": 3,
-"header": false
+"depth": 4,
+"header": false,
+"col": true
 },
 {
 "mdrm": "BHCKPV00",
 "caption": "Available-for-sale — Amortized cost",
 "item": "5.b.a.C",
-"depth": 3,
-"header": false
+"depth": 4,
+"header": false,
+"col": true
 },
 {
 "mdrm": "BHCKPV01",
 "caption": "Available-for-sale — Fair value",
 "item": "5.b.a.D",
-"depth": 3,
-"header": false
+"depth": 4,
+"header": false,
+"col": true
 },
 {
 "mdrm": "",
