@@ -454,8 +454,22 @@ function yoyQtr(q){return q?`${+q.slice(0,4)-1}${q.slice(4)}`:null;}
 const fmtUnit=(v,pct)=>v==null?'—':pct?(+v).toFixed(2)+'%':(Math.abs(v)>=1e9?(v/1e6).toLocaleString(undefined,{maximumFractionDigits:0})+' B':Math.abs(v)>=1e6?(v/1e3).toLocaleString(undefined,{maximumFractionDigits:0})+' M':Number(v).toLocaleString()+' k');
 
 let conn,db,HIER=null,treeBuilt=false,sqlC=[],sqlR=[],ALLQ=[],SPLICEQ=[];
+const SUB_AGG_DESCS={
+  // Column-sum matrix schedules — row-subtotal sums across columns
+  'HC-N':'Total Past Due & Nonaccrual',     // cols A/B/C = 30-89d / 90+d / nonaccrual
+  'HC-Q':'Total Fair Value',                // cols = measurement levels L1/L2/L3 + netting adj
+  'HC-R':'Total Capital & Risk Weights',    // $ col only (% excluded via PCTC); HC-R Part II shares this key
+  'HC-S':'Total Securitized',              // cols = securitization product types (residential, auto, CC…)
+  'HC-V':'Total VIE Exposure',             // cols = securitization vehicles + other VIEs
+  'HI-B':'Gross Charge-offs & Recoveries', // cols A/B = charge-offs / recoveries (HI-B Part II shares key)
+  // Roll-up only (no descriptor needed — form captions already identify what is summed):
+  // HC, HC-B (4 measures: HTM/AFS × amortized/FV), HC-C (Consolidated⊇Domestic — overcounts),
+  // HC-D, HC-F, HC-G, HC-H, HC-I, HC-K, HC-L (mixed col structures: credit-deriv/maturity/type/counterparty),
+  // HC-M, HC-P, HC-R Part II uses HC-R key above, HI, HI-A, HI-B Part II uses HI-B key above,
+  // HI-C (amortized cost + allowance — different measures), HI — Memo/Notes
+};
 const _fullCap=new Map();
-function _walkFC(nodes,parts){for(const nd of nodes){if(!nd.placeholder&&!nd.derived&&!nd.header&&nd.code&&!/^(H:|SEC:|SUB:|EMPTY:)/.test(nd.code)){const cap=nd.caption||'';const anc=parts.filter(Boolean);_fullCap.set(nd.code,anc.length?anc.join(' — ')+' — '+cap:cap);}if(nd.children&&nd.children.length)_walkFC(nd.children,nd.header?[...parts,nd.caption||'']:parts);}}
+function _walkFC(nodes,parts,sch){for(const nd of nodes){if(!nd.placeholder&&!nd.derived&&!nd.header&&nd.code&&!/^(H:|SEC:|SUB:|EMPTY:)/.test(nd.code)){const cap=nd.caption||'';const anc=parts.filter(Boolean);_fullCap.set(nd.code,anc.length?anc.join(' — ')+' — '+cap:cap);}if(nd.header&&nd.code){const _sn=sch&&SCHED_NAMES[sch]?SCHED_NAMES[sch]:(parts.length?parts[0]:'');const _si=_sn.indexOf(' — ');const _sk=_si>=0?_sn.slice(0,_si):_sn;const _agg=sch?SUB_AGG_DESCS[sch]||'':'';const _cnt=(function c(n){let k=0;for(const x of(n.children||[])){if(x.header)k+=c(x);else if(x.code&&!x.placeholder&&!/^(H:|SEC:|SUB:|EMPTY:)/.test(x.code))k++;}return k;})(nd);if(_cnt>0){const _rl=_agg?_sk+' '+_agg+': '+(nd.caption||''):_sk?_sk+' '+(nd.caption||''):(nd.caption||'');_fullCap.set('SUB:'+nd.code,_rl);if(!/^(H:|SEC:|EMPTY:)/.test(nd.code)&&!_fullCap.has(nd.code))_fullCap.set(nd.code,_rl);}}if(nd.children&&nd.children.length)_walkFC(nd.children,nd.header?[...parts,nd.caption||'']:parts,sch);}}
 function fullCap(code){return _fullCap.get(code)||'';}
 let active=[],measures=[],peerMembers=[],peers={},lastSeries=[],Qall=[],rangeSel={a:0,b:0};
 let aggLoaded=false,oldActiveLoaded=false,histLoaded=false,histLoading=null,oldActiveLoading=null;
@@ -473,7 +487,9 @@ async function ensureOldActive(){
     const prev=document.getElementById('status').textContent;st('Loading older series data…');_showPanesLoading('Loading older data series…');
     try{for(const p of OLD_ACTIVE_PARTS){await db.registerFileURL(p,new URL(p,location.href).href,duckdb.DuckDBDataProtocol.HTTP,false);_loadedParts.push(p);}
     await _rebuildView();oldActiveLoaded=true;
-    ALLQ=(await conn.query('SELECT DISTINCT quarter_end FROM t ORDER BY quarter_end')).toArray().map(r=>String(r.quarter_end));
+    // Quarter list comes from the buffered agg shard (has all quarters) so we DON'T full-scan the
+    // just-loaded range-request lazy shards (a `DISTINCT quarter_end FROM t` would read every row group).
+    ALLQ=(await conn.query(`SELECT DISTINCT quarter_end FROM ${aggLoaded?'t_agg':'t'} ORDER BY quarter_end`)).toArray().map(r=>String(r.quarter_end));
     const lhb=document.getElementById('loadhist');if(lhb)lhb.style.display='none';
     st(prev);recompute();}catch(e){st('Error loading older data: '+e);oldActiveLoading=null;}})();
   return oldActiveLoading;}
@@ -783,7 +799,7 @@ function rowEl(nd,has,dispCap){
    d.querySelector('.caret').onclick=ev=>{ev.stopPropagation();if(has)toggleNode(d);};
    const codes=descCodes(nd);const pctSkip=hasPctDesc(nd);
    if(codes.length){d.title='Click to chart sum of '+codes.length+' leaf $ code(s)'+(pctSkip?' · non-additive % cells excluded':'');
-     d.onclick=()=>{const code='SUB:'+nd.code;DYN[code]={type:'sum',lbl:nd.caption,plus:codes};toggleMeasure(code,nd.caption,false);};}
+     d.onclick=()=>{const code='SUB:'+nd.code;const rl=fullCap(code)||nd.caption;DYN[code]={type:'sum',lbl:rl,plus:codes};toggleMeasure(code,rl,false);};}
    else if(pctSkip){d.title='Contains only non-additive % cells — cannot sum';d.onclick=()=>{if(has)toggleNode(d);};}
    else d.onclick=()=>{if(has)toggleNode(d);};
    return d;}
@@ -862,7 +878,7 @@ function buildTree(){const t=document.getElementById('tree');t.innerHTML='';
      const subRoots=nest(emitSchedule(sub));if(!subRoots.length)continue;bumpDepth(subRoots,1);
      roots.push({code:'SEC:'+sub,caption:sub.slice(base.length+3),num:'',depth:1,derived:false,header:true,children:subRoots});
    }
-   if(roots.length){addSchedule(t,SCHED_NAMES[base]||base,roots);_walkFC(roots,[SCHED_NAMES[base]||base]);}
+   if(roots.length){addSchedule(t,SCHED_NAMES[base]||base,roots);_walkFC(roots,[SCHED_NAMES[base]||base],base);}
  }
  treeBuilt=true;markTree();renderFavShelf();}
 let lvl={'#tree':0,'#formbody':0};
@@ -1596,13 +1612,16 @@ async function runsql(){try{const r=(await conn.query(document.getElementById('s
     if(!win.length){if(!window._pinnedQ)tip.style.display='none';return;}
     if(window._pinnedQ)return;
     const br=svg.getBoundingClientRect();
-    const vb=svg.viewBox.baseVal;const pad=64;const svgW=br.width;const W=vb.width;
-    const mx=e.clientX-br.left;
-    const frac=(mx-pad*svgW/W)/((svgW*(W-2*pad))/W);
+    // Map cursor->quarter using the PLOT coord width (1080), not the viewBox width (which now
+    // includes the +96 right label gutter). padR matches paneDual's extra right pad on dual-axis.
+    const vb=svg.viewBox.baseVal;const pad=64,PW=1080;const padR=window._dualAxis?80:pad;const plotW=PW-pad-padR;
+    const svgW=br.width;const VBW=vb.width;
+    const mx=e.clientX-br.left;const vx=mx*VBW/svgW;
+    const frac=Math.max(0,Math.min(1,(vx-pad)/plotW));
     const qi=Math.max(0,Math.min(win.length-1,Math.round(frac*(win.length-1))));
     const q=win[qi];_hovQ=q;
-    const qSvgX=pad+qi*(W-2*pad)/Math.max(1,win.length-1);
-    const qScreenX=br.left+qSvgX*(svgW/W);
+    const qSvgX=pad+qi*plotW/Math.max(1,win.length-1);
+    const qScreenX=br.left+qSvgX*(svgW/VBW);
     const maps=lastSeries.map(s=>Object.fromEntries(s.rows));
     let html=`<div class="tip-q">${q}</div>`;
     for(let i=0;i<lastSeries.length;i++){const s=lastSeries[i];const v=maps[i][q];if(v==null)continue;
