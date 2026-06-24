@@ -229,7 +229,7 @@ HTML = r"""<!doctype html><html lang="en"><head><meta charset="utf-8">
  .slider{display:flex;align-items:center;gap:10px;margin:8px 0}.slider input{min-width:120px;flex:1}
  .frow{display:flex;gap:10px;padding:2px 6px;font-size:14px;border-bottom:1px solid #f3f5f8}
  .frow .lab{flex:1;min-width:280px}.vcell{width:92px;flex:none;text-align:right;font-variant-numeric:tabular-nums;color:#14213d}
- :root{--border:#ccc;--head:#f7f8fc;--fg2:#64748b}
+ :root{--border:#ccc;--head:#f7f8fc;--fg2:#64748b;--bg:#fff;--bg2:#f7f9fb;--fg:#14213d;--muted:#64748b}
  .modal{position:fixed;inset:0;background:rgba(10,20,40,.4);z-index:60;display:flex;align-items:flex-start;justify-content:center}
  .modalbox{background:#fff;margin-top:32px;width:min(960px,95vw);height:88vh;min-width:480px;min-height:320px;max-width:98vw;display:flex;flex-direction:column;border-radius:10px;overflow:hidden;resize:both}
  .modalbody{flex:1;overflow:auto}
