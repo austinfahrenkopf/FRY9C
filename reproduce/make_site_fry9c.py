@@ -249,7 +249,7 @@ HTML = r"""<!doctype html><html lang="en"><head><meta charset="utf-8">
  body.dark #panelEnts.entfloat{background:#161e2b;border-color:#2a3547}
  #panelEnts.entfloat .railhead{cursor:move}
  #entdetach{float:right;padding:2px 8px;margin-left:6px}
- body.dark{background:#0e1420;color:#e6e9ef;--border:#2a3547;--head:#1a2638;--fg2:#9aa3b2;--fg:#e6e9ef;--bg2:#1b2433;--bg:#161e2b}
+ body.dark{background:#0e1420;color:#e6e9ef;--border:#2a3547;--head:#1a2638;--fg2:#9aa3b2;--fg:#e6e9ef;--bg2:#1b2433;--bg:#161e2b;--muted:#9aa3b2}
  body.dark .rail,body.dark .card,body.dark .box,body.dark details,body.dark .modalbox{background:#161e2b;border-color:#2a3547}
  body.dark .railtabs{background:#121a26;border-color:#2a3547}body.dark .railhead,body.dark .modalhead{border-color:#2a3547}body.dark .rail{border-right-color:#2a3547}
  body.dark select,body.dark input,body.dark textarea,body.dark button.sec,body.dark .tab{background:#1b2433;color:#e6e9ef;border-color:#2a3547}
