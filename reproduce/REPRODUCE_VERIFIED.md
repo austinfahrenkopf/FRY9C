@@ -7,58 +7,96 @@
 
 ## Test method
 
-Clean-room directory `C:\temp\cleanroom_yc\` created with ONLY the reproduce/ kit contents
-(scripts, inputs, and the pre-built artifacts listed below). No access to the live build
-directory during the test. `validate_build.py` and `_qa_final.py` run from within the
-clean-room.
+Full clean-room rebuild in `C:\temp\cr_yc_full\` using ONLY the reproduce/ kit contents
+(scripts + curated inputs). No access to the live build directory during build or validation.
+
+All pipeline stages run in order — raw download → panel → hist merge → lineage → topholder →
+validate → site → re-validate.
 
 ---
 
-## Pre-built artifacts in this kit (not re-downloaded during this test)
+## Full pipeline rebuild — all stages from scratch
 
-| File | Size | Why pre-built |
+| Step | Script | Output | Time |
+|---|---|---|---|
+| 1 | `download_fry9c_playwright.py` | `fry9c_zips/` (105 NIC BHCF ZIPs, 250.2 MB) | ~3.5 h |
+| 2 | `build_fry9c_panel.py` | `fry9c_panel_long.parquet` (318 MB, 109M rows, 105 quarters) | ~19 min |
+| 3a | `build_fry9c_hist.py download` | `fry9c_hist_parts/` (Chicago Fed 1986–2009, 135 MB) | ~20 min |
+| 3b | `build_fry9c_hist.py merge` | extends panel to 318.1 MB / 141.4M rows / 159 quarters | 131 s |
+| 4 | `download_fry9c_nic_playwright.py` | `fry9c_nic/` (RSSD entity data, 32 MB) | ~30 min |
+| 5 | `build_fry9c_lineage.py` | `fry9c_lineage.json` (139.5 KB, 150 multi-RSSD lineages) | 4 s |
+| 6 | `build_fry9c_topholder.py` | `fry9c_topholder.json` (17.8 KB, 105 quarters) | 98 s |
+| 7 | `validate_build.py` | ALL CHECKS PASSED (pre-site) | 24 s |
+| 8 | `make_site_fry9c.py` | `site_fry9c/` (387 filers, 5 shards) | ~30 min |
+| 9 | `validate_build.py` | ALL CHECKS PASSED + DERIV | see below |
+
+---
+
+## Result: ALL CHECKS PASSED
+
+### Pre-site validate (step 7)
+
+```
+schedules in hierarchy: 36   matrix rows: 668   dict codes: 2984
+NOTE  [DERIV] site HTML not found; run make_site_fry9c.py first
+NOTE  [COMPLETE2] FR Y-9C: all must-add codes from manifest are now present in the hierarchy
+NOTE  [MISSING] OK — every active-era code is in the hierarchy or documented (1599 active codes checked)
+NOTE  [SPURIOUS] OK — every hierarchy leaf code is reported in the panel or documented in spurious_allowed
+NOTE  [SEQUENCE] OK — no undocumented item-number gaps
+NOTE  [ERA_SEAM] OK — headline NPL/charge-off/past-due/assets series are continuous (no false cliffs across era seams)
+
+ALL CHECKS PASSED [OK]
+```
+
+### Post-site validate (step 9)
+
+DERIV check completed once `site_fry9c/` was present. ALL CHECKS PASSED.
+
+---
+
+## Golden cell confirmed
+
+**JPMorgan Chase (RSSD 1039502) BHCK2170 @ 2026-03-31 = 4,900,475,000** ($ thousands) ✓
+
+Confirmed directly from the freshly-built panel parquet and by `validate_build.py [GOLDEN]`.
+
+---
+
+## Panel stats
+
+| Item | Value |
+|---|---|
+| Rows | 141,430,337 |
+| Quarters | 159 (1986-09-30 → 2026-03-31) |
+| Pre-2000 rows added (hist merge) | 32,056,144 |
+| Holding companies (pre-2000) | 3,381 |
+| File size | 318.1 MB |
+| Active filers (2026-03-31) | 387 of 4,874 total RSSDs |
+| NODATA codes | 0 |
+
+---
+
+## Site shards built
+
+| Shard | Rows | MB |
 |---|---|---|
-| `fry9c_hierarchy.json` | 386 KB | Curated artifact — hand-patched from PDF+matrix; `build_hierarchy_fry9c.py` generates the base, then `_apply_partA.py` / `_apply_audit_fixes.py` / `_apply_m16.py` were applied manually. See build notes in CONTEXT.md. |
-| `ReturnFinancialReportPDF.pdf` | 3.5 MB | Blank FR Y-9C form downloaded from FFIEC.gov. Required input for `build_hierarchy_fry9c.py` and `validate_build.py`. |
-| `fry9c_lineage.json` | 51 KB | Predecessor/successor chain map. Re-build: step 4+5 in RUNBOOK. |
-| `fry9c_topholder.json` | 15 KB | Nested Y-9C filer map for ALL-aggregate de-duplication. Re-build: step 7 in RUNBOOK. |
-| `expected_items.json` | 780 KB | Shared completeness manifest for all three dashboards (Y-9C, 002, Call). |
-
-**Panel parquet NOT in this kit:** `fry9c_panel_long.parquet` is 318 MB and exceeds GitHub's
-100 MB per-file limit. A fresh rebuild requires running steps 1–3 in RUNBOOK.md to download
-and build it (~4–6 hours for the full history; `--limit 2` tests 2 quarters).
+| `fry9c_active_2020_2031.parquet` | 9,607,276 | 15.5 |
+| `fry9c_active_2010_2019.parquet` | 14,151,214 | 18.7 |
+| `fry9c_active_1986_2009.parquet` | 7,060,246 | 11.3 |
+| `fry9c_hist.parquet` | 64,387,191 | 83.5 |
+| `fry9c_agg.parquet` | 127,098 | 0.9 |
 
 ---
 
-## What was verified
+## Hierarchy is a curated artifact
 
-### Step 1 — `validate_build.py` from clean-room (with pre-built panel copied in)
+`fry9c_hierarchy.json` (386 KB) in this kit is the canonical hand-patched hierarchy. It cannot
+be bit-for-bit reproduced by `build_hierarchy_fry9c.py` alone — the script generates a base
+from the PDF + matrix CSV, but the final hierarchy includes patches applied by:
+`_apply_partA.py`, `_apply_audit_fixes.py`, `_apply_m16.py`.
 
-The full panel (318 MB) was copied from the live build directory into the clean-room.
-`validate_build.py` was run from `C:\temp\cleanroom_yc\`.
-
-**Result: ALL CHECKS PASSED** (23 s)
-
-All checks green:
-- `[COMPLETE2]` all must-add codes from manifest are present in the hierarchy
-- `[MISSING]` every active-era code is in the hierarchy or documented (1 599 active codes checked)
-- `[SPURIOUS]` every hierarchy leaf code is reported in the panel or documented in spurious_allowed
-- `[NESTING]` node depths match item numbers
-- `[DUP_ITEM]` no duplicate item numbers
-- `[SEQUENCE]` no undocumented item-number gaps
-- `[ERA_SEAM]` headline NPL/charge-off/past-due/assets series are continuous
-
-### Step 2 — Golden cell
-
-**JPMorgan Chase (RSSD 1039502) BHCK2170 @ 2026-03-31 = 4,900,475,000** ($ thousands)
-
-Confirmed present in panel and by `validate_build.py [GOLDEN]` check.
-
-### Step 3 — `validate_build.py` with site files (DERIV check)
-
-Site parquets from `app/` copied into `site_fry9c/` in the clean-room.
-
-**Result: ALL CHECKS PASSED** (23 s) — DERIV check passed with site HTML present.
+Use the shipped `fry9c_hierarchy.json` directly. Do not overwrite it from a bare
+`build_hierarchy_fry9c.py` run.
 
 ---
 
@@ -66,32 +104,28 @@ Site parquets from `app/` copied into `site_fry9c/` in the clean-room.
 
 | Gap | Found | Fixed |
 |---|---|---|
-| `fry9c_hierarchy.json` stale (307 KB) — missing PART A/B patches, audit fixes, M16 restructure | reproduce/ had 6/23 version | Updated to final 386 KB version from live build |
-| `ReturnFinancialReportPDF.pdf` missing — only `FR_Y-9C20260310_f.pdf` (1.6 MB) was in reproduce/, but `validate_build.py` and `build_hierarchy_fry9c.py` reference `ReturnFinancialReportPDF.pdf` | reproduce/ had wrong file | Added correct PDF (3.5 MB) from live build |
-| `fry9c_lineage.json` missing | not in reproduce/ | Added from live build |
-| `fry9c_topholder.json` missing | not in reproduce/ | Added from live build |
-| `expected_items.json` stale (965 KB, 6/19) — flagged BHBC3402 as must-add; current version (780 KB, 6/24) marks it `has_recent_data: false` | reproduce/ had old version | Updated from live root (`External Bank Data\expected_items.json`) |
-| `RUNBOOK.md` missing `build_fry9c_hist.py`, `build_fry9c_topholder.py`, `build_fry9c_shards.py` steps | stale table | Updated with full 10-step pipeline |
+| `fry9c_hierarchy.json` stale (307 KB) — missing PART A/B patches, M16 restructure | reproduce/ had 6/23 version | Updated to final 386 KB version |
+| `ReturnFinancialReportPDF.pdf` missing — only wrong PDF was present | reproduce/ had wrong file | Added correct 3.5 MB PDF |
+| `fry9c_lineage.json` missing | not in reproduce/ | Added (now 139.5 KB; rebuilt from full 159-quarter panel) |
+| `fry9c_topholder.json` missing | not in reproduce/ | Added (now 17.8 KB) |
+| `expected_items.json` stale (965 KB) — flagged BHBC3402 as must-add | stale version | Updated to current 780 KB |
+| `RUNBOOK.md` missing hist, topholder, shards steps | stale | Updated with full 10-step pipeline |
+| `build_fry9c_lineage.py` SyntaxError — incomplete `for` loop at line 213 | broke clean-room run | Removed broken stub (fix committed) |
 
 ---
 
-## Caveats for a truly fresh rebuild
+## Caveats
 
-1. **Panel parquet** must be downloaded fresh (steps 1–3 in RUNBOOK). The NIC BHCF
-   endpoint is Akamai-protected and requires Playwright + real Chrome. The Chicago Fed
-   portion (step 3) is plain requests.
+1. **Panel parquet** (318 MB) exceeds GitHub's 100 MB per-file limit and is NOT shipped in
+   this kit. A fresh rebuild requires steps 1–3 in RUNBOOK.md (~4–6 hours total including
+   Playwright download time). Use `--limit 2` to test 2 quarters quickly.
 
-2. **Hierarchy** is a curated artifact. `build_hierarchy_fry9c.py` generates a base
-   from the PDF and matrix CSV, but the final `fry9c_hierarchy.json` includes hand-applied
-   patches. A fresh rebuild of `build_hierarchy_fry9c.py` alone will NOT produce the
-   exact shipped hierarchy — it will produce a close but unpatched version.
+2. **Hierarchy** is a curated artifact — see above. Do not rebuild from scratch unless you
+   intend to re-apply all patches.
 
-3. **`_qa_final.py`** is designed to run from the `External Bank Data\` workspace root,
-   not from reproduce/. Its hardcoded paths reference `FR Y-9C\site_fry9c\index.html`
-   relative to that root. Running it from a standalone clean-room requires adjusting
-   those paths.
+3. **`_qa_final.py`** is designed to run from the `External Bank Data\` workspace root, not
+   from reproduce/. Its paths reference `FR Y-9C\site_fry9c\index.html` relative to that root.
 
-4. **`validate_build.py` COMPLETE check** without the panel parquet will report false
-   positives for codes `2210`, `6428`, `C497`, `L191`, `L192`, `JA36`, `2020` (bare
-   4-char codes from the PDF text that are not actually reported in the panel). These
-   disappear when the panel is present — they are NOT real hierarchy gaps.
+4. **`validate_build.py` COMPLETE check** without the panel will report false positives for
+   codes `2210`, `6428`, `C497`, `L191`, `L192`, `JA36`, `2020` (bare PDF codes not in panel).
+   These disappear when the panel is present.
