@@ -249,7 +249,7 @@ HTML = r"""<!doctype html><html lang="en"><head><meta charset="utf-8">
  body.dark #panelEnts.entfloat{background:#161e2b;border-color:#2a3547}
  #panelEnts.entfloat .railhead{cursor:move}
  #entdetach{float:right;padding:2px 8px;margin-left:6px}
- body.dark{background:#0e1420;color:#e6e9ef;--border:#2a3547;--head:#1a2638;--fg2:#9aa3b2}
+ body.dark{background:#0e1420;color:#e6e9ef;--border:#2a3547;--head:#1a2638;--fg2:#9aa3b2;--fg:#e6e9ef;--bg2:#1b2433;--bg:#161e2b}
  body.dark .rail,body.dark .card,body.dark .box,body.dark details,body.dark .modalbox{background:#161e2b;border-color:#2a3547}
  body.dark .railtabs{background:#121a26;border-color:#2a3547}body.dark .railhead,body.dark .modalhead{border-color:#2a3547}body.dark .rail{border-right-color:#2a3547}
  body.dark select,body.dark input,body.dark textarea,body.dark button.sec,body.dark .tab{background:#1b2433;color:#e6e9ef;border-color:#2a3547}
@@ -1021,7 +1021,7 @@ function buildTree(){const t=document.getElementById('tree');t.innerHTML='';
    // nest each Memoranda / Part-II sub-section INSIDE its parent schedule as a collapsible group
    for(const sub of allk.filter(k=>k!==base&&k.split(' — ')[0]===base)){
      const subRoots=nest(emitSchedule(sub));if(!subRoots.length)continue;bumpDepth(subRoots,1);
-     roots.push({code:'SEC:'+sub,caption:sub.slice(base.length+3),num:'',depth:1,derived:false,header:true,children:subRoots});
+     roots.push({code:'SEC:'+sub,caption:sub.slice(base.length+3),num:'',depth:1,derived:false,header:true,sch:sub,children:subRoots});
    }
    if(roots.length){addSchedule(t,SCHED_NAMES[base]||base,roots);_walkFC(roots,[SCHED_NAMES[base]||base],base);}
  }
@@ -1095,7 +1095,7 @@ function descCodes(nd){
  const sch=nd.sch||'';
  const ok=c=>c&&/^BH/.test(c)&&!PCTC.has(c);
  const rules=ROLLUP_RULES[sch]||{};
- const colStrat=sch==='HC-B'?'AD':(sch==='HC-Q'||sch.indexOf('Part II')>=0)?'A':'pair';
+ const colStrat=sch==='HC-B'?'AD':(sch==='HC-Q'||sch==='HC-R — Part II (Risk-Weighted Assets)')?'A':'pair';
  const pickCols=cl=>{const codes=cl.map(c=>c.code).filter(ok);if(!codes.length)return [];
    if(colStrat==='A')return [codes[0]];                                  // DC-4/DC-5: Col A only
    if(colStrat==='AD')return codes.length>=4?[codes[0],codes[codes.length-1]]:[codes[0]];  // DC-3: ColA+ColD
