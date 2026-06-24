@@ -209,8 +209,6 @@ def main():
     json.dump(by_rssd, open(OUT, "w"))
     multi = [l for l in lineages if len(l["members"]) > 1]
     print(f"\nWrote {OUT}: {len(multi)} multi-RSSD lineages covering {len(by_rssd)} RSSDs.")
-    print("\n-- known cases --")
-    for r, nm in [("3606542", "TD"),
 
 if __name__ == "__main__":
     main()
