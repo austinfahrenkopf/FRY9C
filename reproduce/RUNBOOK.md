@@ -20,7 +20,7 @@ Setup once: `pip install pandas pyarrow pypdf playwright requests duckdb` and `p
 | 4 | `python download_fry9c_nic_playwright.py` | `fry9c_nic/` (transformations, relationships, attributes) | RSSD entity-structure source. |
 | 5 | `python build_fry9c_lineage.py` | `fry9c_lineage.json` | predecessor/successor chains (TD, Barclays, etc.). |
 | 6 | `python build_fry9c_dictionary.py` | `fry9c_dictionary.csv` | MDRM code → caption (from Fed MDRM.zip). |
-| 7 | `python build_fry9c_topholder.py` | `fry9c_topholder.json` | nested Y-9C filer map — needed to avoid double-counting in ALL aggregate. |
+| 7 | `python build_fry9c_topholder.py --from-panel` | `fry9c_topholder.json` | nested Y-9C filer map — `--from-panel` covers all 159 quarters (1986+) via the panel; default (no flag) only covers 2000+ NIC zips. |
 | 8 | **`python build_hierarchy_fry9c.py`** | `fry9c_hierarchy.json` | form tree. Reads `fry9c_matrix.csv` + `ReturnFinancialReportPDF.pdf` + dictionary. |
 | 9 | **`python validate_build.py`** | (exit 0 = pass) | **automated QA gate — run after step 8. Must pass before site build.** |
 | 10 | `python make_site_fry9c.py` | `site_fry9c/index.html` + parquets | the dashboard. `--html-only` to regenerate just the HTML fast. |
