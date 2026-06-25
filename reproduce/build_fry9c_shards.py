@@ -95,7 +95,7 @@ def main() -> None:
     print(f"  df_active: {len(df_active):,} rows  |  df_hist: {len(df_hist):,} rows")
 
     if args.agg_only:
-        _write_agg(df_active, active_rssds)
+        _write_agg(df, active_rssds)
         return
 
     # -- Era shards (active filers only) --------------------------------------
@@ -142,21 +142,31 @@ def main() -> None:
         print(f"  {fn_h}: {len(df_hist):,} rows, {sz/1e6:.1f} MB  (lazy-loaded on Show merged)")
 
     # -- ALL pre-aggregated shard ----------------------------------------------
-    _write_agg(df_active, active_rssds)
+    # Aggregate over the FULL per-quarter filer set (all filers present that quarter, not just the
+    # currently-active roster) so the "ALL" total is the TRUE sector total in every era. Nested
+    # sub-holding filers are still excluded (de-nested) to avoid the HIGH-1 double-count.
+    _write_agg(df, active_rssds)
 
     print(f"\nDone. Site parquets updated in {SITE}/")
     print("Next: python make_site_fry9c.py --html-only  (to regenerate index.html with new shard list)")
 
 
-def _write_agg(df_active: pd.DataFrame, active_rssds: set) -> None:
-    """Write the ALL pre-aggregated parquet (SUM per mdrm per quarter, top-tier filers only)."""
+def _write_agg(df_all: pd.DataFrame, active_rssds: set) -> None:
+    """Write the ALL pre-aggregated parquet: SUM per mdrm per quarter over EVERY filer present that
+    quarter (the true sector total in all eras), with nested sub-holding filers excluded (de-nested)
+    so consolidated assets aren't double-counted (audit HIGH-1). active_rssds is unused (kept for the
+    call signature) — the aggregate is intentionally the full population, not the active roster."""
     excl = load_topholder_exclusions()
-    df_agg_src = df_active.copy()
+    df_agg_src = df_all
     if excl:
-        ex_set = {(q, r) for q, r in excl}
-        mask = df_agg_src.apply(
-            lambda row: (row["quarter_end"], int(row["id_rssd"])) not in ex_set, axis=1)
-        df_agg_src = df_agg_src[mask]
+        # Vectorized anti-join (the panel is ~95M rows — a row-wise apply would be hours).
+        ex_df = pd.DataFrame(excl, columns=["quarter_end", "id_rssd"]).drop_duplicates()
+        ex_df["id_rssd"] = ex_df["id_rssd"].astype("int64")
+        ex_df["_drop"] = True
+        src = df_agg_src.copy()
+        src["id_rssd"] = src["id_rssd"].astype("int64")
+        src = src.merge(ex_df, on=["quarter_end", "id_rssd"], how="left")
+        df_agg_src = src[src["_drop"].isna()].drop(columns=["_drop"])
 
     df_agg = (df_agg_src.groupby(["quarter_end", "mdrm"], as_index=False)["value"]
               .sum().sort_values(["mdrm", "quarter_end"]).reset_index(drop=True))

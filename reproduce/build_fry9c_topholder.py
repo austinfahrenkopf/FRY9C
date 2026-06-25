@@ -91,14 +91,37 @@ def nested_for_quarter(filers, rels, qd):
         return False
     return sorted(r for r in filers if filer_ancestor(r))
 
+def filers_from_panel(panel="fry9c_panel_long.parquet"):
+    """Per-quarter Y-9C filer sets straight from the long panel (covers the FULL history,
+    1986-Q3 onward — the deep-history extension). A filer is one reporting BHCK2170 that quarter.
+    Yields (quarter_yyyymmdd, set(rssd)) oldest-first. Used by --from-panel so the nested map
+    covers every quarter the ALL aggregate spans, not just the 2000+ NIC zips."""
+    import pandas as _pd
+    df=_pd.read_parquet(panel, columns=["quarter_end","id_rssd","mdrm","value"])
+    df=df[(df["mdrm"]=="BHCK2170") & df["value"].notna()]
+    for q, sub in df.groupby("quarter_end"):
+        yield q.replace("-",""), set(int(x) for x in sub["id_rssd"].dropna().unique())
+
+
 def main():
-    if not os.path.isdir(ZIPDIR): raise SystemExit(f"missing {ZIPDIR}/")
+    import sys
+    from_panel = "--from-panel" in sys.argv
     if not os.path.exists(NIC): raise SystemExit(f"missing {NIC}")
+    if not from_panel and not os.path.isdir(ZIPDIR): raise SystemExit(f"missing {ZIPDIR}/")
     print("parsing NIC relationships …")
     rels=load_relationships(NIC)
     print(f"  {len(rels):,} relationship rows")
     nested={}; total_excluded=0
-    for f in sorted(os.listdir(ZIPDIR)):
+    if from_panel:
+        print("filer sets from fry9c_panel_long.parquet (full history) …")
+        for q, ids in filers_from_panel():
+            if not q or not ids: continue
+            nl=nested_for_quarter(ids, rels, int(q))
+            if nl:
+                nested[iso(q)]=nl; total_excluded+=len(nl)
+            print(f"  {iso(q)}: {len(ids)} filers, {len(nl)} nested -> excluded")
+    else:
+      for f in sorted(os.listdir(ZIPDIR)):
         if not f.lower().endswith(".zip"): continue
         q,ids=filers_for_zip(os.path.join(ZIPDIR,f))
         if not q or not ids: print("  skip",f); continue
