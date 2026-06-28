@@ -1068,7 +1068,7 @@ function filterTree(q){q=q.trim().toLowerCase();
  if(!q){document.querySelectorAll('#tree .trow').forEach(r=>r.style.display='');document.querySelectorAll('#tree .schsec').forEach(s=>s.style.display='');applyLevel(0);return;}
  document.querySelectorAll('#tree .kids').forEach(k=>k.style.display='block');
  document.querySelectorAll('#tree .schsec').forEach(sec=>{const rows=sec.querySelector('.schrows');let any=false;
-   sec.querySelectorAll('.trow').forEach(r=>{const m=r.dataset.txt.includes(q);r.style.display=m?'':'none';if(m)any=true;});
+   sec.querySelectorAll('.trow').forEach(r=>{const m=(r.dataset.txt||'').includes(q);r.style.display=m?'':'none';if(m)any=true;});
    rows.style.display=any?'block':'none';sec.style.display=any?'':'none';});}
 function markTree(){const on=new Set(measures.map(m=>m.code));document.querySelectorAll('#tree .trow').forEach(r=>r.classList.toggle('on',on.has(r.dataset.code)||on.has('SUB:'+r.dataset.code)));}
 // MEDIUM-1 + PART-B roll-up double-count fix — schedule-aware, per VALIDATION_FRY9C.md 13-rule spec.
