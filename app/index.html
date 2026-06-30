@@ -218,7 +218,7 @@ body:not(.dark) .lgon-row td{background:#e8f5e9!important}body.dark .lgon-row td
    <textarea id="sql">SELECT quarter_end, value FROM t WHERE mdrm='BHCK2170' AND id_rssd=1039502 ORDER BY quarter_end;</textarea>
    <div style="margin-top:8px"><button id="runsql" class="sec">Run</button> <button id="sqlcsv" class="sec">Export result</button></div>
    <div id="sqlout"></div></details>
-  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-06-30 01:12</div>
+  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-06-30 08:57</div>
  </div>
 </div>
 <div id="formmodal" class="modal" style="display:none"><div class="modalbox">
@@ -1690,6 +1690,7 @@ async function renderExportUI(){
    <label style="display:inline-flex;align-items:flex-start;gap:5px;cursor:pointer"><input type="radio" name="eb-scope" value="schedules" ${_eb.scope==='schedules'?'checked':''}><span><b>Selected schedules</b><br><span class="muted" style="font-size:13px">Choose by form schedule</span></span></label>
    <label style="display:inline-flex;align-items:flex-start;gap:5px;cursor:pointer"><input type="radio" name="eb-scope" value="codes" ${_eb.scope==='codes'?'checked':''}><span><b>Selected codes</b><br><span class="muted" style="font-size:13px">Custom MDRM / DERIV list</span></span></label>
   </div>
+  <div style="margin-top:6px;display:flex;align-items:center;gap:8px"><button id="eb-addmeas" class="sec" style="font-size:13px;padding:2px 7px" title="Switch to Selected codes and add all measures currently in the main chart">+ Chart measures</button><span class="muted" id="eb-addmeas-st" style="font-size:13px"></span></div>
   <div id="eb-sched-panel" style="display:${_eb.scope==='schedules'?'block':'none'};margin-top:8px">
    <div style="display:flex;flex-wrap:wrap;gap:4px">${schedHtml}</div>
    <div style="margin-top:6px;display:flex;align-items:center;gap:8px"><button id="eb-sall" class="sec" style="font-size:13px;padding:2px 7px">All</button><button id="eb-snone" class="sec" style="font-size:13px;padding:2px 7px">None</button><span class="muted" style="font-size:13px" id="eb-sched-cnt">${_eb.scheds.size} schedule${_eb.scheds.size!==1?'s':''} / ${ebScheduleCodes().length} codes</span></div>
@@ -1731,20 +1732,23 @@ async function renderExportUI(){
   document.getElementById('eb-ent-status').innerHTML='<span style="color:#c0392b">Not recognised</span>';return;}
  document.getElementById('eb-ent-add').onclick=()=>{addEbEnt(document.getElementById('eb-ent').value);document.getElementById('eb-ent').value='';};
  document.getElementById('eb-ent').onkeydown=e=>{if(e.key==='Enter'){addEbEnt(e.target.value);e.target.value='';const r=document.getElementById('eb-ent-res');if(r)r.style.display='none';}};
- // Task 2: custom dropdown — only open on input, never on focus
  (function(){const inp=document.getElementById('eb-ent'),res=document.getElementById('eb-ent-res');if(!inp||!res)return;
-   inp.oninput=function(){const q=this.value.trim().toLowerCase();if(!q){res.style.display='none';return;}
-     const cands=[];
-     if('all'.startsWith(q)||q==='all')cands.push({v:'ALL',l:'All filers'});
-     for(const n in peers){if(n.toLowerCase().includes(q)&&cands.length<5)cands.push({v:'★ '+n,l:'★ '+n+' (peer)'});}
-     for(const[rssd,r]of ROSTER){if(cands.length>=15)break;if(r.nm.toLowerCase().includes(q)||String(rssd).includes(q))cands.push({v:r.nm+' ('+rssd+')',l:r.nm+' ('+rssd+')'});}
+   function buildEntCands(q){const lq=(q||'').toLowerCase();const cands=[];
+     if(!lq||'all'.startsWith(lq))cands.push({v:'ALL',l:'All filers'});
+     for(const n in peers){if(cands.length>=20)break;if(!lq||n.toLowerCase().includes(lq))cands.push({v:'★ '+n,l:'★ '+n+' (peer)'});}
+     for(const[rssd,r]of ROSTER){if(cands.length>=20)break;if(!lq||r.nm.toLowerCase().includes(lq)||String(rssd).includes(lq))cands.push({v:r.nm+' ('+rssd+')',l:r.nm+' ('+rssd+')'});}
+     return cands;}
+   function showEntRes(cands){
      if(!cands.length){res.innerHTML='<div style="padding:4px 8px;color:var(--muted,#9aa3b2)">No matches</div>';res.style.display='block';return;}
      res.innerHTML=cands.map(c=>`<div class="eb-er" data-v="${c.v.replace(/"/g,'&quot;')}" style="padding:3px 8px;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.l}</div>`).join('');
      res.style.display='block';
-     res.querySelectorAll('.eb-er').forEach(d=>d.onclick=()=>{addEbEnt(d.dataset.v);inp.value='';res.style.display='none';});};
+     res.querySelectorAll('.eb-er').forEach(d=>d.onclick=()=>{addEbEnt(d.dataset.v);inp.value='';res.style.display='none';});}
+   inp.oninput=function(){showEntRes(buildEntCands(this.value.trim()));};
+   inp.addEventListener('focus',()=>showEntRes(buildEntCands(inp.value.trim())));
    inp.addEventListener('blur',()=>setTimeout(()=>{res.style.display='none';},200));})();
  document.getElementById('eb-ent-cur').onclick=()=>{for(const e of active){if(!_eb.entities.find(x=>x.id===e.id))_eb.entities.push({id:e.id,label:e.label});}renderEbChips();ebEstimate();};
  document.getElementById('eb-ent-all').onclick=()=>{_eb.entities=[{id:'ALL',label:'All filers'}];renderEbChips();ebEstimate();};
+ document.getElementById('eb-addmeas').onclick=()=>{if(!measures||!measures.length){const s=document.getElementById('eb-addmeas-st');if(s){s.textContent='No measures in chart.';setTimeout(()=>{const x=document.getElementById('eb-addmeas-st');if(x)x.textContent='';},2500);}return;}_eb.scope='codes';const r=document.querySelector('[name=eb-scope][value=codes]');if(r)r.checked=true;document.getElementById('eb-sched-panel').style.display='none';document.getElementById('eb-code-panel').style.display='block';let added=0;for(const m of measures){if(!_eb.codes.has(m.code)){_eb.codes.add(m.code);added++;}}renderCodeTags();updCodeCnt();const s=document.getElementById('eb-addmeas-st');if(s){s.textContent=added?`Added ${added} measure${added!==1?'s':''}.`:'Already added.';setTimeout(()=>{const x=document.getElementById('eb-addmeas-st');if(x)x.textContent='';},2500);}};
  for(const el of document.querySelectorAll('[name=eb-scope]'))el.addEventListener('change',e=>{_eb.scope=e.target.value;document.getElementById('eb-sched-panel').style.display=_eb.scope==='schedules'?'block':'none';document.getElementById('eb-code-panel').style.display=_eb.scope==='codes'?'block':'none';ebEstimate();});
  for(const el of document.querySelectorAll('.eb-sch'))el.addEventListener('change',e=>{if(e.target.checked)_eb.scheds.add(e.target.value);else _eb.scheds.delete(e.target.value);updSchedCnt();});
  document.getElementById('eb-sall').onclick=()=>{for(const el of document.querySelectorAll('.eb-sch')){el.checked=true;_eb.scheds.add(el.value);}updSchedCnt();};
