@@ -219,7 +219,7 @@ body:not(.dark) .lgon-row td{background:#e8f5e9!important}body.dark .lgon-row td
    <textarea id="sql">SELECT quarter_end, value FROM t WHERE mdrm='BHCK2170' AND id_rssd=1039502 ORDER BY quarter_end;</textarea>
    <div style="margin-top:8px"><button id="runsql" class="sec">Run</button> <button id="sqlcsv" class="sec">Export result</button></div>
    <div id="sqlout"></div></details>
-  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-06-30 13:19</div>
+  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-06-30 18:55</div>
  </div>
 </div>
 <div id="formmodal" class="modal" style="display:none"><div class="modalbox">
@@ -548,7 +548,7 @@ async function seriesFor(id,m){const cond=scopeCond(id);if(cond==null)return [];
    _seriesCache.set(_sk,out);return out;}
  // For ALL with pre-agg loaded (TOPMODE=top): route through t_agg for instant results
  if(id==='ALL'&&aggLoaded&&TOPMODE==='top'){
-   if(d&&!DYN[m]&&!USERCALC[m]&&(d.type==='hybrid_ratio'||d.type==='hybrid_sum')){
+   if(d&&!USERCALC[m]&&(d.type==='hybrid_ratio'||d.type==='hybrid_sum')){
      const allCodes=[...new Set([...d.parts.flatMap(p=>[p.reported,...p.components]),...(d.den||[]).flatMap(term2codes)])];
      const r=(await conn.query(`SELECT quarter_end,mdrm,value v FROM t_agg WHERE mdrm IN (${sqlList(allCodes)}) ORDER BY quarter_end`)).toArray();
      const byq={};for(const x of r){(byq[x.quarter_end]=byq[x.quarter_end]||{})[x.mdrm]=Number(x.v);}
@@ -832,7 +832,7 @@ function rowEl(nd,has,dispCap){
    d.querySelector('.caret').onclick=ev=>{ev.stopPropagation();if(has)toggleNode(d);};
    const codes=descCodes(nd);const pctSkip=hasPctDesc(nd);
    if(codes.length){d.title='Click to chart sum of '+codes.length+' leaf $ code(s)'+(pctSkip?' · non-additive % cells excluded':'');
-     d.onclick=()=>{const code='SUB:'+nd.code;const rl=fullCap(code)||nd.caption;DYN[code]={type:'sum',lbl:rl,plus:codes};toggleMeasure(code,rl,false);};}
+     d.onclick=()=>{const code='SUB:'+nd.code;const rl=fullCap(code)||nd.caption;if(nd.sch==='HC-N'&&nd.num==='9'){DYN[code]={type:'hybrid_sum',lbl:rl,parts:[{reported:'BHCK1406',components:_HCN9_A},{reported:'BHCK1407',components:_HCN9_B},{reported:'BHCK1403',components:_HCN9_C}]};}else{DYN[code]={type:'sum',lbl:rl,plus:codes};}toggleMeasure(code,rl,false);};}
    else if(pctSkip){d.title='Contains only non-additive % cells — cannot sum';d.onclick=()=>{if(has)toggleNode(d);};}
    else d.onclick=()=>{if(has)toggleNode(d);};
    return d;}
@@ -1169,7 +1169,7 @@ function renderLblOverlay(series,show){
   box.style.display='block';}
 function draw(){const host=document.getElementById('panes');
  if(!lastSeries.length){host.innerHTML='<p class="muted">Pick an entity, then click a line item on the left.</p>';document.getElementById('cards').innerHTML='';document.getElementById('tbl').innerHTML='';renderLblOverlay([],false);return;}
- window._hybridOnChart=measures.some(m=>DERIV[m.code]?.type==='hybrid_ratio'||DERIV[m.code]?.type==='hybrid_sum');
+ window._hybridOnChart=measures.some(m=>DERIV[m.code]?.type==='hybrid_ratio'||DERIV[m.code]?.type==='hybrid_sum'||DYN[m.code]?.type==='hybrid_ratio'||DYN[m.code]?.type==='hybrid_sum');
  const win=Qall.slice(rangeSel.a,rangeSel.b+1),ws=new Set(win);
  const normOn=document.getElementById('normbyassets')&&document.getElementById('normbyassets').checked;
  const workSeries=normOn?lastSeries.map(s=>{if(s.pct)return s;const am=_assetRows.get(s.eid)||{};const norm=s.rows.map(([q,v])=>{const a=am[q];return [q,v!=null&&a&&a!==0?100*v/a:null];});return {...s,rows:norm,pct:true,_normLabel:s.label+' / assets %'};}).map(s=>s._normLabel?{...s,label:s._normLabel}:s):lastSeries;
