@@ -202,7 +202,7 @@ body:not(.dark) .lgon-row td{background:#e8f5e9!important}body.dark .lgon-row td
   <div id="kpiselrow" style="display:none;margin-bottom:4px"><span class="muted" style="font-size:13px">KPI series: </span><select id="kpisel" style="font-size:13px;padding:2px 4px;border:1px solid var(--border,#ccc);border-radius:4px"></select></div>
   <div class="cards" id="cards"></div><div class="legend" id="legend"></div>
   <div id="snapshot"></div>
-  <div id="panes"><p class="muted">Pick an entity, then click a line item on the left.</p></div><button id="addchartbtn" class="sec" style="margin-top:8px;font-size:13px;display:none" onclick="addChart()">⊕ Add chart</button><div id="extracharts-area"></div>
+  <div id="panes"><p class="muted">Pick an entity, then click a line item on the left.</p></div><button id="addchartbtn" class="sec" style="margin-top:8px;font-size:13px;display:none" onclick="addChart()">⊕ Add chart</button><label id="linkcharts-lbl" style="font-size:13px;cursor:pointer;user-select:none;margin-left:8px;display:none"><input type="checkbox" id="linkcharts"> ⛓ Link charts</label><div id="extracharts-area"></div>
   <div class="slider" id="sliderwrap" style="display:none"><span class="muted">From</span><input type="range" id="r0"><input type="range" id="r1">
    <input type="text" id="rfrom" list="qlist" size="10" style="font:inherit;font-size:13px;border:1px solid var(--border,#ccc);border-radius:3px;padding:1px 4px;background:inherit;color:inherit"><span class="muted">to</span><input type="text" id="rto" list="qlist" size="10" style="font:inherit;font-size:13px;border:1px solid var(--border,#ccc);border-radius:3px;padding:1px 4px;background:inherit;color:inherit"><datalist id="qlist"></datalist> <button id="preset1y" class="sec" style="padding:3px 8px;font-size:13px">1Y</button><button id="preset5y" class="sec" style="padding:3px 8px;font-size:13px">5Y</button><button id="preset10y" class="sec" style="padding:3px 8px;font-size:13px">10Y</button><button id="rreset" class="sec" style="padding:3px 8px;font-size:13px">All</button>
    <button id="loadhist" class="sec" style="display:none" title="Load pre-2020 historical series for active filers (~29 MB)">📅 Older data</button>
@@ -218,7 +218,7 @@ body:not(.dark) .lgon-row td{background:#e8f5e9!important}body.dark .lgon-row td
    <textarea id="sql">SELECT quarter_end, value FROM t WHERE mdrm='BHCK2170' AND id_rssd=1039502 ORDER BY quarter_end;</textarea>
    <div style="margin-top:8px"><button id="runsql" class="sec">Run</button> <button id="sqlcsv" class="sec">Export result</button></div>
    <div id="sqlout"></div></details>
-  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-06-30 08:57</div>
+  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-06-30 10:16</div>
  </div>
 </div>
 <div id="formmodal" class="modal" style="display:none"><div class="modalbox">
@@ -724,8 +724,9 @@ function exportFormulas(){const s=getFormulasJson();const b=new Blob([s],{type:'
  document.getElementById('calcExport').onclick=exportFormulas;
  document.getElementById('calcImport').onclick=()=>document.getElementById('calcImportFile').click();
  document.getElementById('calcImportFile').onchange=e=>{const f=e.target.files?.[0];if(!f)return;const rd=new FileReader();rd.onload=ev=>{try{const obj=JSON.parse(ev.target.result);const n=applyFormulas(obj);showToast('Imported '+n+' formula'+(n===1?'':'s')+'.','ok');}catch(ex){const el=document.getElementById('calcstatus');if(el)el.textContent='Import failed: invalid JSON.';}};rd.readAsText(f);e.target.value='';};
- {const stackEl=document.getElementById('stackedmode');if(stackEl)stackEl.onchange=()=>draw();}
+ {const stackEl=document.getElementById('stackedmode');if(stackEl)stackEl.onchange=()=>{if(_linkCharts){_applyLinkedTfm(_getLinkTfm());renderExtraChartsArea();}draw();};}
  {const il=document.getElementById('inlinelbls');if(il){il.checked=(window._inlineLbls!==false);il.onchange=()=>{window._inlineLbls=il.checked;try{localStorage.setItem('fry9c_inlinelbls',il.checked?'1':'0');}catch(_){}draw();};}}
+ {const lcEl=document.getElementById('linkcharts');if(lcEl){lcEl.checked=_linkCharts;lcEl.onchange=()=>{_linkCharts=lcEl.checked;try{localStorage.setItem('fry9c_linkcharts',_linkCharts?'1':'0');}catch(_){}if(_linkCharts){_applyLinkedTfm(_getLinkTfm());renderExtraChartsArea();}};}}
  document.getElementById('deriv-grpadd-btn').onclick=()=>{const cat=document.getElementById('deriv-grpadd').value;if(!cat)return;let added=0;for(const [code,d] of Object.entries(DERIV)){const lbl=d.lbl||'';const parts=lbl.split(' ▸ ');if(parts[0]!==cat)continue;if(measures.length>=20){showToast('Measure limit is 20 — remove some first.','warn');break;}if(!measures.find(m=>m.code===code)){const shortLbl=parts.slice(1).join(' ▸ ')||lbl;measures.push({code,label:shortLbl,pct:true});added++;}}if(!added){showToast('No new measures found for that category.','warn');return;}entSortField='__none__';markTree();renderMeasures();scheduleRecompute();saveMeasures();};
  document.getElementById('kbdclose').onclick=()=>document.getElementById('kbdmodal').style.display='none';
  (function(){const ft=document.getElementById('formulatip');document.querySelector('.rail').addEventListener('mouseover',e=>{const row=e.target.closest('.trow[data-formula]');if(!row||!ft)return;ft.innerHTML=`<div class="ftip-lbl">Formula</div>${row.dataset.formula}`;ft.style.display='block';});document.querySelector('.rail').addEventListener('mouseout',e=>{if(e.target.closest('.trow[data-formula]')&&!e.relatedTarget?.closest('.trow[data-formula]'))ft.style.display='none';});document.addEventListener('mousemove',e=>{if(ft&&ft.style.display!=='none'){const x=e.clientX+14,y=e.clientY+14,w=ft.offsetWidth,h=ft.offsetHeight;ft.style.left=Math.min(x,window.innerWidth-w-10)+'px';ft.style.top=Math.min(y,window.innerHeight-h-10)+'px';}});})();
@@ -741,7 +742,7 @@ function exportFormulas(){const s=getFormulasJson();const b=new Blob([s],{type:'
  document.getElementById('rfrom').onchange=()=>{const q=document.getElementById('rfrom').value.trim();const i=Qall.indexOf(q);if(i>=0){rangeSel.a=Math.min(i,rangeSel.b);syncSlider();draw();}};
  document.getElementById('rto').onchange=()=>{const q=document.getElementById('rto').value.trim();const i=Qall.indexOf(q);if(i>=0){rangeSel.b=Math.max(i,rangeSel.a);syncSlider();draw();}};
  {const lhb=document.getElementById('loadhist');if(lhb){if(OLD_ACTIVE_PARTS.length)lhb.style.display='';lhb.onclick=async()=>{lhb.disabled=true;lhb.textContent='Loading…';await ensureOldActive();};}}
- document.getElementById('idx').onchange=draw;document.getElementById('qoqdelta').onchange=draw;document.getElementById('normbyassets').onchange=draw;document.getElementById('reflineset').onclick=()=>{const v=parseFloat(document.getElementById('reflineval').value);if(!isNaN(v)){_reflineVal=v;_reflineLbl=document.getElementById('reflinelbl').value.trim()||String(v);}draw();};document.getElementById('reflineclr').onclick=()=>{_reflineVal=null;document.getElementById('reflineval').value='';document.getElementById('reflinelbl').value='';draw();};
+ document.getElementById('idx').onchange=()=>{if(_linkCharts){_applyLinkedTfm(_getLinkTfm());renderExtraChartsArea();}draw();};document.getElementById('qoqdelta').onchange=()=>{if(_linkCharts){_applyLinkedTfm(_getLinkTfm());renderExtraChartsArea();}draw();};document.getElementById('normbyassets').onchange=()=>{if(_linkCharts){_applyLinkedTfm(_getLinkTfm());renderExtraChartsArea();}draw();};document.getElementById('reflineset').onclick=()=>{const v=parseFloat(document.getElementById('reflineval').value);if(!isNaN(v)){_reflineVal=v;_reflineLbl=document.getElementById('reflinelbl').value.trim()||String(v);}draw();};document.getElementById('reflineclr').onclick=()=>{_reflineVal=null;document.getElementById('reflineval').value='';document.getElementById('reflinelbl').value='';draw();};
  (function(){const sp=document.getElementById('railsplit');let drag=false;
   sp.addEventListener('mousedown',e=>{drag=true;e.preventDefault();document.body.style.userSelect='none';});
   window.addEventListener('mousemove',e=>{if(!drag)return;const w=Math.min(820,Math.max(300,e.clientX));document.documentElement.style.setProperty('--railw',w+'px');});
@@ -1233,9 +1234,13 @@ function draw(){const host=document.getElementById('panes');
   let sh=`<table style="width:100%;margin-top:8px;border-collapse:collapse;font-size:13px"><thead><tr><th style="text-align:left;padding:3px 6px">Entity</th><th style="padding:3px 6px">Latest</th><th style="padding:3px 6px">QoQ</th><th style="padding:3px 6px">YoY</th><th style="padding:3px 6px">Total Δ</th></tr></thead><tbody>`;
   for(const {s,sLast,sQoq,sYoy,sTot,sQR,sYR,sTR} of snapRows){const dot=`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${s.color};margin-right:5px"></span>`;sh+=`<tr><td style="text-align:left;padding:3px 6px">${dot}${s.label}</td><td style="padding:3px 6px;text-align:right">${fmtUnit(sLast,s.pct)}</td><td class="${cls(sQoq)}" style="padding:3px 6px;text-align:right">${ar(sQoq)}${sQR!=null?` <span class="muted" style="font-size:12px">${fmtDelta(sQR,s.pct)}</span>`:''}</td><td class="${cls(sYoy)}" style="padding:3px 6px;text-align:right">${ar(sYoy)}${sYR!=null?` <span class="muted" style="font-size:12px">${fmtDelta(sYR,s.pct)}</span>`:''}</td><td class="${cls(sTot)}" style="padding:3px 6px;text-align:right">${ar(sTot)}${sTR!=null?` <span class="muted" style="font-size:12px">${fmtDelta(sTR,s.pct)}</span>`:''}</td></tr>`;}
   snapEl.innerHTML=sh+'</tbody></table>';
- }else if(snapEl){snapEl.innerHTML='';} const _aBtn=document.getElementById('addchartbtn');if(_aBtn)_aBtn.style.display='';drawExtraCharts();}
+ }else if(snapEl){snapEl.innerHTML='';} const _aBtn=document.getElementById('addchartbtn');if(_aBtn)_aBtn.style.display='';const _lLbl=document.getElementById('linkcharts-lbl');if(_lLbl)_lLbl.style.display='';drawExtraCharts();}
 // ---- extra charts ----
 let _extraCharts=[],_nextChartId=1;window._addToChartId=null;
+let _linkCharts=false;try{_linkCharts=localStorage.getItem('fry9c_linkcharts')==='1';}catch(_){}
+function _getLinkTfm(){return{idx:!!(document.getElementById('idx')?.checked),qoqdelta:!!(document.getElementById('qoqdelta')?.checked),normByAssets:!!(document.getElementById('normbyassets')?.checked),stacked:!!(document.getElementById('stackedmode')?.checked)};}
+function _applyLinkedTfm(tfm){['idx','qoqdelta','normbyassets','stackedmode'].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=!!(id==='normbyassets'?tfm.normByAssets:id==='stackedmode'?tfm.stacked:tfm[id]);});_extraCharts.forEach(c=>{c.transforms={...c.transforms,...tfm};});}
+function _applyLinkedPin(q){window._pinnedQ=q;document.querySelectorAll('#panes .qband').forEach(g=>{g.classList.remove('qband-pinned');if(q&&g.dataset.q===q)g.classList.add('qband-pinned');});_extraCharts.forEach(c=>{c._pinnedQ=q;document.querySelectorAll(`#ec-${c.id} .qband`).forEach(g=>{g.classList.remove('qband-pinned');if(q&&g.dataset.q===q)g.classList.add('qband-pinned');});});}
 function addChart(){const id=_nextChartId++;_extraCharts.push({id,measures:[],lastSeries:[],transforms:{normByAssets:false,stacked:false,idx:false,qoqdelta:false},_pinnedQ:null,_idxBase:null,_hovQ:null,_hovTx:null,_hovTy:null});renderExtraChartsArea();}
 function removeChart(id){_extraCharts=_extraCharts.filter(c=>c.id!==id);if(window._addToChartId===id)window._addToChartId=null;renderExtraChartsArea();}
 function setChartTarget(id){window._addToChartId=(window._addToChartId===id)?null:id;document.querySelectorAll('.ec-target-btn').forEach(b=>{b.style.background='';b.style.color='';});if(window._addToChartId!=null){const b=document.getElementById('ec-tgt-'+window._addToChartId);if(b){b.style.background='var(--acc,#1d4ed8)';b.style.color='#fff';}}if(window._addToChartId!=null)showToast('Click tree items to add to Chart '+(window._addToChartId+1),'warn');}
@@ -1843,6 +1848,7 @@ async function runsql(){try{const r=(await conn.query(document.getElementById('s
       document.querySelectorAll('#panes .qband').forEach(g=>g.classList.remove('qband-pinned'));
       tip.style.pointerEvents='none';tip.style.resize='none';tip.style.overflow='';
       tip.style.display='none';
+      if(_linkCharts)_applyLinkedPin(null);
     }else if(_hovQ){
       window._pinnedQ=_hovQ;
       if(_hovTx){tip.style.left=_hovTx;tip.style.top=_hovTy;}
@@ -1854,6 +1860,7 @@ async function runsql(){try{const r=(await conn.query(document.getElementById('s
       if(window._tipH)tip.style.height=window._tipH;
       tip.style.display='block';
       document.querySelectorAll(`#panes .qband[data-q="${window._pinnedQ}"]`).forEach(g=>g.classList.add('qband-pinned'));
+      if(_linkCharts)_applyLinkedPin(window._pinnedQ);
     }});
 })();
 (function(){
@@ -1898,7 +1905,7 @@ async function runsql(){try{const r=(await conn.query(document.getElementById('s
   _ecArea.addEventListener('pointerleave',()=>{_ecHideHover();});
   _ecArea.addEventListener('click',e=>{
     const chk=e.target.closest('input[data-cid][data-tfm]');
-    if(chk){const chart=_extraCharts.find(c=>c.id===+chk.dataset.cid);if(chart){chart.transforms[chk.dataset.tfm]=chk.checked;const win=Qall.slice(rangeSel.a,rangeSel.b+1);drawExtraChart(chart,win,new Set(win));}return;}
+    if(chk){const chart=_extraCharts.find(c=>c.id===+chk.dataset.cid);if(chart){chart.transforms[chk.dataset.tfm]=chk.checked;if(_linkCharts){_applyLinkedTfm(chart.transforms);renderExtraChartsArea();draw();}else{const win=Qall.slice(rangeSel.a,rangeSel.b+1);drawExtraChart(chart,win,new Set(win));}}return;}
     if(e.target.id==='ec-idxbasereset'){e.preventDefault();const ecEl=e.target.closest('.extra-chart');if(!ecEl)return;const chart=_extraCharts.find(c=>c.id===+ecEl.id.slice(3));if(chart){chart._idxBase=null;const win=Qall.slice(rangeSel.a,rangeSel.b+1);drawExtraChart(chart,win,new Set(win));}return;}
     const svg=e.target.closest('svg');if(!svg)return;
     const ecEl=e.target.closest('.extra-chart');if(!ecEl)return;
@@ -1909,6 +1916,7 @@ async function runsql(){try{const r=(await conn.query(document.getElementById('s
       _ecPinnedChart=null;
       document.querySelectorAll(`#ec-${chart.id} .qband`).forEach(g=>g.classList.remove('qband-pinned'));
       ecTip.style.pointerEvents='none';ecTip.style.resize='none';ecTip.style.overflow='';ecTip.style.display='none';
+      if(_linkCharts)_applyLinkedPin(null);
     }else if(_ecHovChart===chart&&chart._hovQ){
       _ecPinnedChart=chart;chart._pinnedQ=chart._hovQ;
       if(chart._hovTx){ecTip.style.left=chart._hovTx;ecTip.style.top=chart._hovTy;}
@@ -1917,7 +1925,8 @@ async function runsql(){try{const r=(await conn.query(document.getElementById('s
       ecTip.style.pointerEvents='auto';ecTip.style.resize='both';ecTip.style.overflow='auto';ecTip.style.boxSizing='border-box';
       if(_ecTipW)ecTip.style.width=_ecTipW;if(_ecTipH)ecTip.style.height=_ecTipH;
       ecTip.style.display='block';
-      document.querySelectorAll(`#ec-${chart.id} .qband[data-q="${chart._pinnedQ}"]`).forEach(g=>g.classList.add('qband-pinned'));}});
+      document.querySelectorAll(`#ec-${chart.id} .qband[data-q="${chart._pinnedQ}"]`).forEach(g=>g.classList.add('qband-pinned'));
+      if(_linkCharts)_applyLinkedPin(chart._pinnedQ);}});
 })();
 init();
 </script></body></html>
