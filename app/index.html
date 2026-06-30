@@ -69,7 +69,7 @@
  .erow .ev{color:#5a6478;font-variant-numeric:tabular-nums}.erow .pp{color:#1b7f3b;font-weight:700;cursor:pointer}.erow.agg{font-weight:600}
  .erow .ewl{cursor:pointer;color:#c8992e;font-size:13px;flex:none;padding:0 2px;opacity:.2;transition:opacity .1s;user-select:none}.erow .ewl.on{opacity:1;color:#e8a800}.erow:hover .ewl{opacity:.6}.erow:hover .ewl.on{opacity:1}
  .erow .frag{color:#9aa3b2;font-size:12px;font-style:italic;margin-left:4px}.erow.frag-row .en{opacity:.7}
- .slider{display:flex;align-items:center;gap:10px;margin:8px 0}.slider input{min-width:120px;flex:1}
+ .slider{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;margin:8px 0}.slider input[type=range]{min-width:80px;flex:1;max-width:200px}.slider input[type=text]{flex:none}
  .frow{display:flex;gap:10px;padding:2px 6px;font-size:14px;border-bottom:1px solid #f3f5f8}
  .frow .lab{flex:1;min-width:280px}.vcell{width:92px;flex:none;text-align:right;font-variant-numeric:tabular-nums;color:#14213d}
  :root{--border:#ccc;--head:#f7f8fc;--fg2:#64748b;--bg:#fff;--bg2:#f7f9fb;--fg:#14213d;--muted:#64748b}
@@ -219,7 +219,7 @@ body:not(.dark) .lgon-row td{background:#e8f5e9!important}body.dark .lgon-row td
    <textarea id="sql">SELECT quarter_end, value FROM t WHERE mdrm='BHCK2170' AND id_rssd=1039502 ORDER BY quarter_end;</textarea>
    <div style="margin-top:8px"><button id="runsql" class="sec">Run</button> <button id="sqlcsv" class="sec">Export result</button></div>
    <div id="sqlout"></div></details>
-  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-06-30 11:02</div>
+  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-06-30 12:07</div>
  </div>
 </div>
 <div id="formmodal" class="modal" style="display:none"><div class="modalbox">
@@ -1223,7 +1223,7 @@ function draw(){const host=document.getElementById('panes');
   `<div class=card><div class=k>Series</div><div class=v>${lastSeries.length}</div></div>`;
  const maps=lastSeries.map(s=>Object.fromEntries(s.rows));
  const head=['quarter_end',...lastSeries.map(s=>s.label+(s.pct?' (%)':' ($k)'))];
- const body=win.map(q=>[q,...maps.map((mp,i)=>mp[q]==null?'':(lastSeries[i].pct?(+mp[q]).toFixed(2)+'%':fmtUnit(mp[q],false)))]);
+ const body=win.map(q=>[q,...maps.map((mp,i)=>mp[q]==null?'':(lastSeries[i].pct?(+mp[q]).toFixed(2)+'%':Math.round(mp[q]).toLocaleString('en-US')))]);
  const expBody=win.map(q=>[q,...maps.map((mp,i)=>mp[q]==null?'':(lastSeries[i].pct?(+mp[q]).toFixed(3):mp[q]))]);
  let h='<table><tr>'+head.map(x=>`<th>${x}</th>`).join('')+'</tr>';
  for(const r of body)h+='<tr>'+r.map(x=>`<td>${x}</td>`).join('')+'</tr>';
