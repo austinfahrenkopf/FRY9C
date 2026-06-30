@@ -41,28 +41,26 @@ if HTML_ONLY:
     if not PARTS: PARTS=[p for p in _all_p if p not in AGG_PARTS+HIST_PARTS+OLD_ACTIVE_PARTS]
     if not PARTS: raise SystemExit("--html-only: no recent active parquet found; run a full build first.")
     print("[--html-only] PARTS:", PARTS, "| OLD:", OLD_ACTIVE_PARTS, "| HIST:", HIST_PARTS, "| AGG:", AGG_PARTS)
-    # BANKS_JSON from all non-agg parquets so all 3,141 filers appear in the entity roster
-    # De-dup per parquet first (hist has 150M+ rows; full concat would OOM on groupby)
+    # BANKS_JSON from all non-agg parquets — use DuckDB (hist has 64M+ rows; pandas OOMs)
+    import duckdb as _ddb2
     _roster_p=[p for p in _all_p if p not in AGG_PARTS]
-    _roster_parts=[]
-    for _rp in _roster_p:
-        _pp=pd.read_parquet(os.path.join(SITE,_rp),columns=["id_rssd","institution_name"])
-        _roster_parts.append(_pp.drop_duplicates(subset=["id_rssd"],keep="last"))
-    _r=pd.concat(_roster_parts,ignore_index=True)
-    ros=_r.groupby("id_rssd")["institution_name"].agg(lambda s:s.dropna().iloc[-1] if len(s.dropna()) else "").reset_index()
-    banks=[[int(r.id_rssd), str(r.institution_name)] for r in ros.itertuples()]
+    _rp_list="["+",".join(f"'{os.path.join(SITE,p)}'" for p in _roster_p)+"]"
+    ros=_ddb2.sql(f"SELECT id_rssd, LAST(institution_name ORDER BY quarter_end) AS institution_name FROM read_parquet({_rp_list}) GROUP BY id_rssd ORDER BY id_rssd").df()
+    banks=[[int(r.id_rssd), str(r.institution_name) if r.institution_name else str(r.id_rssd)] for r in ros.itertuples()]
     BANKS_JSON=json.dumps(banks, ensure_ascii=False)
     # active_rssds: filers present in the max quarter of the active parquets
     _ap=[p for p in _all_p if "fry9c_active_" in p and p not in AGG_PARTS]
     if _ap:
-        _ra=pd.concat([pd.read_parquet(os.path.join(SITE,p), columns=["id_rssd","quarter_end"]) for p in _ap], ignore_index=True)
-        _max_q=_ra["quarter_end"].max(); active_rssds=set(int(x) for x in _ra.loc[_ra["quarter_end"]==_max_q,"id_rssd"].unique())
+        _ap_list="["+",".join(f"'{os.path.join(SITE,p)}'" for p in _ap)+"]"
+        _max_q=_ddb2.sql(f"SELECT max(quarter_end) FROM read_parquet({_ap_list})").fetchone()[0]
+        active_rssds=set(r[0] for r in _ddb2.sql(f"SELECT DISTINCT id_rssd FROM read_parquet({_ap_list}) WHERE quarter_end='{_max_q}'").fetchall())
     else: active_rssds=set()
     # no-data codes: in hierarchy but absent from all site parquets
     _hj2=json.load(open("fry9c_hierarchy.json",encoding="utf-8")) if os.path.exists("fry9c_hierarchy.json") else {}
     _dc2=set();[_dc2.add(_it.get("mdrm")) for _its in _hj2.values() for _it in _its];_dc2.discard(None)
-    _spq=pd.concat([pd.read_parquet(os.path.join(SITE,p),columns=["mdrm"]) for p in _all_p],ignore_index=True) if _all_p else pd.DataFrame(columns=["mdrm"])
-    NODATA_CODES=sorted(c for c in _dc2 if c and c not in set(_spq["mdrm"].unique()))
+    _all_list="["+",".join(f"'{os.path.join(SITE,p)}'" for p in _all_p)+"]" if _all_p else None
+    _mdrms_in_site=set(r[0] for r in _ddb2.sql(f"SELECT DISTINCT mdrm FROM read_parquet({_all_list})").fetchall()) if _all_list else set()
+    NODATA_CODES=sorted(c for c in _dc2 if c and c not in _mdrms_in_site)
 else:
   if not os.path.exists(SRC):
     cands=[f for f in glob.glob("*.parquet") if not f.startswith("site")]
@@ -71,7 +69,23 @@ else:
   for f in os.listdir(SITE):
     if f.endswith(".parquet"): os.remove(os.path.join(SITE,f))
 
-  df=pd.read_parquet(SRC)
+  # Pre-build DISPLAY_CODES so we can pre-filter during parquet load.
+  # The panel has 141M+ rows after the 1986 extension; pd.read_parquet on the full file OOMs.
+  # DuckDB reads with a WHERE clause, returning only the ~10M rows the dashboard needs.
+  DISPLAY_CODES=set()
+  if os.path.exists("fry9c_hierarchy.json"):
+      _H=json.load(open("fry9c_hierarchy.json",encoding="utf-8"))
+      for _items in _H.values():
+          for _it in _items: DISPLAY_CODES.add(_it.get("mdrm"))
+  DISPLAY_CODES|={"BHCK2122","BHCK2170","BHCK3210","BHCK4340","BHCK3123",
+                  "BHCK1403","BHCK1406","BHCK1407","BHDM6631","BHDM6636","BHFN6631","BHFN6636",
+                  "BHCK1606","BHCKB575","BHCKK213","BHCKK216","BHCK1594",
+                  "BHCK5398","BHCKC236","BHCKC238","BHCKF172","BHCKF173","BHCK3499","BHCKF178","BHCKF179"}
+  DISPLAY_CODES.discard(None)
+  import duckdb as _ddb
+  _codes_csv=",".join(f"'{c}'" for c in sorted(DISPLAY_CODES)) if DISPLAY_CODES else "'__none__'"
+  df=_ddb.sql(f"SELECT * FROM read_parquet('{SRC}') WHERE mdrm IN ({_codes_csv})").df()
+  print(f"DuckDB pre-filtered load: {len(df):,} rows ({len(DISPLAY_CODES)} display codes)")
   cols={c.lower():c for c in df.columns}
   qc=cols.get("quarter_end") or cols.get("date") or list(df.columns)[0]
   ic=cols.get("id_rssd") or cols.get("rssd") or cols.get("entity")
@@ -93,19 +107,6 @@ else:
   PARTS=[]; OLD_ACTIVE_PARTS=[]; HIST_PARTS=[]; AGG_PARTS=[]
   keep=[c for c in ["quarter_end","id_rssd","institution_name","mdrm","value"] if c in df.columns]
   df=df[keep]
-  DISPLAY_CODES=set()
-  if os.path.exists("fry9c_hierarchy.json"):
-      _H=json.load(open("fry9c_hierarchy.json",encoding="utf-8"))
-      for _items in _H.values():
-          for _it in _items: DISPLAY_CODES.add(_it.get("mdrm"))
-  DISPLAY_CODES|={"BHCK2122","BHCK2170","BHCK3210","BHCK4340","BHCK3123",
-                  "BHCK1403","BHCK1406","BHCK1407","BHDM6631","BHDM6636","BHFN6631","BHFN6636",
-                  "BHCK1606","BHCKB575","BHCKK213","BHCKK216","BHCK1594",
-                  "BHCK5398","BHCKC236","BHCKC238","BHCKF172","BHCKF173","BHCK3499","BHCKF178","BHCKF179"}
-  DISPLAY_CODES.discard(None)
-  if DISPLAY_CODES:
-      _before=len(df); df=df[df["mdrm"].isin(DISPLAY_CODES)].reset_index(drop=True)
-      print(f"DISPLAY_CODES filter: {_before:,} -> {len(df):,} rows ({len(DISPLAY_CODES)} codes)")
   NODATA_CODES=sorted(c for c in DISPLAY_CODES if c and c not in set(df["mdrm"].unique()))
   print(f"NODATA_CODES: {len(NODATA_CODES)} codes in hierarchy but absent from panel")
   # Determine active filers: those reporting in the most recent quarter
@@ -276,6 +277,11 @@ body:not(.dark) #charttip{--tip-bg:#fff;--tip-fg:#14213d;border-color:#cdd5e0;bo
 #charttip .tip-q{font-weight:700;margin-bottom:4px;color:#9aa3b2;font-size:13px}
 #charttip .tip-row{display:flex;align-items:center;gap:6px}
 #charttip .tip-sw{width:8px;height:8px;border-radius:50%;flex:none}
+#ec-tip{position:fixed;pointer-events:none;z-index:50;background:var(--tip-bg,#1a2535);color:var(--tip-fg,#e6e9ef);border:1px solid #3a4a5e;border-radius:8px;padding:8px 12px;font-size:13px;line-height:1.55;white-space:normal;max-width:min(560px,90vw);min-width:160px;min-height:40px;display:none;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+body:not(.dark) #ec-tip{--tip-bg:#fff;--tip-fg:#14213d;border-color:#cdd5e0;box-shadow:0 4px 16px rgba(0,0,0,.12)}
+#ec-tip .tip-q{font-weight:700;margin-bottom:4px;color:#9aa3b2;font-size:13px}
+#ec-tip .tip-row{display:flex;align-items:center;gap:6px}
+#ec-tip .tip-sw{width:8px;height:8px;border-radius:50%;flex:none}
 #toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(8px);background:#1a2638;color:#e6e9ef;padding:9px 18px;border-radius:8px;font-size:14px;z-index:9999;pointer-events:none;opacity:0;transition:opacity .2s,transform .2s;max-width:min(360px,90vw);text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.3)}
 #formulatip{position:fixed;pointer-events:none;z-index:55;background:var(--tip-bg,#1a2535);color:var(--tip-fg,#e6e9ef);border:1px solid #3a4a5e;border-radius:6px;padding:7px 11px;font-size:13px;line-height:1.5;display:none;box-shadow:0 3px 12px rgba(0,0,0,.35);max-width:320px;white-space:normal}
 #formulatip .ftip-lbl{font-weight:600;color:#9aa3b2;font-size:12px;letter-spacing:.3px;text-transform:uppercase;margin-bottom:3px}
@@ -283,7 +289,7 @@ body:not(.dark) #formulatip{--tip-bg:#fff;--tip-fg:#14213d;border-color:#cdd5e0;
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 body:not(.dark) .lgon-row td{background:#e8f5e9!important}body.dark .lgon-row td{background:#0f2f1c!important}.lgon-row .lglink{font-weight:600}
 #pbar{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--accent,#1b7f3b);transition:width .3s ease,opacity .4s ease;z-index:10000;pointer-events:none}
-@media print{body{background:#fff!important;color:#000!important}.rail,.railsplit,#pbar,button,.modal,#charttip,header .buttons{display:none!important}.main{margin:0!important;padding:0!important}svg{break-inside:avoid;max-width:100%!important}body.dark{background:#fff!important;color:#000!important}.cards{flex-wrap:wrap!important}h1,h2{color:#000!important}}
+@media print{body{background:#fff!important;color:#000!important}.rail,.railsplit,#pbar,button,.modal,#charttip,header .buttons{display:none!important}.main{margin:0!important;padding:0!important}svg{break-inside:avoid;max-width:100%!important}body.dark{background:#fff!important;color:#000!important}.cards{flex-wrap:wrap!important}h1,h2{color:#000!important}#ec-tip{display:none!important}}
 </style></head><body class="dark">
 <div id="pbar"></div><div id="formulatip" style="display:none"></div>
 <header><button id="theme">☀ Light</button><h1>FR Y-9C Dashboard</h1>
@@ -449,19 +455,24 @@ const DEP=['BHDM6631','BHDM6636','BHFN6631','BHFN6636'];
 // Derived terms may be a bare 4-char base (coalesced across BHCK/BHDM/BHFN) OR an
 // explicit full MDRM code (used directly). Deposits MUST use explicit codes so the
 // domestic+foreign components are summed, not coalesced to just one.
+// HC-N item 9 leaf codes (items 1-8 only, 22 per column) — used as fallback for the
+// 1990-Q3–2017-Q4 reporting gap where BHCK1406/1407/1403 totals were not collected.
+const _HCN9_A=['BHCKF172','BHCKF173','BHCK3493','BHCK5398','BHCKC236','BHCKC238','BHCK3499','BHCKF178','BHCKF179','BHCKB572','BHCK5377','BHCK5380','BHCK1594','BHCK1606','BHCKB575','BHCKK213','BHCKK216','BHCK5389','BHCK5459','BHCKF166','BHCKF169','BHCKKX63'];
+const _HCN9_B=['BHCKF174','BHCKF175','BHCK3494','BHCK5399','BHCKC237','BHCKC239','BHCK3500','BHCKF180','BHCKF181','BHCKB573','BHCK5378','BHCK5381','BHCK1597','BHCK1607','BHCKB576','BHCKK214','BHCKK217','BHCK5390','BHCK5460','BHCKF167','BHCKF170','BHCKKX64'];
+const _HCN9_C=['BHCKF176','BHCKF177','BHCK3495','BHCK5400','BHCKC229','BHCKC230','BHCK3501','BHCKF182','BHCKF183','BHCKB574','BHCK5379','BHCK5382','BHCK1583','BHCK1608','BHCKB577','BHCKK215','BHCKK218','BHCK5391','BHCK5461','BHCKF168','BHCKF171','BHCKKX65'];
 const DERIV={
  'D_LOANSDEP':{type:'ratio',lbl:'Liquidity ▸ Loans / Deposits (%)',plus:['BHCK2122'],den:DEP},
  'D_DEPASSETS':{type:'ratio',lbl:'Funding ▸ Deposits / Assets (%)',plus:DEP,den:['BHCK2170']},
- 'D_NPL':{type:'ratio',lbl:'Credit ▸ NPL % (Past Due + Non Accrual / loans)',plus:['BHCK1403','BHCK1406','BHCK1407'],den:['BHCK2122']},
- 'D_NONCUR':{type:'ratio',lbl:'Credit ▸ Noncurrent ratio % (90+PD+nonaccrual / loans)',plus:['BHCK1403','BHCK1407'],den:['BHCK2122']},
+ 'D_NPL':{type:'hybrid_ratio',lbl:'Credit ▸ NPL % (Past Due + Non Accrual / loans)',parts:[{reported:'BHCK1406',components:_HCN9_A},{reported:'BHCK1407',components:_HCN9_B},{reported:'BHCK1403',components:_HCN9_C}],den:['BHCK2122']},
+ 'D_NONCUR':{type:'hybrid_ratio',lbl:'Credit ▸ Noncurrent ratio % (90+PD+nonaccrual / loans)',parts:[{reported:'BHCK1407',components:_HCN9_B},{reported:'BHCK1403',components:_HCN9_C}],den:['BHCK2122']},
  'D_RESLOANS':{type:'ratio',lbl:'Credit ▸ Reserves / Loans (%)',plus:['BHCK3123'],den:['BHCK2122']},
  'D_RESCOV':{type:'ratio',lbl:'Credit ▸ Reserve coverage of noncurrent (%)',plus:['BHCK3123'],den:['BHCK1403','BHCK1407']},
  'D_EQASSETS':{type:'ratio',lbl:'Capital ▸ Equity / Assets (%)',plus:['BHCK3210'],den:['BHCK2170']},
  'D_ROA':{type:'ratio',lbl:'Earnings ▸ Return on assets % (annualized, NI/assets)',plus:['BHCK4340'],den:['BHCK2170'],annualize:true},
  'D_ROE':{type:'ratio',lbl:'Earnings ▸ Return on equity % (annualized, NI/equity)',plus:['BHCK4340'],den:['BHCK3210'],annualize:true},
  'S_DEP':{type:'sum',lbl:'Subtotal ▸ Total deposits $ (BHDM+BHFN 6631/6636)',plus:DEP},
- 'S_NPL':{type:'sum',lbl:'Subtotal ▸ Past-due + nonaccrual loans $ (30-89+90++nonaccrual)',plus:['BHCK1403','BHCK1406','BHCK1407']},
- 'S_NONCUR':{type:'sum',lbl:'Subtotal ▸ Noncurrent loans $ (1403+1407)',plus:['BHCK1403','BHCK1407']},
+ 'S_NPL':{type:'hybrid_sum',lbl:'Subtotal ▸ Past-due + nonaccrual loans $ (30-89+90++nonaccrual)',parts:[{reported:'BHCK1406',components:_HCN9_A},{reported:'BHCK1407',components:_HCN9_B},{reported:'BHCK1403',components:_HCN9_C}]},
+ 'S_NONCUR':{type:'hybrid_sum',lbl:'Subtotal ▸ Noncurrent loans $ (1403+1407)',parts:[{reported:'BHCK1407',components:_HCN9_B},{reported:'BHCK1403',components:_HCN9_C}]},
  'D_NPL_CI':{type:'ratio',lbl:'Loan quality ▸ C&I NPL % (Past Due + Non Accrual / C&I loans)',plus:['BHCK1606','BHCK1607','BHCK1608'],den:['BHCK1763','BHCK1764']},
  'D_NPL_CC':{type:'ratio',lbl:'Loan quality ▸ Credit card NPL % (Past Due + Non Accrual / CC loans)',plus:['BHCKB575','BHCKB576','BHCKB577'],den:['BHCKB538']},
  'D_NPL_AUTO':{type:'ratio',lbl:'Loan quality ▸ Auto NPL % (Past Due + Non Accrual / auto loans)',plus:['BHCKK213','BHCKK214','BHCKK215'],den:['BHCKK137']},
@@ -477,7 +488,7 @@ const DERIV={
 };
 const DYN={};   // dynamic subtotal measures created by clicking a grouping/total row in the tree
 const USERCALC={};  // user-defined custom calculated series (session-only)
-const DKIND=m=>(DERIV[m]||DYN[m]||USERCALC[m])?.type||null;const isPct=m=>DKIND(m)==='ratio'||(USERCALC[m]?.type==='expr'&&!!USERCALC[m]?.pct);
+const DKIND=m=>(DERIV[m]||DYN[m]||USERCALC[m])?.type||null;const isPct=m=>DKIND(m)==='ratio'||DKIND(m)==='hybrid_ratio'||(USERCALC[m]?.type==='expr'&&!!USERCALC[m]?.pct);
 // HC-R raw codes that are RATIOS / PERCENTAGES (not $ thousands) — so they chart on the % axis
 const PCTC=new Set(['BHCA7204','BHCAP793','BHCWP793','BHCA7206','BHCW7206','BHCA7205','BHCW7205',
  'BHCAH311','BHCWH311','BHCAH036','BHCALF23','BHCWLF23','BHCALF24','BHCWLF24','BHCALF25','BHCWLF25',
@@ -700,6 +711,17 @@ async function seriesFor(id,m){const cond=scopeCond(id);if(cond==null)return [];
    _seriesCache.set(_sk,out);return out;}
  // For ALL with pre-agg loaded (TOPMODE=top): route through t_agg for instant results
  if(id==='ALL'&&aggLoaded&&TOPMODE==='top'){
+   if(d&&!DYN[m]&&!USERCALC[m]&&(d.type==='hybrid_ratio'||d.type==='hybrid_sum')){
+     const allCodes=[...new Set([...d.parts.flatMap(p=>[p.reported,...p.components]),...(d.den||[]).flatMap(term2codes)])];
+     const r=(await conn.query(`SELECT quarter_end,mdrm,value v FROM t_agg WHERE mdrm IN (${sqlList(allCodes)}) ORDER BY quarter_end`)).toArray();
+     const byq={};for(const x of r){(byq[x.quarter_end]=byq[x.quarter_end]||{})[x.mdrm]=Number(x.v);}
+     const acc2=(mp,arr)=>{let s=0,seen=false;for(const t of arr){const v=termVal(mp,t);if(v!=null){s+=v;seen=true;}}return[s,seen];};
+     const out=[];for(const q of Object.keys(byq).sort()){const mp=byq[q];
+       let num=0,anyN=false;
+       for(const part of d.parts){const rv=termVal(mp,part.reported);if(rv!=null){num+=rv;anyN=true;}else{const[cs,csSeen]=acc2(mp,part.components);if(csSeen){num+=cs;anyN=true;}}}
+       if(d.type==='hybrid_sum'){if(anyN)out.push([q,num]);}
+       else{const[dp,ds]=acc2(mp,d.den||[]);if(anyN&&ds&&dp>0)out.push([q,100*num/dp]);}}
+     _seriesCache.set(_sk,out);return out;}
    if(d&&!DYN[m]&&!USERCALC[m]){
      const terms=[...d.plus,...(d.minus||[]),...(d.den||[])];
      const codes=[...new Set(terms.flatMap(term2codes))];
@@ -718,6 +740,20 @@ async function seriesFor(id,m){const cond=scopeCond(id);if(cond==null)return [];
      if(isRawPct(m))return [];
      const r=(await conn.query(`SELECT quarter_end,value v FROM t_agg WHERE mdrm='${m}' ORDER BY quarter_end`)).toArray();
      const res=r.map(x=>[String(x.quarter_end),Number(x.v)]);_seriesCache.set(_sk,res);return res;}}
+ if(d&&(d.type==='hybrid_ratio'||d.type==='hybrid_sum')){
+   const allCodes=[...new Set([...d.parts.flatMap(p=>[p.reported,...p.components]),...(d.den||[]).flatMap(term2codes)])];
+   const r=(await conn.query(`SELECT id_rssd,quarter_end,mdrm,value FROM t WHERE ${cond} AND mdrm IN (${sqlList(allCodes)})`)).toArray();
+   const byqe={};for(const x of r){((byqe[x.quarter_end]=byqe[x.quarter_end]||{})[x.id_rssd]=byqe[x.quarter_end][x.id_rssd]||{})[x.mdrm]=Number(x.value);}
+   const acc=(mp,arr)=>{let s=0,seen=false;for(const t of arr){const v=termVal(mp,t);if(v!=null){s+=v;seen=true;}}return[s,seen];};
+   const out=[];for(const q of Object.keys(byqe).sort()){let num=0,den=0,anyN=false,anyD=false;
+     for(const id2 of Object.keys(byqe[q])){const mp=byqe[q][id2];
+       let pnum=0,pany=false;
+       for(const part of d.parts){const rv=termVal(mp,part.reported);if(rv!=null){pnum+=rv;pany=true;}else{const[cs,csSeen]=acc(mp,part.components);if(csSeen){pnum+=cs;pany=true;}}}
+       if(pany){num+=pnum;anyN=true;}
+       const[dp,ds]=acc(mp,d.den||[]);den+=dp;if(ds)anyD=true;}
+     if(d.type==='hybrid_sum'){if(anyN)out.push([q,num]);}
+     else if(anyN&&anyD&&den>0)out.push([q,100*num/den]);}
+   _seriesCache.set(_sk,out);return out;}
  if(d){const terms=[...d.plus,...(d.minus||[]),...(d.den||[])];
    const codes=[];for(const t of terms)for(const c of term2codes(t))codes.push(c);
    const r=(await conn.query(`SELECT id_rssd,quarter_end,mdrm,value FROM t WHERE ${cond} AND mdrm IN (${sqlList(codes)})`)).toArray();
@@ -1263,6 +1299,7 @@ function applyChartSize(){
 }
 function draw(){const host=document.getElementById('panes');
  if(!lastSeries.length){host.innerHTML='<p class="muted">Pick an entity, then click a line item on the left.</p>';document.getElementById('cards').innerHTML='';document.getElementById('tbl').innerHTML='';return;}
+ window._hybridOnChart=measures.some(m=>DERIV[m.code]?.type==='hybrid_ratio'||DERIV[m.code]?.type==='hybrid_sum');
  const win=Qall.slice(rangeSel.a,rangeSel.b+1),ws=new Set(win);
  const normOn=document.getElementById('normbyassets')&&document.getElementById('normbyassets').checked;
  const workSeries=normOn?lastSeries.map(s=>{if(s.pct)return s;const am=_assetRows.get(s.eid)||{};const norm=s.rows.map(([q,v])=>{const a=am[q];return [q,v!=null&&a&&a!==0?100*v/a:null];});return {...s,rows:norm,pct:true,_normLabel:s.label+' / assets %'};}).map(s=>s._normLabel?{...s,label:s._normLabel}:s):lastSeries;
@@ -1330,15 +1367,15 @@ function draw(){const host=document.getElementById('panes');
  }else if(snapEl){snapEl.innerHTML='';} const _aBtn=document.getElementById('addchartbtn');if(_aBtn)_aBtn.style.display='';drawExtraCharts();}
 // ---- extra charts ----
 let _extraCharts=[],_nextChartId=1;window._addToChartId=null;
-function addChart(){const id=_nextChartId++;_extraCharts.push({id,measures:[],lastSeries:[]});renderExtraChartsArea();}
+function addChart(){const id=_nextChartId++;_extraCharts.push({id,measures:[],lastSeries:[],transforms:{normByAssets:false,stacked:false,idx:false,qoqdelta:false},_pinnedQ:null,_idxBase:null,_hovQ:null,_hovTx:null,_hovTy:null});renderExtraChartsArea();}
 function removeChart(id){_extraCharts=_extraCharts.filter(c=>c.id!==id);if(window._addToChartId===id)window._addToChartId=null;renderExtraChartsArea();}
 function setChartTarget(id){window._addToChartId=(window._addToChartId===id)?null:id;document.querySelectorAll('.ec-target-btn').forEach(b=>{b.style.background='';b.style.color='';});if(window._addToChartId!=null){const b=document.getElementById('ec-tgt-'+window._addToChartId);if(b){b.style.background='var(--acc,#1d4ed8)';b.style.color='#fff';}}if(window._addToChartId!=null)showToast('Click tree items to add to Chart '+(window._addToChartId+1),'warn');}
 window.addChart=addChart;window.removeChart=removeChart;window.setChartTarget=setChartTarget;
-function renderExtraChartsArea(){const area=document.getElementById('extracharts-area');if(!area)return;area.innerHTML=_extraCharts.map(chart=>`<div class="extra-chart" id="ec-${chart.id}" style="margin-top:14px;border-top:1px solid var(--head,#eef2f7);padding-top:8px"><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px"><b style="font-size:13px;color:var(--muted,#9aa3b2)">Chart ${chart.id+1}</b><button class="sec" style="font-size:12px;padding:1px 6px" onclick="removeChart(${chart.id})">✕</button><button class="sec ec-target-btn" id="ec-tgt-${chart.id}" style="font-size:12px;padding:1px 6px" onclick="setChartTarget(${chart.id})">▶ Add items</button><span id="ec-mchips-${chart.id}"></span></div><div id="ec-panes-${chart.id}"><p class="muted" style="font-size:13px">Click ▶ Add items, then a line item on the left.</p></div></div>`).join('');_extraCharts.forEach(c=>renderExtraChartChips(c));drawExtraCharts();}
+function renderExtraChartsArea(){const area=document.getElementById('extracharts-area');if(!area)return;area.innerHTML=_extraCharts.map(chart=>`<div class="extra-chart" id="ec-${chart.id}" style="margin-top:14px;border-top:1px solid var(--head,#eef2f7);padding-top:8px"><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px"><b style="font-size:13px;color:var(--muted,#9aa3b2)">Chart ${chart.id+1}</b><button class="sec" style="font-size:12px;padding:1px 6px" onclick="removeChart(${chart.id})">✕</button><button class="sec ec-target-btn" id="ec-tgt-${chart.id}" style="font-size:12px;padding:1px 6px" onclick="setChartTarget(${chart.id})">▶ Add items</button><span id="ec-mchips-${chart.id}"></span><label style="font-size:12px;cursor:pointer;user-select:none"><input type="checkbox" data-cid="${chart.id}" data-tfm="normByAssets"${chart.transforms.normByAssets?' checked':''}> ÷ assets</label><label style="font-size:12px;cursor:pointer;user-select:none"><input type="checkbox" data-cid="${chart.id}" data-tfm="stacked"${chart.transforms.stacked?' checked':''}> ◫ stack</label><label style="font-size:12px;cursor:pointer;user-select:none"><input type="checkbox" data-cid="${chart.id}" data-tfm="idx"${chart.transforms.idx?' checked':''}> ⊡ idx</label><label style="font-size:12px;cursor:pointer;user-select:none"><input type="checkbox" data-cid="${chart.id}" data-tfm="qoqdelta"${chart.transforms.qoqdelta?' checked':''}> QoQ Δ</label></div><div id="ec-panes-${chart.id}"><p class="muted" style="font-size:13px">Click ▶ Add items, then a line item on the left.</p></div></div>`).join('');_extraCharts.forEach(c=>renderExtraChartChips(c));drawExtraCharts();}
 function renderExtraChartChips(chart){const c=document.getElementById('ec-mchips-'+chart.id);if(!c)return;c.innerHTML=chart.measures.map((m,i)=>`<span class="chip" style="font-size:12px"><b>${m.label}</b> <span class="muted">${m.pct?'%':'$'}</span><span class="x" data-ci="${chart.id}" data-i="${i}">✕</span></span>`).join('');c.querySelectorAll('.x').forEach(x=>x.onclick=()=>{const ch=_extraCharts.find(c=>c.id===+x.dataset.ci);if(ch){ch.measures.splice(+x.dataset.i,1);renderExtraChartChips(ch);recomputeExtraCharts().then(()=>drawExtraCharts());}});}
 async function recomputeExtraCharts(){for(const chart of _extraCharts){if(!chart.measures.length||!active.length){chart.lastSeries=[];continue;}const out=[];let ci=0;for(const m of chart.measures)for(const e of active){const rows=await seriesFor(e.id,m.code);const mlbl=fullCap(m.code)||m.label;const label=`${e.label} · ${mlbl}`;out.push({label,pct:m.pct,rows,color:COLORS[ci++%COLORS.length],eid:e.id});}chart.lastSeries=out;}}
 function drawExtraCharts(){if(!_extraCharts.length)return;const win=Qall.slice(rangeSel.a,rangeSel.b+1),ws=new Set(win);for(const chart of _extraCharts)drawExtraChart(chart,win,ws);applyChartSize();}
-function drawExtraChart(chart,win,ws){const host=document.getElementById('ec-panes-'+chart.id);if(!host)return;if(!chart.lastSeries.length){host.innerHTML='<p class="muted" style="font-size:13px">Click ▶ Add items, then a line item on the left.</p>';return;}const _m=measures;measures=chart.measures;let html='';try{const normOn=document.getElementById('normbyassets')&&document.getElementById('normbyassets').checked;const stackedOn=!!(document.getElementById('stackedmode')?.checked);const workSeries=normOn?chart.lastSeries.map(s=>{if(s.pct)return s;const am=_assetRows.get(s.eid)||{};const norm=s.rows.map(([q,v])=>{const a=am[q];return[q,v!=null&&a&&a!==0?100*v/a:null];});return{...s,rows:norm,pct:true,_normLabel:s.label+' / assets %'};}).map(s=>s._normLabel?{...s,label:s._normLabel}:s):chart.lastSeries;const hasDol=workSeries.some(s=>!s.pct),hasPct=workSeries.some(s=>s.pct);if(hasDol&&hasPct){const lF=workSeries.filter(s=>!s.pct),rF=workSeries.filter(s=>s.pct);html+=paneDual(lF.map(s=>({...s,rows:s.rows.filter(r=>ws.has(r[0]))})),rF.map(s=>({...s,rows:s.rows.filter(r=>ws.has(r[0]))})),win);}else{const groups=[['$ thousands',workSeries.filter(s=>!s.pct)],['percent',workSeries.filter(s=>s.pct)]];for(const[unit,arr]of groups){if(!arr.length)continue;html+=pane(arr.map(s=>({...s,rows:s.rows.filter(r=>ws.has(r[0]))})),unit==='percent',unit,win,stackedOn&&unit==='$ thousands');}}if(document.getElementById('idx')&&document.getElementById('idx').checked){const dol=chart.lastSeries.filter(s=>!s.pct);if(dol.length){const w=dol.map(s=>{const rw=s.rows.filter(r=>ws.has(r[0]));let bb;if(_idxBase){bb=rw.find(r=>r[0]===_idxBase&&r[1]!=null&&r[1]!==0)||rw.find(r=>r[1]!=null&&r[1]!==0);}else{bb=rw.find(r=>r[1]!=null&&r[1]!==0);}const b=bb&&bb[1];return{...s,rows:b?rw.map(([q,v])=>[q,v==null?null:100*v/b]):[]};});const baseLbl=_idxBase?` (base: ${_idxBase})`:'';html+=`<div class="idx-pane"><div style="font-size:12px;color:var(--muted,#9aa3b2);padding:2px 14px">Index to 100${baseLbl}</div>`;html+=pane(w,false,'index',win);html+=`</div>`;}}if(document.getElementById('qoqdelta')&&document.getElementById('qoqdelta').checked){const dol=chart.lastSeries.filter(s=>!s.pct);if(dol.length){const w=dol.map(s=>{const rw=s.rows.filter(r=>ws.has(r[0]));const qm=Object.fromEntries(s.rows.map(r=>[r[0],r[1]]));const dd=rw.map(r=>{const pQ=prevQtr(r[0]);const pv=pQ in qm?qm[pQ]:null;return[r[0],r[1]!=null&&pv!=null?r[1]-pv:null];}).filter(r=>r[1]!=null);return{...s,rows:dd,pct:false};});html+=pane(w,false,'$ thousands',win);}}}finally{measures=_m;}host.innerHTML=html;}
+function drawExtraChart(chart,win,ws){const host=document.getElementById('ec-panes-'+chart.id);if(!host)return;if(!chart.lastSeries.length){host.innerHTML='<p class="muted" style="font-size:13px">Click ▶ Add items, then a line item on the left.</p>';return;}const _m=measures;measures=chart.measures;const _prevHybrid=window._hybridOnChart;window._hybridOnChart=chart.measures.some(m=>DERIV[m.code]?.type==='hybrid_ratio'||DERIV[m.code]?.type==='hybrid_sum');let html='';try{const normOn=!!chart.transforms.normByAssets;const stackedOn=!!chart.transforms.stacked;const workSeries=normOn?chart.lastSeries.map(s=>{if(s.pct)return s;const am=_assetRows.get(s.eid)||{};const norm=s.rows.map(([q,v])=>{const a=am[q];return[q,v!=null&&a&&a!==0?100*v/a:null];});return{...s,rows:norm,pct:true,_normLabel:s.label+' / assets %'};}).map(s=>s._normLabel?{...s,label:s._normLabel}:s):chart.lastSeries;const hasDol=workSeries.some(s=>!s.pct),hasPct=workSeries.some(s=>s.pct);if(hasDol&&hasPct){const lF=workSeries.filter(s=>!s.pct),rF=workSeries.filter(s=>s.pct);html+=paneDual(lF.map(s=>({...s,rows:s.rows.filter(r=>ws.has(r[0]))})),rF.map(s=>({...s,rows:s.rows.filter(r=>ws.has(r[0]))})),win);}else{const groups=[['$ thousands',workSeries.filter(s=>!s.pct)],['percent',workSeries.filter(s=>s.pct)]];for(const[unit,arr]of groups){if(!arr.length)continue;html+=pane(arr.map(s=>({...s,rows:s.rows.filter(r=>ws.has(r[0]))})),unit==='percent',unit,win,stackedOn&&unit==='$ thousands');}}if(chart.transforms.idx){const dol=chart.lastSeries.filter(s=>!s.pct);if(dol.length){const w=dol.map(s=>{const rw=s.rows.filter(r=>ws.has(r[0]));let bb;if(chart._idxBase){bb=rw.find(r=>r[0]===chart._idxBase&&r[1]!=null&&r[1]!==0)||rw.find(r=>r[1]!=null&&r[1]!==0);}else{bb=rw.find(r=>r[1]!=null&&r[1]!==0);}const b=bb&&bb[1];return{...s,rows:b?rw.map(([q,v])=>[q,v==null?null:100*v/b]):[]};});const baseLbl=chart._idxBase?` (base: ${chart._idxBase})`:'';html+=`<div class="idx-pane"><div style="font-size:12px;color:var(--muted,#9aa3b2);padding:2px 14px">Index to 100${baseLbl} — click chart to rebase${chart._idxBase?` · <a href="#" id="ec-idxbasereset" style="color:var(--muted,#9aa3b2)">reset</a>`:''}`;html+=pane(w,false,'index',win);html+=`</div>`;}}if(chart.transforms.qoqdelta){const dol=chart.lastSeries.filter(s=>!s.pct);if(dol.length){const w=dol.map(s=>{const rw=s.rows.filter(r=>ws.has(r[0]));const qm=Object.fromEntries(s.rows.map(r=>[r[0],r[1]]));const dd=rw.map(r=>{const pQ=prevQtr(r[0]);const pv=pQ in qm?qm[pQ]:null;return[r[0],r[1]!=null&&pv!=null?r[1]-pv:null];}).filter(r=>r[1]!=null);return{...s,rows:dd,pct:false};});html+=pane(w,false,'$ thousands',win);}}}finally{measures=_m;window._hybridOnChart=_prevHybrid;}host.innerHTML=html;if(chart._pinnedQ){document.querySelectorAll(`#ec-${chart.id} .qband[data-q="${chart._pinnedQ}"]`).forEach(g=>g.classList.add('qband-pinned'));}}
 function pane(series,pct,unit,win,stacked){const W=1080,pad=64,n=win.length;const _showL=window._inlineLbls!==false;const _gut=16;const _vbw=W+_gut;const _pinned=window._chartW>40&&window._chartH>40;let H=_pinned?Math.round(_vbw*window._chartH/window._chartW):420;H=Math.max(260,Math.min(2800,H));const _svgsty=(_pinned?'width:100%;height:100%':'width:100%;height:auto')+';display:block';const xi=Object.fromEntries(win.map((q,i)=>[q,i]));
  let mn=Infinity,mx=-Infinity;for(const s of series)for(const r of s.rows){mn=Math.min(mn,r[1]);mx=Math.max(mx,r[1]);}
  if(!isFinite(mn)){const aC=DK()?'#9aa3b2':'#5a6478';return `<div class="chartbox"><svg viewBox="0 0 ${_vbw} ${H}" preserveAspectRatio="none" style="${_svgsty}" xmlns="http://www.w3.org/2000/svg"><text x="${(_vbw/2).toFixed(0)}" y="${(H/2).toFixed(0)}" font-size="16" fill="${aC}" text-anchor="middle" dominant-baseline="middle">No data available for this entity / date range</text></svg></div>`;}
@@ -1359,6 +1396,7 @@ function pane(series,pct,unit,win,stacked){const W=1080,pad=64,n=win.length;cons
    tk+=`<line x1="${sx}" y1="${pad}" x2="${sx}" y2="${H-pad}" stroke="${sC}" stroke-width="1" stroke-dasharray="3 3"></line><text x="${sx}" y="${pad-3}" font-size="9" fill="${sC}" text-anchor="middle">RSSD change</text>`;}
  const recC=DK()?'rgba(217,119,6,0.09)':'rgba(217,119,6,0.07)';
  for(const [rs,re,rl] of RECESSIONS){const i0=win.findIndex(q=>q>=rs);const i1=win.reduceRight((a,q,i)=>a<0&&q<=re?i:a,-1);if(i0<0||i1<0||i0>i1)continue;const rx=X(i0),rx2=X(i1);tk+=`<rect x="${rx.toFixed(1)}" y="${pad}" width="${Math.max(2,rx2-rx).toFixed(1)}" height="${H-2*pad}" fill="${recC}"></rect><text x="${((rx+rx2)/2).toFixed(1)}" y="${pad-3}" font-size="8" fill="#d97706" text-anchor="middle" opacity=".7">${rl}</text>`;}
+ if(window._hybridOnChart){const gi0=win.findIndex(q=>q>='1990-09-30');const gi1=win.reduceRight((a,q,i)=>a<0&&q<='2017-12-31'?i:a,-1);if(gi0>=0&&gi1>=0&&gi0<=gi1){const gx=X(gi0),gx2=X(gi1);const gapC=DK()?'rgba(100,116,139,0.10)':'rgba(100,116,139,0.07)';tk+=`<rect x="${gx.toFixed(1)}" y="${pad}" width="${Math.max(2,gx2-gx).toFixed(1)}" height="${H-2*pad}" fill="${gapC}" stroke-dasharray="2 2" stroke="${DK()?'#475569':'#94a3b8'}" stroke-width="0.5"></rect><text x="${((gx+gx2)/2).toFixed(1)}" y="${(pad-12).toFixed(1)}" font-size="8" fill="${DK()?'#94a3b8':'#64748b'}" text-anchor="middle" opacity=".75">reconstructed</text>`;}}
  if(_reflineVal!=null&&_reflineVal>=mn&&_reflineVal<=mx){const ry=Y(_reflineVal).toFixed(1);tk+=`<line x1="${pad}" y1="${ry}" x2="${W-pad}" y2="${ry}" stroke="#e07a1f" stroke-width="1.5" stroke-dasharray="5 3"></line><text x="${pad+4}" y="${+ry-4}" font-size="9" fill="#e07a1f">${_reflineLbl||_reflineVal}</text>`;}
  const dotC=DK()?'#0f1825':'#fff';
  const byQ={};   // win-index -> {x, q, items:[{cy,color,label,val}]} for nearest-X hover snapping
@@ -1591,7 +1629,7 @@ async function buildReport(rssd,latestQ,qtrs){
  const assets=get('BHCK2170'),loans=get('BHCK2122'),dep=depSum(),eq=get('BHCK3210'),ni=get('BHCK4340');
  const nii=get('BHCK4074'),niexp=get('BHCK4093'),niinc=get('BHCK4079');
  const coff=get('BHCK4635'),rec=get('BHCK4605'),alll=get('BHCK3123');
- const npl30=get('BHCK1403'),npl90=get('BHCK1406'),nona=get('BHCK1407');
+ const npl30=get('BHCK1406'),npl90=get('BHCK1407'),nona=get('BHCK1403');
  const npl=(npl30!=null||npl90!=null||nona!=null)?((npl30||0)+(npl90||0)+(nona||0)):null;
  const noncur=(npl90!=null||nona!=null)?((npl90||0)+(nona||0)):null;
  const cet1=get('BHCAP793')??get('BHCWP793'),tier1=get('BHCA7205')??get('BHCW7205');
@@ -1900,6 +1938,7 @@ async function runsql(){try{const r=(await conn.query(document.getElementById('s
       const fv=s.pct?(+v).toFixed(2)+'%':fmtUnit(v,false);
       const tpts=s.label.split(' \xb7 ');const nE=active.length,nM=measures.length;const tl=(nE>1&&nM===1?tpts[0]:(nE===1?tpts.slice(1).join(' · ')||s.label:s.label));
       html+=`<div class="tip-row"><span class="tip-sw" style="background:${s.color}"></span>${tl}: <b>${fv}</b></div>`;}
+    if(window._hybridOnChart&&q>='1990-09-30'&&q<='2017-12-31')html+=`<div style="font-size:11px;color:#64748b;margin-top:2px;font-style:italic">⚠ HC-N item 9 reconstructed from sub-items</div>`;
     html+=`<div style="font-size:12px;color:#9aa3b2;margin-top:3px;opacity:.6">click to pin</div>`;
     tip.innerHTML=html;tip.style.display='block';
     let tx=qScreenX+14;if(tx+tip.offsetWidth>window.innerWidth-8)tx=qScreenX-14-tip.offsetWidth;if(tx<8)tx=8;
@@ -1929,6 +1968,69 @@ async function runsql(){try{const r=(await conn.query(document.getElementById('s
       tip.style.display='block';
       document.querySelectorAll(`#panes .qband[data-q="${window._pinnedQ}"]`).forEach(g=>g.classList.add('qband-pinned'));
     }});
+})();
+(function(){
+  const ecTip=document.createElement('div');ecTip.id='ec-tip';document.body.appendChild(ecTip);
+  const _ro2=new ResizeObserver(()=>{if(_ecPinnedChart){_ecTipW=ecTip.offsetWidth+'px';_ecTipH=ecTip.offsetHeight+'px';}});
+  _ro2.observe(ecTip);
+  let _ecHovChart=null,_ecPinnedChart=null,_ecTipW=null,_ecTipH=null;
+  const _ecHideHover=()=>{if(!_ecPinnedChart)ecTip.style.display='none';};
+  function showExtraTip(e,svg,chart){
+    if(!chart.lastSeries.length){if(!_ecPinnedChart)ecTip.style.display='none';return;}
+    if(_ecPinnedChart)return;
+    const win=Qall.slice(rangeSel.a,rangeSel.b+1);
+    if(!win.length){if(!_ecPinnedChart)ecTip.style.display='none';return;}
+    const br=svg.getBoundingClientRect();
+    const vb=svg.viewBox.baseVal;const svgW=br.width;const sc=svgW/vb.width;
+    const pl=+svg.dataset.pl||64,pw=+svg.dataset.pw||(vb.width-128);
+    const mx=e.clientX-br.left;
+    const frac=(mx-pl*sc)/(pw*sc);
+    const qi=Math.max(0,Math.min(win.length-1,Math.round(frac*(win.length-1))));
+    const q=win[qi];chart._hovQ=q;
+    const qSvgX=pl+qi*pw/Math.max(1,win.length-1);
+    const qScreenX=br.left+qSvgX*sc;
+    const maps=chart.lastSeries.map(s=>Object.fromEntries(s.rows));
+    let html=`<div class="tip-q">${q}</div>`;
+    for(let i=0;i<chart.lastSeries.length;i++){const s=chart.lastSeries[i];const v=maps[i][q];if(v==null)continue;
+      const fv=s.pct?(+v).toFixed(2)+'%':fmtUnit(v,false);
+      const tpts=s.label.split(' \xb7 ');const nE=active.length,nM=chart.measures.length;
+      const tl=(nE>1&&nM===1?tpts[0]:(nE===1?tpts.slice(1).join(' · ')||s.label:s.label));
+      html+=`<div class="tip-row"><span class="tip-sw" style="background:${s.color}"></span>${tl}: <b>${fv}</b></div>`;}
+    html+=`<div style="font-size:12px;color:#9aa3b2;margin-top:3px;opacity:.6">click to pin</div>`;
+    ecTip.innerHTML=html;ecTip.style.display='block';
+    let tx=qScreenX+14;if(tx+ecTip.offsetWidth>window.innerWidth-8)tx=qScreenX-14-ecTip.offsetWidth;if(tx<8)tx=8;
+    const ty=Math.max(8,Math.min(br.top+14,window.innerHeight-ecTip.offsetHeight-8));
+    ecTip.style.left=tx+'px';ecTip.style.top=ty+'px';
+    chart._hovTx=tx+'px';chart._hovTy=ty+'px';_ecHovChart=chart;}
+  const _ecArea=document.getElementById('extracharts-area');
+  _ecArea.addEventListener('pointermove',e=>{
+    const svg=e.target.closest('svg');if(!svg){_ecHideHover();return;}
+    const ecEl=e.target.closest('.extra-chart');if(!ecEl){_ecHideHover();return;}
+    const chart=_extraCharts.find(c=>c.id===+ecEl.id.slice(3));if(!chart){_ecHideHover();return;}
+    showExtraTip(e,svg,chart);});
+  _ecArea.addEventListener('pointerleave',()=>{_ecHideHover();});
+  _ecArea.addEventListener('click',e=>{
+    const chk=e.target.closest('input[data-cid][data-tfm]');
+    if(chk){const chart=_extraCharts.find(c=>c.id===+chk.dataset.cid);if(chart){chart.transforms[chk.dataset.tfm]=chk.checked;const win=Qall.slice(rangeSel.a,rangeSel.b+1);drawExtraChart(chart,win,new Set(win));}return;}
+    if(e.target.id==='ec-idxbasereset'){e.preventDefault();const ecEl=e.target.closest('.extra-chart');if(!ecEl)return;const chart=_extraCharts.find(c=>c.id===+ecEl.id.slice(3));if(chart){chart._idxBase=null;const win=Qall.slice(rangeSel.a,rangeSel.b+1);drawExtraChart(chart,win,new Set(win));}return;}
+    const svg=e.target.closest('svg');if(!svg)return;
+    const ecEl=e.target.closest('.extra-chart');if(!ecEl)return;
+    const chart=_extraCharts.find(c=>c.id===+ecEl.id.slice(3));if(!chart)return;
+    const win=Qall.slice(rangeSel.a,rangeSel.b+1),ws=new Set(win);
+    if(chart.transforms.idx&&_ecHovChart===chart&&chart._hovQ&&svg.closest('.idx-pane')){chart._idxBase=chart._hovQ;drawExtraChart(chart,win,ws);return;}
+    if(_ecPinnedChart===chart){
+      _ecPinnedChart=null;
+      document.querySelectorAll(`#ec-${chart.id} .qband`).forEach(g=>g.classList.remove('qband-pinned'));
+      ecTip.style.pointerEvents='none';ecTip.style.resize='none';ecTip.style.overflow='';ecTip.style.display='none';
+    }else if(_ecHovChart===chart&&chart._hovQ){
+      _ecPinnedChart=chart;chart._pinnedQ=chart._hovQ;
+      if(chart._hovTx){ecTip.style.left=chart._hovTx;ecTip.style.top=chart._hovTy;}
+      const cur=ecTip.innerHTML;ecTip.innerHTML=cur.replace(/<div style="font-size:12px[^"]*"[^>]*>click to pin<\/div>/,'');
+      ecTip.innerHTML+=`<div style="font-size:12px;color:#9aa3b2;margin-top:3px">📌 click to unpin · drag corner to resize</div>`;
+      ecTip.style.pointerEvents='auto';ecTip.style.resize='both';ecTip.style.overflow='auto';ecTip.style.boxSizing='border-box';
+      if(_ecTipW)ecTip.style.width=_ecTipW;if(_ecTipH)ecTip.style.height=_ecTipH;
+      ecTip.style.display='block';
+      document.querySelectorAll(`#ec-${chart.id} .qband[data-q="${chart._pinnedQ}"]`).forEach(g=>g.classList.add('qband-pinned'));}});
 })();
 init();
 </script></body></html>"""

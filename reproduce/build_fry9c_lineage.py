@@ -59,8 +59,8 @@ HOPS = 2
 RATIO_LO, RATIO_HI = 0.1, 8.0
 FLAG_LO, FLAG_HI = 0.5, 2.0
 STOP = set("FINANCIAL HOLDINGS HOLDING GROUP INC LLC CORP CORPORATION USA US CO COMPANY BANCORP "
-           "BANCORPORATION NA THE AMERICAS AMERICA BANK NATIONAL OF AND SERVICES CAPITAL MHC "
-           "SAVINGS MUTUAL FEDERAL".split())
+           "BANCORPORATION BANCSHARES BANCGROUP NA THE AMERICAS AMERICA BANK NATIONAL OF AND "
+           "SERVICES CAPITAL MHC SAVINGS MUTUAL FEDERAL".split())
 
 QEND = ["0331", "0630", "0930", "1231"]
 def qadd(q, n):
@@ -149,7 +149,7 @@ def seam_ratio(P, S, spans):
 
 def find_pred(S, spans, fam, tlink, toks):
     s = spans[S]; cands = []; seen = {S}; frontier = [S]
-    for _ in range(HOPS):
+    for hop in range(1, HOPS + 1):
         nxt = []
         for a in frontier:
             for y in fam.get(a, ()):
@@ -157,9 +157,14 @@ def find_pred(S, spans, fam, tlink, toks):
                 seen.add(y); nxt.append(y); sy = spans.get(y)
                 if not sy: continue
                 if not (qadd(s["first"], -HANDOFF_Q) <= sy["last"] < s["first"]): continue   # handoff timing
-                if not (toks(y) & toks(S) or (y, S) in tlink): continue                        # identity
+                is_tlink = (y, S) in tlink
+                name_match = bool(toks(y) & toks(S))
+                if not (name_match or is_tlink): continue                                      # identity
+                # NAME-ONLY at hop>1: 2-hop paths through large unrelated intermediaries
+                # (e.g. IberiaBank, Synovus) generate false positives — require direct family.
+                if name_match and not is_tlink and hop > 1: continue
                 r = seam_ratio(y, S, spans)
-                if r is None or not (RATIO_LO <= r <= RATIO_HI): continue                       # generous size sanity
+                if r is None or not (RATIO_LO <= r <= RATIO_HI): continue                     # generous size sanity
                 cands.append(y)
         frontier = nxt
     if not cands: return None
@@ -199,14 +204,24 @@ def build(spans, fam, tlink, names):
     return by_rssd, lineages
 
 def main():
-    argparse.ArgumentParser().parse_args()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--no-cache", action="store_true", help="Force fresh span calculation from panel")
+    args = ap.parse_args()
+    if args.no_cache and os.path.exists(SPAN_CACHE):
+        os.remove(SPAN_CACHE)
+        print(f"  (removed {SPAN_CACHE} for fresh rebuild)")
     for z in ("CSV_TRANSFORMATIONS.ZIP", "CSV_RELATIONSHIPS.ZIP"):
         if not os.path.exists(f"{NIC}/{z}"):
             sys.exit(f"missing {NIC}/{z} -- run download_fry9c_nic_playwright.py first")
     print("Loading filing spans...");     spans = get_spans()
     print("Parsing NIC graph...");        fam, tlink, names = nic_graph()
     print("Building lineages...");        by_rssd, lineages = build(spans, fam, tlink, names)
-    json.dump(by_rssd, open(OUT, "w"))
+    tmp = OUT + ".tmp"
+    json.dump(by_rssd, open(tmp, "w"))
+    os.replace(tmp, OUT)
+    # Verify the write landed intact
+    check = json.load(open(OUT))
+    assert len(check) == len(by_rssd), f"atomic-write verify failed: expected {len(by_rssd)} keys, got {len(check)}"
     multi = [l for l in lineages if len(l["members"]) > 1]
     print(f"\nWrote {OUT}: {len(multi)} multi-RSSD lineages covering {len(by_rssd)} RSSDs.")
 
