@@ -44,6 +44,7 @@
  #snapshot{resize:horizontal;overflow:auto;max-width:100%;min-width:200px;box-sizing:border-box}
  #tbl{resize:horizontal;overflow:auto;max-width:100%;min-width:200px;box-sizing:border-box}
  #calcdiv{resize:horizontal;overflow:auto;box-sizing:border-box}
+ #peerbox{resize:horizontal;overflow:auto;max-width:100%;min-width:200px;box-sizing:border-box}
  /* Task 3: inline-label overlay — draggable, resizable, persisted */
  #lbl-overlay{position:fixed;z-index:30;background:var(--bg,#fff);border:1px solid var(--border,#cdd5e0);border-radius:8px;padding:6px 10px;font-size:13px;box-shadow:0 3px 12px rgba(0,0,0,.18);resize:both;overflow:auto;min-width:100px;min-height:32px;cursor:move;user-select:none;box-sizing:border-box;display:none}
  body.dark #lbl-overlay{background:#0f1825;border-color:#2a3547}
@@ -218,7 +219,7 @@ body:not(.dark) .lgon-row td{background:#e8f5e9!important}body.dark .lgon-row td
    <textarea id="sql">SELECT quarter_end, value FROM t WHERE mdrm='BHCK2170' AND id_rssd=1039502 ORDER BY quarter_end;</textarea>
    <div style="margin-top:8px"><button id="runsql" class="sec">Run</button> <button id="sqlcsv" class="sec">Export result</button></div>
    <div id="sqlout"></div></details>
-  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-06-30 10:16</div>
+  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-06-30 11:02</div>
  </div>
 </div>
 <div id="formmodal" class="modal" style="display:none"><div class="modalbox">
@@ -753,7 +754,7 @@ function exportFormulas(){const s=getFormulasJson();const b=new Blob([s],{type:'
  if(!restored){active=[{id:'ALL',label:'ALL'}];}
  if(!measures.length){try{const s=localStorage.getItem('fry9c_measures');if(s){const ms=JSON.parse(s);if(Array.isArray(ms)&&ms.length)measures=ms.slice(0,20);}}catch{}if(!measures.length)measures=[{code:'BHCK2170',label:'Total assets',pct:false}];}
  renderChips();renderMeasures();renderPeerSaved();
- initWidthResize('cards','fry9c_cardsw');initWidthResize('mchips','fry9c_legendw');initWidthResize('tbl','fry9c_tblw');initWidthResize('snapshot','fry9c_snapw');initWidthResize('calcdiv','fry9c_calcdivw');
+ initWidthResize('cards','fry9c_cardsw');initWidthResize('mchips','fry9c_legendw');initWidthResize('tbl','fry9c_tblw');initWidthResize('snapshot','fry9c_snapw');initWidthResize('calcdiv','fry9c_calcdivw');initWidthResize('peerbox','fry9c_peerbuilderw');
  st(`Ready — ${ROSTER.size} holding companies. Click items on the left.`);pbar(100);recompute();autoLoadFormulas();
  {const _rp=new URLSearchParams(location.hash.slice(1));if(_rp.get('report')==='1'&&active.length===1&&active[0].id.startsWith('BANK:'))openReport(active[0].id);}
 }catch(e){st('Load failed: '+e);console.error(e);}}
