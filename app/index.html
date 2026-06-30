@@ -219,7 +219,7 @@ body:not(.dark) .lgon-row td{background:#e8f5e9!important}body.dark .lgon-row td
    <textarea id="sql">SELECT quarter_end, value FROM t WHERE mdrm='BHCK2170' AND id_rssd=1039502 ORDER BY quarter_end;</textarea>
    <div style="margin-top:8px"><button id="runsql" class="sec">Run</button> <button id="sqlcsv" class="sec">Export result</button></div>
    <div id="sqlout"></div></details>
-  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-06-30 18:55</div>
+  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-06-30 19:17</div>
  </div>
 </div>
 <div id="formmodal" class="modal" style="display:none"><div class="modalbox">
@@ -310,6 +310,9 @@ const DERIV={
  'S_DEP':{type:'sum',lbl:'Subtotal ▸ Total deposits $ (BHDM+BHFN 6631/6636)',plus:DEP},
  'S_NPL':{type:'hybrid_sum',lbl:'Subtotal ▸ Past-due + nonaccrual loans $ (30-89+90++nonaccrual)',parts:[{reported:'BHCK1406',components:_HCN9_A},{reported:'BHCK1407',components:_HCN9_B},{reported:'BHCK1403',components:_HCN9_C}]},
  'S_NONCUR':{type:'hybrid_sum',lbl:'Subtotal ▸ Noncurrent loans $ (1403+1407)',parts:[{reported:'BHCK1407',components:_HCN9_B},{reported:'BHCK1403',components:_HCN9_C}]},
+ 'BHCK1406':{type:'hybrid_sum',parts:[{reported:'BHCK1406',components:_HCN9_A}]},
+ 'BHCK1407':{type:'hybrid_sum',parts:[{reported:'BHCK1407',components:_HCN9_B}]},
+ 'BHCK1403':{type:'hybrid_sum',parts:[{reported:'BHCK1403',components:_HCN9_C}]},
  'D_NPL_CI':{type:'ratio',lbl:'Loan quality ▸ C&I NPL % (Past Due + Non Accrual / C&I loans)',plus:['BHCK1606','BHCK1607','BHCK1608'],den:['BHCK1763','BHCK1764']},
  'D_NPL_CC':{type:'ratio',lbl:'Loan quality ▸ Credit card NPL % (Past Due + Non Accrual / CC loans)',plus:['BHCKB575','BHCKB576','BHCKB577'],den:['BHCKB538']},
  'D_NPL_AUTO':{type:'ratio',lbl:'Loan quality ▸ Auto NPL % (Past Due + Non Accrual / auto loans)',plus:['BHCKK213','BHCKK214','BHCKK215'],den:['BHCKK137']},
@@ -900,7 +903,7 @@ function addSchedule(t,title,nodes){const pfx=secPrefix(nodes);const {sec,rows}=
 function toggleNode(row){if(!row._kids)return;const open=row._kids.style.display!=='none';row._kids.style.display=open?'none':'block';const c=row.querySelector('.caret');if(c)c.textContent=open?'▸':'▾';}
 function bumpDepth(nodes,by){for(const n of nodes){n.depth=(n.depth||1)+by;if(n.children)bumpDepth(n.children,by);}}
 function buildTree(){const t=document.getElementById('tree');t.innerHTML='';
- addSchedule(t,'★ Ratios & Subtotals',Object.keys(DERIV).map(k=>({code:k,caption:DERIV[k].lbl,num:'',depth:1,derived:true,pct:isPct(k),children:[]})));
+ addSchedule(t,'★ Ratios & Subtotals',Object.keys(DERIV).filter(k=>DERIV[k].lbl).map(k=>({code:k,caption:DERIV[k].lbl,num:'',depth:1,derived:true,pct:isPct(k),children:[]})));
  const allk=Object.keys(HIER);
  const bases=[...new Set(allk.map(k=>k.split(' — ')[0]))];
  const ordered=[...FORM_ORDER.filter(b=>bases.includes(b)),...bases.filter(b=>!FORM_ORDER.includes(b))];
