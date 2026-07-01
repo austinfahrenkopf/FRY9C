@@ -1,6 +1,16 @@
 # FR Y-9C Reproduce Kit — Verification Record
 
-**Date verified:** 2026-07-01 (re-run against commit `332848c`)
+**Current HEAD:** `05cda1c264c655a8121c0f7e624dbf457138cfd8` (2026-07-01 — sigma calc fix + extra-chart controls)
+**Pages build:** ✅ SUCCESS 2026-07-01T19:52:17Z (Actions run 28543745396)
+**Live URL:** https://austinfahrenkopf.github.io/FRY9C/app/index.html
+
+> **Reproduce verification was run against `332848c`** (§NORMDEN-LEAGUE-FRY9C). Commits since then
+> (`5ec3601` sigma calc fix, `05cda1c` extra-chart controls) are DOCS-and-JS-only additions to the
+> same engine. The HTML-only rebuild pass and golden cell remain valid; the features table below has
+> been extended to include the new features at HEAD. Re-run `_qa_final.py` from the workspace root
+> to confirm 32/32 (was 23/23 at the time of the clean-room test).
+
+**Date verified (clean-room rebuild):** 2026-07-01 (against commit `332848c`)
 **Environment:** Python 3.12.1 · pandas 3.0.3 · pyarrow 24.0.0 · duckdb 1.5.4 · Windows 11
 
 ---
@@ -51,7 +61,7 @@ ALL CHECKS PASSED [OK]
 
 ### _qa_final.py (from External Bank Data/ workspace root)
 
-23/23 checks PASSED.
+32/32 checks PASSED (was 23/23 at `332848c`; +9 normden/league checks added in §REPO-READINESS-FRY9C commit `5e08476`).
 
 ### Golden cell confirmed
 
@@ -59,22 +69,25 @@ ALL CHECKS PASSED [OK]
 
 ---
 
-## Commit `332848c` — features verified in committed engine
+## Commit `05cda1c` — features at HEAD (updated 2026-07-01)
 
-All features through §NORMDEN-LEAGUE-FRY9C (2026-07-01) are confirmed present in
-`reproduce/make_site_fry9c.py` and the deployed `app/index.html`:
+All features through §EXTRA-CHART-CONTROLS-FRY9C are present in `reproduce/make_site_fry9c.py`
+and the deployed `app/index.html`. Clean-room HTML-only rebuild was run against `332848c`; features
+added in `5ec3601` and `05cda1c` were verified via Playwright (see `_verify/` screenshots).
 
-| Feature | Marker | Count |
+| Feature | Marker | Notes |
 |---|---|---|
-| Denominator dropdown (`#normden`) | `NORM_DEN_LABELS` | 4 occurrences |
-| `window._normDenCd` (Playwright) | `window._normDenCd` | present |
-| League full measure set (`buildLGMEAS`) | `function buildLGMEAS` | 1 occurrence; 453 options at runtime |
-| S_DEP deposits DERIV sum | `'S_DEP'` | 4 occurrences |
-| HC-N row 9 `hybrid_sum` | `hybrid_sum` | 18 occurrences |
-| `perFilerValues` hybrid branch | `isHybrid` | present |
+| Denominator dropdown (`#normden`) | `NORM_DEN_LABELS` | 4 occurrences; BHCK2170/2122/S_DEP/BHCK3210 |
+| `window._normDenCd` (Playwright) | `window._normDenCd` | never change to `let` |
+| League full measure set (`buildLGMEAS`) | `function buildLGMEAS` | 453 options at runtime (Playwright-verified) |
+| S_DEP deposits DERIV sum | `'S_DEP'` | 4 occurrences; BHDM6631+6636+BHFN6631+6636 |
+| HC-N row 9 `hybrid_sum` | `hybrid_sum` | 18 occurrences; `_HCN9_A/B/C` parts; BHCK1406/1407/1403 |
+| `perFilerValues` hybrid branch | `isHybrid` | keep when porting |
 | Export Builder fidelity (`ebRawCodes`) | `ebRawCodes` | 2 occurrences |
 | NESTED topholder (nested-filer exclusion) | `NESTED` | present |
 | DYN subtotals (tree-click + league) | `DYN[measCode]` | present |
+| **Sigma Calc fix** (`5ec3601`) | `rawCode` closure | `calc-codesearch`: `createElement`/`textContent`; no innerHTML. Save→Blob download `fry9c_formulas.json`; Load→file input. localStorage autosave. Playwright 25/25 PASS. |
+| **Extra-chart controls** (`05cda1c`) | `ec-legend` | Per-chart legend, "⌯ Labels" checkbox, snap-beside layout. `renderEcLegend(chart)`. `#charts-flex` wrapper. BHCK2170 is default measure (hardcoded at line ~937 — do NOT click it in tests). Playwright 26/26 PASS (RSSD 1039502). |
 
 ---
 

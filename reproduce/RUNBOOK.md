@@ -1,5 +1,11 @@
 # FR Y-9C Dashboard — Build & Release Runbook
 
+**Current state (2026-07-01, commit `05cda1c`):** Full feature parity with FFIEC_002 and Call —
+sigma calc fix (DOM-safe code-search, file Save/Load), per-extra-chart legend + Labels checkbox +
+snap-beside layout, denominator dropdown (BHCK2170/2122/S_DEP/BHCK3210), league table (453 options),
+HC-N row 9 hybrid_sum reconstruction (BHCK1406/1407/1403), Export Builder fidelity fix.
+Pages build ✅ 2026-07-01T19:52:17Z. Golden: BHCK2170=4,900,475,000 @ 2026-03-31 (RSSD 1039502).
+
 Reproducible pipeline from free FFIEC/Fed data to the dashboard. Run from this folder.
 Setup once: `pip install pandas pyarrow pypdf playwright requests duckdb` and `playwright install chrome`.
 
