@@ -268,12 +268,6 @@
     },
     {
       "key": "HC-D",
-      "mdrm": "BHCKG334",
-      "item": "3.z",
-      "caption": "Trading assets: structured financial products by underlying collateral — issued by U.S. Government-sponsored enterprises"
-    },
-    {
-      "key": "HC-D",
       "mdrm": "BHCKG380",
       "item": "4.z",
       "caption": "Trading assets: mortgage-backed securities — other residential MBS issued or guaranteed by U.S. agencies or GSEs"
@@ -1653,6 +1647,174 @@
       "item": "12.c",
       "depth": 2,
       "caption": "Benefits, losses, and expenses from insurance-related activities"
+    },
+    {
+      "key": "HC-D",
+      "mdrm": "BHCKG209",
+      "item": "",
+      "depth": 1,
+      "caption": "Liability for short positions: equity securities"
+    },
+    {
+      "key": "HC-D",
+      "mdrm": "BHCKG210",
+      "item": "",
+      "depth": 1,
+      "caption": "Liability for short positions: debt securities"
+    },
+    {
+      "key": "HC-D",
+      "mdrm": "BHCKG211",
+      "item": "",
+      "depth": 1,
+      "caption": "Liability for short positions: all other assets"
+    },
+    {
+      "key": "HC-D",
+      "mdrm": "BHCKF624",
+      "item": "",
+      "depth": 1,
+      "caption": "Other trading liabilities"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHOD3187",
+      "item": "",
+      "depth": 1,
+      "caption": "NOW; ATS and other transaction accounts in domestic offices of commercial banks"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHOD2389",
+      "item": "",
+      "depth": 1,
+      "caption": "Nontransaction savings deposits"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHODHK29",
+      "item": "",
+      "depth": 1,
+      "caption": "Time deposits of less than $250;000"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHODJ474",
+      "item": "",
+      "depth": 1,
+      "caption": "Components of total nontransaction accounts: total time deposits of more than $250;000"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKF639",
+      "item": "",
+      "depth": 1,
+      "caption": "Loans measured at fair value that are past due by 90 days or more:  fair value"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHOD3189",
+      "item": "",
+      "depth": 1,
+      "caption": "Noninterest-bearing balances in domestic offices of other depository institutions"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKF640",
+      "item": "",
+      "depth": 1,
+      "caption": "Loans measured at fair value that are past due by 90 days or more: unpaid principal balance"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKG299",
+      "item": "",
+      "depth": 1,
+      "caption": "Structured financial products by underlying collateral or reference assets:  trust preferred securities issued by financial institutions"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKG332",
+      "item": "",
+      "depth": 1,
+      "caption": "Structured financial products by underlying collateral or reference assets:  trust preferred securities issued by real estate investment trusts"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKG333",
+      "item": "",
+      "depth": 1,
+      "caption": "Structured financial products by underlying collateral or reference assets:  corp and similar loans"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKG334",
+      "item": "",
+      "depth": 1,
+      "caption": "Structured financial products by underlying collateral: 1-4 family residential MBS issued or guaranteed by U.S. GSEs"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKG335",
+      "item": "",
+      "depth": 1,
+      "caption": "Structured financial products by underlying collateral or reference assets:  1-4 family residential MBS not issued or guaranteed by GSES"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKG651",
+      "item": "",
+      "depth": 1,
+      "caption": "Structured financial products by underlying collateral or reference assets:  diversified (mixed) pools of structured financial products"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKG652",
+      "item": "",
+      "depth": 1,
+      "caption": "Structured financial products by underlying collateral or reference assets:  other collateral or reference assets"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKF658",
+      "item": "",
+      "depth": 1,
+      "caption": "First itemized amount other trading liabilities (itemize and describe amounts included in schedule rc-d; item 13.b; that is greater than $1;000;000 and exceeds 25% of the item)"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKF659",
+      "item": "",
+      "depth": 1,
+      "caption": "Second itemized amount other trading liabilities (itemize and describe amounts included in schedule rc-d; item 13.b; that is greater than $1;000;000 and exceeds 25% of the item)"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKF655",
+      "item": "",
+      "depth": 1,
+      "caption": "First itemized amount for other trading assets (itemize and describe amounts included in schedule rc-d; item 9; that is greater than $1;000;000 and exceeds 25% of the item)"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKF656",
+      "item": "",
+      "depth": 1,
+      "caption": "Second itemized amount for other trading assets (itemize and describe amounts included in schedule rc-d; item 9; that is greater than $1;000;000 and exceeds 25% of the item)"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKF657",
+      "item": "",
+      "depth": 1,
+      "caption": "Third itemized amount for other trading assets (itemize and describe amounts included in schedule rc-d; item 9; that is greater than $1;000;000 and exceeds 25% of the item)"
+    },
+    {
+      "key": "HC-D — Memoranda",
+      "mdrm": "BHCKF660",
+      "item": "",
+      "depth": 1,
+      "caption": "Third itemized amount other trading liabilities (itemize and describe amounts included in schedule rc-d; item 13.b; that is greater than $1;000;000 and exceeds 25% of the item)"
     }
   ],
   "drop_items": [
