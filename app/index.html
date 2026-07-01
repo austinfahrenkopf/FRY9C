@@ -219,7 +219,7 @@ body:not(.dark) .lgon-row td{background:#e8f5e9!important}body.dark .lgon-row td
    <textarea id="sql">SELECT quarter_end, value FROM t WHERE mdrm='BHCK2170' AND id_rssd=1039502 ORDER BY quarter_end;</textarea>
    <div style="margin-top:8px"><button id="runsql" class="sec">Run</button> <button id="sqlcsv" class="sec">Export result</button></div>
    <div id="sqlout"></div></details>
-  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-06-30 23:42</div>
+  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-07-01 00:09</div>
  </div>
 </div>
 <div id="formmodal" class="modal" style="display:none"><div class="modalbox">
@@ -1644,10 +1644,9 @@ function ebScheduleCodes(){
  for(const sch of _eb.scheds)for(const r of (HIER[sch]||[]))if(REPORT.test(r.mdrm))out.add(r.mdrm);
  return [...out];}
 function ebRawCodes(){
+ // DERIV/DYN codes count as 1 entry each (computed via seriesFor); used by ebEstimate().
  const out=new Set();
- for(const c of _eb.codes){const d=DERIV[c];
-   if(d){for(const t of [...(d.plus||[]),...(d.minus||[]),...(d.den||[])])for(const fc of term2codes(t))out.add(fc);}
-   else out.add(c);}
+ for(const c of _eb.codes){if(DERIV[c]||DYN[c])out.add(c);else out.add(c);}
  return [...out];}
 function ebEntityCond(){
  if(!_eb.entities.length)return null;
@@ -1796,13 +1795,35 @@ async function runExport(preview=false){
  if(!_eb.entities.length){showToast('Add at least one entity first.');return null;}
  const ec=ebEntityCond();if(!ec){showToast('Could not resolve entities.');return null;}
  const df=_eb.fromQ?`AND quarter_end>='${_eb.fromQ}'`:'',dt=_eb.toQ?`AND quarter_end<='${_eb.toQ}'`:'';
- let mdrmF='';
- if(_eb.scope==='schedules'){const cs=ebScheduleCodes();if(!cs.length){showToast('No codes selected for the chosen schedules.');return null;}mdrmF=`AND mdrm IN (${cs.map(m=>`'${m}'`).join(',')}) `;}
- else if(_eb.scope==='codes'){const cs=ebRawCodes();if(!cs.length){showToast('No codes in selection.');return null;}mdrmF=`AND mdrm IN (${cs.map(m=>`'${m}'`).join(',')}) `;}
- const sql=`SELECT quarter_end,id_rssd,institution_name,mdrm,value FROM t WHERE ${ec} ${df} ${dt} ${mdrmF}ORDER BY mdrm,id_rssd,quarter_end${preview?' LIMIT 50':''}`;
- const rows=(await conn.query(sql)).toArray();
+ // Partition: DERIV/DYN codes → seriesFor() for faithful computed values; pure MDRM → raw SQL.
+ let derivKeys=[],rawOnly=null,mdrmF='';
+ if(_eb.scope==='codes'){
+   derivKeys=[..._eb.codes].filter(c=>DERIV[c]||DYN[c]);
+   rawOnly=[..._eb.codes].filter(c=>!DERIV[c]&&!DYN[c]);
+   if(!derivKeys.length&&!rawOnly.length){showToast('No codes in selection.');return null;}
+   if(rawOnly.length)mdrmF=`AND mdrm IN (${rawOnly.map(m=>`'${m}'`).join(',')}) `;}
+ else if(_eb.scope==='schedules'){
+   const cs=ebScheduleCodes();if(!cs.length){showToast('No codes selected for the chosen schedules.');return null;}
+   derivKeys=cs.filter(c=>DERIV[c]||DYN[c]);rawOnly=cs.filter(c=>!DERIV[c]&&!DYN[c]);
+   if(rawOnly.length)mdrmF=`AND mdrm IN (${rawOnly.map(m=>`'${m}'`).join(',')}) `;}
+ const rows=[];
+ if(_eb.scope==='all'||(rawOnly&&rawOnly.length)){
+   const sql=`SELECT quarter_end,id_rssd,institution_name,mdrm,value FROM t WHERE ${ec} ${df} ${dt} ${mdrmF}ORDER BY mdrm,id_rssd,quarter_end${preview?' LIMIT 50':''}`;
+   rows.push(...(await conn.query(sql)).toArray());}
+ if(derivKeys.length){
+   const fromQ=_eb.fromQ||null,toQ=_eb.toQ||null;
+   for(const ent of _eb.entities){
+     const rssd=ent.id.startsWith('BANK:')?+ent.id.slice(5):null;
+     const nm=ent.label||'';
+     for(const code of derivKeys){
+       if(preview&&rows.length>=50)break;
+       const series=await seriesFor(ent.id,code);
+       for(const[q,v]of series){
+         if(fromQ&&q<fromQ)continue;if(toQ&&q>toQ)continue;
+         if(preview&&rows.length>=50)break;
+         rows.push({quarter_end:q,id_rssd:rssd,institution_name:nm,mdrm:code,value:v});}}}}
  if(_eb.fmt==='wide'&&!preview)return pivotWide(rows);
- return {headers:['quarter_end','id_rssd','institution_name','mdrm','caption','value'],body:rows.map(r=>[r.quarter_end,r.id_rssd,r.institution_name,r.mdrm,fullCap(r.mdrm)||'',r.value]),sql};}
+ return {headers:['quarter_end','id_rssd','institution_name','mdrm','caption','value'],body:rows.map(r=>[r.quarter_end,r.id_rssd,r.institution_name,r.mdrm,fullCap(r.mdrm)||'',r.value]),sql:''};}
 async function runsql(){try{const r=(await conn.query(document.getElementById('sql').value)).toArray();
  sqlC=r.length?Object.keys(r[0]):[];sqlR=r.map(x=>sqlC.map(c=>x[c]));
  let h='<table><tr>'+sqlC.map(c=>`<th>${c}</th>`).join('')+'</tr>';for(const x of r.slice(0,500))h+='<tr>'+sqlC.map(c=>`<td>${x[c]}</td>`).join('')+'</tr>';
