@@ -219,7 +219,7 @@ body:not(.dark) .lgon-row td{background:#e8f5e9!important}body.dark .lgon-row td
    <textarea id="sql">SELECT quarter_end, value FROM t WHERE mdrm='BHCK2170' AND id_rssd=1039502 ORDER BY quarter_end;</textarea>
    <div style="margin-top:8px"><button id="runsql" class="sec">Run</button> <button id="sqlcsv" class="sec">Export result</button></div>
    <div id="sqlout"></div></details>
-  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-06-30 19:17</div>
+  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-06-30 20:32</div>
  </div>
 </div>
 <div id="formmodal" class="modal" style="display:none"><div class="modalbox">
@@ -313,6 +313,9 @@ const DERIV={
  'BHCK1406':{type:'hybrid_sum',parts:[{reported:'BHCK1406',components:_HCN9_A}]},
  'BHCK1407':{type:'hybrid_sum',parts:[{reported:'BHCK1407',components:_HCN9_B}]},
  'BHCK1403':{type:'hybrid_sum',parts:[{reported:'BHCK1403',components:_HCN9_C}]},
+ 'BHCK2165':{type:'hybrid_sum',preferMax:true,parts:[{reported:'BHCK2165',components:['BHCKF162','BHCKF163','BHCKKX58']}]},
+ 'BHCKHT80':{type:'hybrid_sum',parts:[{reported:'BHCKHT80',components:['BHCKA519','BHCKA520']}]},
+ 'BHCKJ458':{type:'hybrid_sum',parts:[{reported:'BHCKJ458',components:['BHCKPV10','BHCKPV11','BHCKPV12','BHCKPV13','BHCKPV14','BHCKPV15','BHCKPV16']}]},
  'D_NPL_CI':{type:'ratio',lbl:'Loan quality ▸ C&I NPL % (Past Due + Non Accrual / C&I loans)',plus:['BHCK1606','BHCK1607','BHCK1608'],den:['BHCK1763','BHCK1764']},
  'D_NPL_CC':{type:'ratio',lbl:'Loan quality ▸ Credit card NPL % (Past Due + Non Accrual / CC loans)',plus:['BHCKB575','BHCKB576','BHCKB577'],den:['BHCKB538']},
  'D_NPL_AUTO':{type:'ratio',lbl:'Loan quality ▸ Auto NPL % (Past Due + Non Accrual / auto loans)',plus:['BHCKK213','BHCKK214','BHCKK215'],den:['BHCKK137']},
@@ -558,7 +561,7 @@ async function seriesFor(id,m){const cond=scopeCond(id);if(cond==null)return [];
      const acc2=(mp,arr)=>{let s=0,seen=false;for(const t of arr){const v=termVal(mp,t);if(v!=null){s+=v;seen=true;}}return[s,seen];};
      const out=[];for(const q of Object.keys(byq).sort()){const mp=byq[q];
        let num=0,anyN=false;
-       for(const part of d.parts){const rv=termVal(mp,part.reported);if(rv!=null){num+=rv;anyN=true;}else{const[cs,csSeen]=acc2(mp,part.components);if(csSeen){num+=cs;anyN=true;}}}
+       for(const part of d.parts){const rv=termVal(mp,part.reported);if(d.preferMax){const[cs,csSeen]=acc2(mp,part.components);if(rv!=null){if(csSeen&&cs>rv){num+=cs;}else{num+=rv;}anyN=true;}else if(csSeen){num+=cs;anyN=true;}}else{if(rv!=null){num+=rv;anyN=true;}else{const[cs,csSeen]=acc2(mp,part.components);if(csSeen){num+=cs;anyN=true;}}}}
        if(d.type==='hybrid_sum'){if(anyN)out.push([q,num]);}
        else{const[dp,ds]=acc2(mp,d.den||[]);if(anyN&&ds&&dp>0)out.push([q,100*num/dp]);}}
      _seriesCache.set(_sk,out);return out;}
@@ -588,7 +591,7 @@ async function seriesFor(id,m){const cond=scopeCond(id);if(cond==null)return [];
    const out=[];for(const q of Object.keys(byqe).sort()){let num=0,den=0,anyN=false,anyD=false;
      for(const id2 of Object.keys(byqe[q])){const mp=byqe[q][id2];
        let pnum=0,pany=false;
-       for(const part of d.parts){const rv=termVal(mp,part.reported);if(rv!=null){pnum+=rv;pany=true;}else{const[cs,csSeen]=acc(mp,part.components);if(csSeen){pnum+=cs;pany=true;}}}
+       for(const part of d.parts){const rv=termVal(mp,part.reported);if(d.preferMax){const[cs,csSeen]=acc(mp,part.components);if(rv!=null){if(csSeen&&cs>rv){pnum+=cs;}else{pnum+=rv;}pany=true;}else if(csSeen){pnum+=cs;pany=true;}}else{if(rv!=null){pnum+=rv;pany=true;}else{const[cs,csSeen]=acc(mp,part.components);if(csSeen){pnum+=cs;pany=true;}}}}
        if(pany){num+=pnum;anyN=true;}
        const[dp,ds]=acc(mp,d.den||[]);den+=dp;if(ds)anyD=true;}
      if(d.type==='hybrid_sum'){if(anyN)out.push([q,num]);}
@@ -1834,7 +1837,7 @@ async function runsql(){try{const r=(await conn.query(document.getElementById('s
       const fv=s.pct?(+v).toFixed(2)+'%':fmtUnit(v,false);
       const tpts=s.label.split(' \xb7 ');const nE=active.length,nM=measures.length;const tl=(nE>1&&nM===1?tpts[0]:(nE===1?tpts.slice(1).join(' · ')||s.label:s.label));
       html+=`<div class="tip-row"><span class="tip-sw" style="background:${s.color}"></span>${tl}: <b>${fv}</b></div>`;}
-    if(window._hybridOnChart&&q>='1990-09-30'&&q<='2017-12-31')html+=`<div style="font-size:11px;color:#64748b;margin-top:2px;font-style:italic">⚠ HC-N item 9 reconstructed from sub-items</div>`;
+    if(window._hybridOnChart){const _rn=[];if(measures.some(m=>['BHCK1406','BHCK1407','BHCK1403','S_NPL','S_NONCUR','D_NPL','D_NONCUR'].includes(m.code))&&q>='1990-09-30'&&q<='2017-12-31')_rn.push('HC-N 9 from sub-items');if(measures.some(m=>m.code==='BHCK2165')&&q>='2007-03-31'&&q<='2016-06-30')_rn.push('HC-C 10.A from F162+F163+KX58');if(measures.some(m=>m.code==='BHCKHT80')&&q>='1997-03-31'&&q<='2018-03-31')_rn.push('HC-F 3 from A519+A520');if(measures.some(m=>m.code==='BHCKJ458')&&q>='2026-03-31')_rn.push('HC-L 1.e.(2) from PV10-PV16');if(_rn.length)html+=`<div style="font-size:11px;color:#64748b;margin-top:2px;font-style:italic">⚠ Reconstructed: ${_rn.join('; ')}</div>`;}
     html+=`<div style="font-size:12px;color:#9aa3b2;margin-top:3px;opacity:.6">click to pin</div>`;
     tip.innerHTML=html;tip.style.display='block';
     let tx=qScreenX+14;if(tx+tip.offsetWidth>window.innerWidth-8)tx=qScreenX-14-tip.offsetWidth;if(tx<8)tx=8;
