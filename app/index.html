@@ -182,17 +182,15 @@ body:not(.dark) .lgon-row td{background:#e8f5e9!important}body.dark .lgon-row td
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
      <label style="display:flex;align-items:center;gap:4px">Name<input id="calcname" placeholder="My calc" style="width:110px;font:inherit;font-size:13px;padding:2px 5px;border:1px solid var(--border,#ccc);border-radius:3px;background:inherit;color:inherit"></label>
-     <label style="display:flex;align-items:center;gap:4px">Formula<input id="calcformula" placeholder="e.g.  A/B  or  (A+B)/C  or  A*4" style="width:240px;font:inherit;font-size:13px;padding:2px 5px;border:1px solid var(--border,#ccc);border-radius:3px;background:inherit;color:inherit"></label>
+     <label style="display:flex;align-items:center;gap:4px">Formula<input id="calcformula" autocomplete="off" placeholder="e.g.  A/B  or  (A+B)/C  or  A*4" style="width:240px;font:inherit;font-size:13px;padding:2px 5px;border:1px solid var(--border,#ccc);border-radius:3px;background:inherit;color:inherit"></label>
      <button id="calcadd" class="sec" style="font-size:13px;padding:2px 8px">Add to chart</button>
     </div>
     <span id="calcstatus" style="color:#c0392b;font-size:13px;margin-top:4px;display:block"></span>
     <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;align-items:center">
-     <button id="calcSave" class="sec" style="font-size:13px;padding:2px 8px" title="POST formulas to local server at /api/save-formulas">Save formulas</button>
-     <button id="calcLoad" class="sec" style="font-size:13px;padding:2px 8px" title="GET formulas from local server at /api/formulas">Load formulas</button>
-     <span style="color:var(--muted,#9aa3b2);font-size:12px;margin:0 2px">|</span>
-     <button id="calcExport" class="sec" style="font-size:13px;padding:2px 8px" title="Download formulas as JSON file">Export</button>
-     <button id="calcImport" class="sec" style="font-size:13px;padding:2px 8px" title="Upload formulas JSON file">Import</button>
+     <button id="calcSave" class="sec" style="font-size:13px;padding:2px 8px" title="Download all custom formulas as fry9c_formulas.json">⬇ Save to file</button>
+     <button id="calcLoad" class="sec" style="font-size:13px;padding:2px 8px" title="Load formulas from a saved fry9c_formulas.json file">⬆ Load from file</button>
      <input type="file" id="calcImportFile" accept=".json,application/json" style="display:none">
+     <span class="muted" style="font-size:12px">Also auto-saved in browser storage</span>
     </div>
    </div></div>
   <details class="box" id="peerbox"><summary><b>Peer-group builder</b> — custom bucket of holding companies</summary>
@@ -219,7 +217,7 @@ body:not(.dark) .lgon-row td{background:#e8f5e9!important}body.dark .lgon-row td
    <textarea id="sql">SELECT quarter_end, value FROM t WHERE mdrm='BHCK2170' AND id_rssd=1039502 ORDER BY quarter_end;</textarea>
    <div style="margin-top:8px"><button id="runsql" class="sec">Run</button> <button id="sqlcsv" class="sec">Export result</button></div>
    <div id="sqlout"></div></details>
-  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-07-01 07:02</div>
+  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-07-01 14:41</div>
  </div>
 </div>
 <div id="formmodal" class="modal" style="display:none"><div class="modalbox">
@@ -706,7 +704,7 @@ async function init(){try{
  document.getElementById('clrents').onclick=()=>{active=[];renderChips();scheduleRecompute();};
  document.getElementById('clrmeas').onclick=()=>{measures=[];entSortField='__none__';markTree();renderMeasures();scheduleRecompute();saveMeasures();};
  document.getElementById('calcbtn').onclick=()=>{const d=document.getElementById('calcdiv');const show=d.style.display==='none';d.style.display=show?'block':'none';if(show)refreshCalcPicklist();};
- document.getElementById('calc-codesearch').oninput=function(){const q=this.value.trim();const el=document.getElementById('calc-coderes');if(!q){el.style.display='none';el.innerHTML='';return;}const res=searchHier(q);if(!res.length){el.innerHTML='<div style="padding:4px 6px;color:var(--muted,#9aa3b2)">No matches</div>';el.style.display='block';return;}el.innerHTML=res.map(r=>`<div class="calc-cr" data-m="${r.m}" style="padding:2px 6px;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.c}"><b>${r.m}</b> — ${r.c}</div>`).join('');el.style.display='block';el.querySelectorAll('.calc-cr').forEach(d=>d.onclick=()=>{const inp=document.getElementById('calcformula');const p=inp.selectionStart,txt=inp.value;inp.value=txt.slice(0,p)+d.dataset.m+txt.slice(inp.selectionEnd);inp.focus();inp.setSelectionRange(p+d.dataset.m.length,p+d.dataset.m.length);el.style.display='none';this.value='';});};
+ document.getElementById('calc-codesearch').oninput=function(){const srchInp=this;const q=srchInp.value.trim();const el=document.getElementById('calc-coderes');if(!q){el.style.display='none';el.innerHTML='';return;}const res=searchHier(q);el.innerHTML='';if(!res.length){const nm=document.createElement('div');nm.style.cssText='padding:4px 6px;color:var(--muted,#9aa3b2)';nm.textContent='No matches';el.appendChild(nm);el.style.display='block';return;}for(const r of res){const d=document.createElement('div');d.className='calc-cr';d.style.cssText='padding:2px 6px;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap';d.title=r.c;const rawCode=r.m;const b=document.createElement('b');b.textContent=rawCode;d.appendChild(b);d.appendChild(document.createTextNode(' — '+r.c));d.onclick=()=>{const inp=document.getElementById('calcformula');const p=inp.selectionStart,txt=inp.value;inp.value=txt.slice(0,p)+rawCode+txt.slice(inp.selectionEnd);inp.focus();inp.setSelectionRange(p+rawCode.length,p+rawCode.length);el.style.display='none';srchInp.value='';};el.appendChild(d);}el.style.display='block';};
  document.getElementById('calcadd').onclick=()=>{
    const name=(document.getElementById('calcname').value.trim()||'Custom calc');
    const fstr=document.getElementById('calcformula').value.trim();
@@ -717,21 +715,19 @@ async function init(){try{
    let parsed;try{parsed=parseCalcExpr(fstr,aliases);}catch(e){st.textContent=String(e);return;}
    const code='CALC_'+(Date.now()%1e9);
    USERCALC[code]={type:'expr',ast:parsed.ast,pct:parsed.pct,vars:parsed.vars,lbl:name};
+   try{localStorage.setItem('fry9c_formulas',getFormulasJson());}catch(_){}
    _seriesCache.clear();
    toggleMeasure(code,name,parsed.pct);
    document.getElementById('calcformula').value='';document.getElementById('calcname').value='';
    document.getElementById('calcdiv').style.display='none';};
 function getFormulasJson(){const out={};for(const[k,v]of Object.entries(USERCALC))out[k]=v;return JSON.stringify(out);}
 function applyFormulas(obj){let n=0;for(const[code,entry]of Object.entries(obj)){if(!code.startsWith('CALC_'))continue;if(!entry?.type||!entry?.lbl)continue;if(!USERCALC[code]){USERCALC[code]=entry;toggleMeasure(code,entry.lbl,!!entry.pct);n++;}}return n;}
-async function saveFormulas(){try{const r=await fetch('/api/save-formulas',{method:'POST',headers:{'Content-Type':'application/json'},body:getFormulasJson()});if(!r.ok)throw new Error('HTTP '+r.status);showToast('Formulas saved.','ok');}catch(e){try{localStorage.setItem('fry9c_formulas',getFormulasJson());showToast('Formulas saved to this browser.','ok');}catch(le){const el=document.getElementById('calcstatus');if(el)el.textContent='Save failed: '+le.message;}}}
-async function loadFormulas(){try{const r=await fetch('/api/formulas');if(!r.ok)throw new Error('HTTP '+r.status);const obj=await r.json();const n=applyFormulas(obj);showToast('Loaded '+n+' formula'+(n===1?'':'s')+'.','ok');}catch(e){const _el=document.getElementById('calcstatus');try{const s=localStorage.getItem('fry9c_formulas');if(!s){if(_el)_el.textContent='No saved formulas to load.';return;}const _obj=JSON.parse(s);const _tot=Object.keys(_obj).filter(k=>k.startsWith('CALC_')).length;if(!_tot){if(_el)_el.textContent='No saved formulas to load.';return;}const n=applyFormulas(_obj);showToast(n>0?'Restored '+n+' formula'+(n===1?'':'s')+' from this browser.':'Formulas already active.','ok');}catch(le){if(_el)_el.textContent='Load failed: '+le.message;}}}
-async function autoLoadFormulas(){try{const r=await fetch('/api/formulas');if(!r.ok)throw new Error();const obj=await r.json();applyFormulas(obj);}catch(e){try{const s=localStorage.getItem('fry9c_formulas');if(s)applyFormulas(JSON.parse(s));}catch{}}}
-function exportFormulas(){const s=getFormulasJson();const b=new Blob([s],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='formulas.json';a.click();URL.revokeObjectURL(u);}
+function saveFormulas(){const s=getFormulasJson();const b=new Blob([s],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='fry9c_formulas.json';a.click();URL.revokeObjectURL(u);showToast('Formulas downloaded as fry9c_formulas.json.','ok');try{localStorage.setItem('fry9c_formulas',s);}catch(_){}}
+function loadFormulas(){document.getElementById('calcImportFile').click();}
+function autoLoadFormulas(){try{const s=localStorage.getItem('fry9c_formulas');if(s)applyFormulas(JSON.parse(s));}catch{}}
  document.getElementById('calcSave').onclick=saveFormulas;
  document.getElementById('calcLoad').onclick=loadFormulas;
- document.getElementById('calcExport').onclick=exportFormulas;
- document.getElementById('calcImport').onclick=()=>document.getElementById('calcImportFile').click();
- document.getElementById('calcImportFile').onchange=e=>{const f=e.target.files?.[0];if(!f)return;const rd=new FileReader();rd.onload=ev=>{try{const obj=JSON.parse(ev.target.result);const n=applyFormulas(obj);showToast('Imported '+n+' formula'+(n===1?'':'s')+'.','ok');}catch(ex){const el=document.getElementById('calcstatus');if(el)el.textContent='Import failed: invalid JSON.';}};rd.readAsText(f);e.target.value='';};
+ document.getElementById('calcImportFile').onchange=e=>{const f=e.target.files?.[0];if(!f)return;const rd=new FileReader();rd.onload=ev=>{try{const obj=JSON.parse(ev.target.result);const n=applyFormulas(obj);showToast('Loaded '+n+' formula'+(n===1?'':'s')+'.','ok');try{localStorage.setItem('fry9c_formulas',ev.target.result);}catch(_){}}catch(ex){showToast('Load failed: invalid JSON file.','err');}};rd.readAsText(f);e.target.value='';};
  {const stackEl=document.getElementById('stackedmode');if(stackEl)stackEl.onchange=()=>{if(_linkCharts){_applyLinkedTfm(_getLinkTfm());renderExtraChartsArea();}draw();};}
  {const il=document.getElementById('inlinelbls');if(il){il.checked=(window._inlineLbls!==false);il.onchange=()=>{window._inlineLbls=il.checked;try{localStorage.setItem('fry9c_inlinelbls',il.checked?'1':'0');}catch(_){}draw();};}}
  {const lcEl=document.getElementById('linkcharts');if(lcEl){lcEl.checked=_linkCharts;lcEl.onchange=()=>{_linkCharts=lcEl.checked;try{localStorage.setItem('fry9c_linkcharts',_linkCharts?'1':'0');}catch(_){}if(_linkCharts){_applyLinkedTfm(_getLinkTfm());renderExtraChartsArea();}};}}
