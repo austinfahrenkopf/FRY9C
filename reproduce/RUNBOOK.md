@@ -27,6 +27,29 @@ Setup once: `pip install pandas pyarrow pypdf playwright requests duckdb` and `p
 
 Typical curate loop after editing `fry9c_matrix.csv`: **8 → 9 → 10 --html-only**.
 
+## Serve locally
+
+After step 10 (or after `--html-only`), serve from the `site_fry9c/` directory:
+
+```powershell
+cd site_fry9c
+python -m http.server 8003
+```
+
+Open http://localhost:8003 in Chrome. DuckDB-WASM requires `http://` (not `file://`).
+
+## Dashboard UI features (no rebuild step required)
+
+These features are in the committed `app/index.html` and any `--html-only` rebuild:
+
+- **Denominator dropdown (`#normden`):** Adds `÷ [assets / loans / deposits / equity]` presets.
+  Four presets: `BHCK2170` (assets), `BHCK2122` (loans), `S_DEP` (deposits — DERIV sum, no single
+  BHCK2200 on Y-9C), `BHCK3210` (equity). `window._normDenCd` holds the current code for Playwright.
+  localStorage keys: `fry9c_normden` (preset) + `fry9c_normbyassets` (on/off).
+- **League table (453 measures):** `buildLGMEAS()` walks the full HIER tree and creates a DYN entry
+  for every header subtotal. Includes all raw codes + all tree-subtotals + all DERIV (including HC-N
+  row-9 `hybrid_sum` subtotal). Access via the 🏆 button.
+
 ## Golden cell (proof the rebuild is correct)
 
 JPMorgan Chase (RSSD 1039502) BHCK2170 at 2026-03-31 = **4,900,475,000** ($ thousands).

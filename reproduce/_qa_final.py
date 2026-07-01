@@ -20,36 +20,48 @@ def check(name, path, patterns):
 
 # Y-9C checks
 check('Y-9C', r'FR Y-9C\site_fry9c\index.html', [
-    ('prevQtr helper',         r'function prevQtr'),
-    ('yoyQtr helper',          r'function yoyQtr'),
-    ('pctChg sign-flip guard', r'sameSign'),
-    ('descCodes PCTC filter',  r'PCTC\.has\(c\.code\)'),
-    ('hasPctDesc',             r'function hasPctDesc'),
-    ('perFilerValues DYN',     r'DYN\[measCode\]'),
-    ('isRawPct (Y-9C)',        r'isRawPct'),
-    ('isAggScope (Y-9C)',      r'isAggScope'),
-    ('NESTED topholder',       r'NESTED'),
-    ('allCond top-tier',       r'function allCond'),
+    ('prevQtr helper',             r'function prevQtr'),
+    ('yoyQtr helper',              r'function yoyQtr'),
+    ('pctChg sign-flip guard',     r'sameSign'),
+    ('descCodes PCTC filter',      r'PCTC\.has\(c\.code\)'),
+    ('hasPctDesc',                 r'function hasPctDesc'),
+    ('perFilerValues DYN',         r'DYN\[measCode\]'),
+    ('isRawPct (Y-9C)',            r'isRawPct'),
+    ('isAggScope (Y-9C)',          r'isAggScope'),
+    ('NESTED topholder',           r'NESTED'),
+    ('allCond top-tier',           r'function allCond'),
+    # §NORMDEN-LEAGUE-FRY9C checks (2026-07-01)
+    ('normden NORM_DEN_LABELS',    r'NORM_DEN_LABELS'),
+    ('buildLGMEAS league builder', r'function buildLGMEAS'),
+    ('window._normDenCd',          r'window\._normDenCd'),
+    ('S_DEP deposits DERIV',       r"'S_DEP'"),
 ])
 
 # 002 checks
 check('002', r'FFIEC 002\site_002\index.html', [
-    ('prevQtr helper',   r'function prevQtr'),
-    ('yoyQtr helper',    r'function yoyQtr'),
-    ('pctChg sign-flip', r'sameSign'),
-    ('perFilerValues',   r'perFilerValues'),
+    ('prevQtr helper',             r'function prevQtr'),
+    ('yoyQtr helper',              r'function yoyQtr'),
+    ('pctChg sign-flip',           r'sameSign'),
+    ('perFilerValues',             r'perFilerValues'),
+    # §NORMDEN-LEAGUE-002 checks (2026-07-01)
+    ('normden NORM_DEN_LABELS',    r'NORM_DEN_LABELS'),
+    ('buildLGMEAS league builder', r'function buildLGMEAS'),
+    ('_ND2205 WASM workaround',    r'_ND2205'),
 ])
 
 # Call checks
 check('Call', r'FFIEC 031\site_call\index.html', [
-    ('prevQtr helper',      r'function prevQtr'),
-    ('yoyQtr helper',       r'function yoyQtr'),
-    ('pctChg sign-flip',    r'sameSign'),
-    ('perFilerValues',      r'perFilerValues'),
-    ('HIGH-2 PCTC set',     r"const PCTC=new Set\(\['RCFA7204'"),
-    ('isRawPct (Call)',      r'isRawPct'),
-    ('isAggScope (Call)',    r'isAggScope'),
-    ('blocked label',       r'not summable across entities'),
+    ('prevQtr helper',             r'function prevQtr'),
+    ('yoyQtr helper',              r'function yoyQtr'),
+    ('pctChg sign-flip',           r'sameSign'),
+    ('perFilerValues',             r'perFilerValues'),
+    ('HIGH-2 PCTC set',            r"const PCTC=new Set\(\['RCFA7204'"),
+    ('isRawPct (Call)',             r'isRawPct'),
+    ('isAggScope (Call)',           r'isAggScope'),
+    ('blocked label',              r'not summable across entities'),
+    # §NORMDEN-LEAGUE-CALL checks (2026-07-01)
+    ('normden NORM_DEN_LABELS',    r'NORM_DEN_LABELS'),
+    ('buildLGMEAS league builder', r'function buildLGMEAS'),
 ])
 
 # Golden cell check (Y-9C panel)

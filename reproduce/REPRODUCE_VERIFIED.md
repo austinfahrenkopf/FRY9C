@@ -1,40 +1,42 @@
 # FR Y-9C Reproduce Kit — Verification Record
 
-**Date verified:** 2026-06-25 (re-run after pipeline corrections; see §Re-run below)  
+**Date verified:** 2026-07-01 (re-run against commit `332848c`)
 **Environment:** Python 3.12.1 · pandas 3.0.3 · pyarrow 24.0.0 · duckdb 1.5.4 · Windows 11
 
 ---
 
 ## Test method
 
-Full clean-room rebuild in `C:\temp\cr_yc_full\` using ONLY the reproduce/ kit contents
-(scripts + curated inputs). No access to the live build directory during build or validation.
-
-All pipeline stages run in order — raw download → panel → hist merge → lineage → topholder →
-validate → site → re-validate.
+Clean-room rebuild in `C:\temp\cr_yc_20260701\` using ONLY the reproduce/ kit files (committed
+at `332848c`). Engine: `reproduce/make_site_fry9c.py`. Data: committed `app/*.parquet` shards.
+No access to `fry9c_panel_long.parquet` or any other working-dir artifacts during the HTML rebuild.
 
 ---
 
-## Full pipeline rebuild — all stages from scratch
+## Result: HTML-ONLY REBUILD PASS (functionally equivalent; known cosmetic differences documented)
 
-| Step | Script | Output | Time |
-|---|---|---|---|
-| 1 | `download_fry9c_playwright.py` | `fry9c_zips/` (105 NIC BHCF ZIPs, 250.2 MB) | ~3.5 h |
-| 2 | `build_fry9c_panel.py` | `fry9c_panel_long.parquet` (318 MB, 109M rows, 105 quarters) | ~19 min |
-| 3a | `build_fry9c_hist.py download` | `fry9c_hist_parts/` (Chicago Fed 1986–2009, 135 MB) | ~20 min |
-| 3b | `build_fry9c_hist.py merge` | extends panel to 318.1 MB / 141.4M rows / 159 quarters | 131 s |
-| 4 | `download_fry9c_nic_playwright.py` | `fry9c_nic/` (RSSD entity data, 32 MB) | ~30 min |
-| 5 | `build_fry9c_lineage.py` | `fry9c_lineage.json` (139.5 KB, 150 multi-RSSD lineages) | 4 s |
-| 6 | `build_fry9c_topholder.py --from-panel` | `fry9c_topholder.json` (59.6 KB, 159 quarters) | 14 s |
-| 7 | `validate_build.py` | ALL CHECKS PASSED (pre-site) | 24 s |
-| 8 | `make_site_fry9c.py` | `site_fry9c/` (4,874 filers, 5 shards) | ~30 min |
-| 9 | `validate_build.py` | ALL CHECKS PASSED | see below |
+```
+python make_site_fry9c.py --html-only
+Exit code: 0
+Output: site_fry9c/index.html  518,123 bytes
+```
+
+**Committed `app/index.html`**: 518,029 bytes (built 2026-07-01 07:02 from working dir with full panel)
+
+**Size delta: +94 bytes.** Two known, expected differences:
+
+| Line | Committed | Clean-room rebuild | Reason |
+|------|-----------|-------------------|--------|
+| 222 (timestamp) | `Built 2026-07-01 07:02` | `Built 2026-07-01 10:25` | Every run stamps current time |
+| 275 (EMPTY_CODES) | `new Set([])` | `new Set(["BHBC3368","BHBC3402","BHBC3516","BHBC3519","BHCK4653","BHCK4654","BHCK4663","BHCK4664",...])` | Without `fry9c_panel_long.parquet`, `--html-only` uses only active-era shards; historical-only codes (reported only by defunct BHCs) have no rows in the shards and are correctly flagged as EMPTY. Working-dir build has the full 318 MB panel so all codes are present. |
+
+All other content is identical. EMPTY_CODES affects cosmetic display (codes hidden from picker, not charted) — dashboard queries, hierarchy, aggregation, and all feature logic are unaffected. This is documented behavior for `--html-only` without the full panel.
 
 ---
 
-## Result: ALL CHECKS PASSED
+## Validators PASS
 
-### Post-site validate (step 9)
+### validate_build.py (from working dir — requires full panel for [COMPLETE] check)
 
 ```
 schedules in hierarchy: 36   matrix rows: 668   dict codes: 2984
@@ -42,120 +44,126 @@ NOTE  [COMPLETE2] FR Y-9C: all must-add codes from manifest are now present in t
 NOTE  [MISSING] OK — every active-era code is in the hierarchy or documented (1599 active codes checked)
 NOTE  [SPURIOUS] OK — every hierarchy leaf code is reported in the panel or documented in spurious_allowed
 NOTE  [SEQUENCE] OK — no undocumented item-number gaps
-NOTE  [ERA_SEAM] OK — headline NPL/charge-off/past-due/assets series are continuous (no false cliffs across era seams)
+NOTE  [ERA_SEAM] OK — headline NPL/charge-off/past-due/assets series are continuous
 
 ALL CHECKS PASSED [OK]
 ```
 
----
+### _qa_final.py (from External Bank Data/ workspace root)
 
-## Golden cell confirmed
+23/23 checks PASSED.
+
+### Golden cell confirmed
 
 **JPMorgan Chase (RSSD 1039502) BHCK2170 @ 2026-03-31 = 4,900,475,000** ($ thousands) ✓
 
-Confirmed directly from the freshly-built panel parquet and implicitly by `validate_build.py [GOLDEN]`
-(no NOTE = matched expected value).
-
 ---
 
-## ALL-aggregate corrected (key re-run verification)
+## Commit `332848c` — features verified in committed engine
 
-The full-population ALL aggregate was confirmed correct in the clean-room build:
+All features through §NORMDEN-LEAGUE-FRY9C (2026-07-01) are confirmed present in
+`reproduce/make_site_fry9c.py` and the deployed `app/index.html`:
 
-| Quarter | ALL BHCK2170 (clean-room) | Notes |
+| Feature | Marker | Count |
 |---|---|---|
-| 1986-09-30 | **$2,400,663,060 K ≈ $2.40T** | Was $264B with the old `df_active` bug |
-| 2026-03-31 | **$30,560,316,000 K ≈ $30.6T** | Current era, matches live dashboard |
-
-The fix is in two places in the pipeline:
-1. `build_fry9c_shards.py` `_write_agg`: aggregates over `df_all` (full panel) not `df_active` (current roster).
-2. `make_site_fry9c.py` line 142: `df_agg_src=df.copy()` (durability — `--html-only` re-runs also produce correct agg).
-
-De-nesting (excluding nested sub-holding filers via `fry9c_topholder.json`) is still applied to both paths.
+| Denominator dropdown (`#normden`) | `NORM_DEN_LABELS` | 4 occurrences |
+| `window._normDenCd` (Playwright) | `window._normDenCd` | present |
+| League full measure set (`buildLGMEAS`) | `function buildLGMEAS` | 1 occurrence; 453 options at runtime |
+| S_DEP deposits DERIV sum | `'S_DEP'` | 4 occurrences |
+| HC-N row 9 `hybrid_sum` | `hybrid_sum` | 18 occurrences |
+| `perFilerValues` hybrid branch | `isHybrid` | present |
+| Export Builder fidelity (`ebRawCodes`) | `ebRawCodes` | 2 occurrences |
+| NESTED topholder (nested-filer exclusion) | `NESTED` | present |
+| DYN subtotals (tree-click + league) | `DYN[measCode]` | present |
 
 ---
 
-## Nested-filer exclusion map
+## Data-pipeline scripts — all confirmed committed in reproduce/
 
-| | Prior kit (105-quarter) | This build (159-quarter) |
+| Script | Present | Purpose |
 |---|---|---|
-| Topholder command | `build_fry9c_topholder.py` | `build_fry9c_topholder.py --from-panel` |
-| Quarters covered | 105 (2000-Q1 to 2026-Q1 only) | 159 (1986-Q3 to 2026-Q1) |
-| Excluded filer-quarters | 1,583 | 5,757 |
-| Embedded in HTML | 109 RSSDs / 105 quarters | 329 RSSDs / 159 quarters |
-
-`--from-panel` is required for full history coverage. The default mode (no flag) reads only NIC ZIPs
-(2000+); the panel-based mode covers every quarter where BHCK2170 is reported.
-
----
-
-## Panel stats
-
-| Item | Value |
-|---|---|
-| Rows | 141,430,337 |
-| Quarters | 159 (1986-09-30 → 2026-03-31) |
-| Pre-2000 rows added (hist merge) | 32,056,144 |
-| Holding companies (pre-2000) | 3,381 |
-| File size | 318.1 MB |
-| Active filers (2026-03-31) | 387 of 4,874 total RSSDs |
-| NODATA codes | 0 |
+| `download_fry9c_playwright.py` | ✓ | Quarterly BHCF ZIP pull via real Chrome (Akamai-safe) |
+| `build_fry9c_panel.py` | ✓ | CDR ZIPs → `fry9c_panel_long.parquet` long panel |
+| `build_fry9c_hist.py` | ✓ | Chicago Fed 1986–2009 historical extension (download + merge) |
+| `download_fry9c_nic_playwright.py` | ✓ | NIC entity data (RSSD relationships, attributes) |
+| `build_fry9c_lineage.py` | ✓ | Predecessor/successor chains → `fry9c_lineage.json` |
+| `build_fry9c_topholder.py` | ✓ | Top-holder dedup map → `fry9c_topholder.json` (use `--from-panel`) |
+| `build_fry9c_dictionary.py` | ✓ | MDRM dictionary from Fed MDRM.zip |
+| `build_hierarchy_fry9c.py` | ✓ | Form tree from PDF + matrix CSV + `fry9c_hierarchy_overrides.json` |
+| `build_fry9c_shards.py` | ✓ | Internal shard-writing helper (called by make_site_fry9c.py) |
+| `_write_site_parquets.py` | ✓ | Internal parquet-write helper |
+| `add_missing_codes.py` | ✓ | Utility for adding codes to hierarchy |
+| `make_site_fry9c.py` | ✓ | Dashboard builder → `site_fry9c/index.html` + parquets |
+| `validate_build.py` | ✓ | Automated QA gate (must pass before any push) |
+| `_qa_final.py` | ✓ | Deployed-HTML feature verification (run from workspace root) |
+| `_completeness_gate.py` | ✓ | Bidirectional completeness gate |
+| `fry9c_hierarchy_overrides.json` | ✓ | Surgical hierarchy patches (mis-nests, captions, force_rows) |
 
 ---
 
-## Site shards built
+## Full data-rebuild path (from scratch — RUNBOOK.md steps)
 
-| Shard | Rows | MB |
-|---|---|---|
-| `fry9c_active_2020_2031.parquet` | 9,607,276 | 16.2 |
-| `fry9c_active_2010_2019.parquet` | 14,151,214 | 19.6 |
-| `fry9c_active_1986_2009.parquet` | 7,060,246 | 11.8 |
-| `fry9c_hist.parquet` | 64,387,191 | 87.6 |
-| `fry9c_agg.parquet` | 127,115 | 0.9 |
+| Step | Script | Produces | Notes |
+|---|---|---|---|
+| 1 | `download_fry9c_playwright.py` | `fry9c_zips/` (quarterly BHCF ZIPs) | Real Chrome, Akamai-safe. `--limit 2` to test. |
+| 2 | `build_fry9c_panel.py` | `fry9c_panel_long.parquet`, `fry9c_roster.csv` | Long panel; ~19 min |
+| 3a | `build_fry9c_hist.py download` | `fry9c_hist_parts/` (Chicago Fed 1986–2009) | ~20 min |
+| 3b | `build_fry9c_hist.py merge` | Extends panel back to 1986, 159 quarters | ~2 min |
+| 4 | `download_fry9c_nic_playwright.py` | `fry9c_nic/` (entity structure) | ~30 min |
+| 5 | `build_fry9c_lineage.py` | `fry9c_lineage.json` (150 multi-RSSD chains) | 4 s |
+| 6 | `build_fry9c_topholder.py --from-panel` | `fry9c_topholder.json` (159 quarters) | 14 s — `--from-panel` required for full history |
+| 7 | `build_fry9c_dictionary.py` | `fry9c_dictionary.csv` | MDRM titles |
+| 8 | `build_hierarchy_fry9c.py` | `fry9c_hierarchy.json` | Uses `fry9c_hierarchy_overrides.json`; see CONTEXT.md |
+| 9 | `validate_build.py` | exit 0 = pass | Gate — must pass before site build |
+| 10 | `make_site_fry9c.py` | `site_fry9c/index.html` + parquets | `--html-only` to regenerate HTML only |
 
----
-
-## Hierarchy is a curated artifact
-
-`fry9c_hierarchy.json` (386 KB) in this kit is the canonical hand-patched hierarchy. It cannot
-be bit-for-bit reproduced by `build_hierarchy_fry9c.py` alone — the script generates a base
-from the PDF + matrix CSV, but the final hierarchy includes patches applied by:
-`_apply_partA.py`, `_apply_audit_fixes.py`, `_apply_m16.py`.
-
-Use the shipped `fry9c_hierarchy.json` directly. Do not overwrite it from a bare
-`build_hierarchy_fry9c.py` run.
+Typical edit loop (after editing `fry9c_matrix.csv` or overrides): **8 → 9 → 10 --html-only**
 
 ---
 
-## Gaps found and fixed during clean-room rebuilds
+## Hierarchy — curated artifact, not purely reproducible from scratch
+
+`fry9c_hierarchy.json` (290,962 bytes) is the canonical hand-patched hierarchy. `build_hierarchy_fry9c.py`
+generates a base from the PDF + matrix CSV, but the final hierarchy includes patches applied via
+`fry9c_hierarchy_overrides.json` (mis-nest fixes, force_rows, caption_fixes). Use the shipped
+`fry9c_hierarchy.json` directly. Do not overwrite from a bare `build_hierarchy_fry9c.py` run
+without also applying the overrides.
+
+---
+
+## All-time repair log (gaps fixed during prior clean-room rebuilds)
 
 | Gap | Session found | Fixed |
 |---|---|---|
-| `fry9c_hierarchy.json` stale (307 KB) — missing PART A/B patches, M16 restructure | 2026-06-24 | Updated to final 386 KB version |
-| `ReturnFinancialReportPDF.pdf` missing — only wrong PDF was present | 2026-06-24 | Added correct 3.5 MB PDF |
-| `fry9c_lineage.json` missing | 2026-06-24 | Added (now 139.5 KB; rebuilt from full 159-quarter panel) |
-| `fry9c_topholder.json` missing | 2026-06-24 | Added (was 17.8 KB / 105 quarters) |
-| `expected_items.json` stale (965 KB) — flagged BHBC3402 as must-add | 2026-06-24 | Updated to current 780 KB |
-| `RUNBOOK.md` missing hist, topholder, shards steps | 2026-06-24 | Updated with full 10-step pipeline |
-| `build_fry9c_lineage.py` SyntaxError — incomplete `for` loop at line 213 | 2026-06-24 | Removed broken stub (fix committed) |
-| `reproduce/fry9c_hierarchy.json` not updated in commit 731585f (HC-D 3.z still present) | 2026-06-25 | Synced from live workspace (7-line removal) |
-| `reproduce/fry9c_topholder.json` only covered 105 quarters (NIC ZIPs only) | 2026-06-25 | Rebuilt with `--from-panel` → 159 quarters, 59.6 KB |
+| `fry9c_hierarchy.json` stale (307 KB) — missing PART A/B patches, M16 restructure | 2026-06-24 | Updated to final 386→291 KB |
+| `ReturnFinancialReportPDF.pdf` missing or wrong | 2026-06-24 | Added correct 3.5 MB PDF |
+| `fry9c_lineage.json` missing | 2026-06-24 | Added (123 KB; rebuilt from full 159-quarter panel) |
+| `fry9c_topholder.json` missing | 2026-06-24 | Added (61 KB / 159 quarters via `--from-panel`) |
+| `expected_items.json` stale | 2026-06-24 | Updated to current version |
+| `RUNBOOK.md` missing hist, topholder, shards steps | 2026-06-24 | Updated |
+| `build_fry9c_lineage.py` SyntaxError at line 213 | 2026-06-24 | Fixed |
+| `reproduce/fry9c_hierarchy.json` not updated (HC-D 3.z still present) | 2026-06-25 | Synced |
+| `reproduce/fry9c_topholder.json` only covered 105 quarters | 2026-06-25 | Rebuilt with `--from-panel` |
 | `RUNBOOK.md` step 7 missing `--from-panel` flag | 2026-06-25 | Updated |
 
 ---
 
 ## Caveats
 
-1. **Panel parquet** (318 MB) exceeds GitHub's 100 MB per-file limit and is NOT shipped in
-   this kit. A fresh rebuild requires steps 1–3 in RUNBOOK.md (~4–6 hours total including
-   Playwright download time). Use `--limit 2` to test 2 quarters quickly.
+1. **Panel parquet** (318 MB) exceeds GitHub's 100 MB per-file limit — NOT committed. Fresh rebuild
+   requires steps 1–3 (~4–6 hours including Playwright download time). Use `--limit 2` to test 2 quarters.
 
-2. **Hierarchy** is a curated artifact — see above. Do not rebuild from scratch unless you
-   intend to re-apply all patches.
+2. **EMPTY_CODES**: `--html-only` without the full panel marks historical-only codes as empty
+   (no rows in active-era shards). This changes the committed HTML by ~94 bytes. Cosmetic difference;
+   no effect on dashboard data or feature logic.
 
-3. **`_qa_final.py`** is designed to run from the `External Bank Data\` workspace root, not
-   from reproduce/. Its paths reference `FR Y-9C\site_fry9c\index.html` relative to that root.
+3. **`_qa_final.py`** is designed to run from `External Bank Data\` workspace root, not from reproduce/.
+   Its paths reference `FR Y-9C\site_fry9c\index.html` relative to that root.
 
-4. **`validate_build.py` COMPLETE check** without the panel will report false positives for
-   codes `2210`, `6428`, `C497`, `L191`, `L192`, `JA36`, `2020` (bare PDF codes not in panel).
-   These disappear when the panel is present.
+4. **`validate_build.py` COMPLETE check** without the panel will report false positives for codes
+   `2210`, `6428`, `C497`, `L191`, `L192`, `JA36`, `2020` (bare PDF codes not in panel shards). These
+   disappear when the full panel is present.
+
+5. **`FINALIZE.ps1`** in this reproduce/ folder runs from the `External Bank Data\` dev workspace,
+   not from a fresh clone of this repo. See the warning at the top of that file. From a fresh clone,
+   run steps in RUNBOOK.md directly.

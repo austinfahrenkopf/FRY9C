@@ -124,14 +124,122 @@ dollar amount. When in doubt, look up the MDRM description in `fry9c_dictionary.
 
 ---
 
-## DYN subtotals (Y-9C only, not in 002/Call)
+## DYN subtotals
 
-Clicking a schedule header in the Y-9C dashboard creates a dynamic subtotal (`DYN['SUB:code']`)
-that sums the non-PCTC leaf descendants of that node. This is implemented via `descCodes()` in
-`make_site_fry9c.py`'s embedded JS.
+Two distinct DYN mechanisms exist:
 
-DYN does not exist in the 002 or Call dashboards (their hierarchies are flat enough that it
-isn't needed). Do not port DYN to 002/Call without validating that the hierarchy supports it.
+**1. Tree-click DYN (Y-9C only):** Clicking a schedule header creates `DYN['SUB:code']` summing
+non-PCTC leaf descendants in real time. Implemented via `descCodes()` in JS. This mechanism does
+NOT exist in 002 or Call — their hierarchies are too flat.
+
+**2. `buildLGMEAS()` DYN entries (all three repos, since §NORMDEN-LEAGUE-FRY9C/CALL/002):**
+`buildLGMEAS()` walks the full HIER tree via `nest(emitSchedule(sch))` and pre-computes
+`DYN['SUB:'+nd.code]` for every header node. These are used by the League table's `perFilerValues()`
+(which reads `let d=DERIV[measCode]||DYN[measCode]`). This IS in all three repos — do not confuse
+with tree-click DYN. Never remove the `||DYN[measCode]` fallback in `perFilerValues()`.
+
+`pct` flag for DERIV loop: use `d.type==='ratio'` (not `d.type!=='sum'`) to avoid marking sum-type
+DYN entries as percentage. This was corrected in all three repos at §NORMDEN-LEAGUE.
+
+---
+
+## Denominator dropdown (`#normden`, `NORM_DEN_LABELS`) — §NORMDEN-LEAGUE-FRY9C
+
+Replaced the single `÷ assets` checkbox with a compound control: same `#normbyassets` checkbox
+plus a `#normden` `<select>` with 4 presets. Key implementation details:
+
+- **`NORM_DEN_LABELS`** constant maps code → human label for axis suffix (assets / loans / deposits / equity).
+- **Presets (MDRM):** `BHCK2170` (Total assets, default), `BHCK2122` (Total loans & leases),
+  `S_DEP` (Total deposits — DERIV sum; see below), `BHCK3210` (Total equity capital).
+- **`window._normDenCd`:** Current denominator code stored on `window` (not `let`) so it is
+  accessible from `page.evaluate()` in Playwright. Never change this to a `let`.
+- **`recompute()`** reads `#normden.value` → `window._normDenCd`; `draw()` and `drawExtraChart()`
+  both use `NORM_DEN_LABELS[normDen]` for the axis label.
+- **Link-chart sync:** `_getLinkTfm()` carries `normDen` in the transform object; `_applyLinkedTfm()`
+  applies it to extra charts. Always update both when porting.
+- **localStorage:** `fry9c_normden` (selected code) + `fry9c_normbyassets` (on/off). Restored on init.
+
+**Y-9C total deposits (`S_DEP`):** No single `BHCK2200` code exists on the Y-9C form. Deposits are
+split across `BHDM6631 + BHDM6636 + BHFN6631 + BHFN6636`. The engine defines
+`DERIV['S_DEP'] = {type:'sum', plus:['BHDM6631','BHDM6636','BHFN6631','BHFN6636']}`.
+`seriesFor()` handles DERIV sums transparently. Never use a single `BHCK2200` on Y-9C.
+
+---
+
+## League table — full measure set (`buildLGMEAS`) — §NORMDEN-LEAGUE-FRY9C
+
+`buildLGMEAS()` builds the league's measure dropdown by walking the full `HIER` tree:
+
+```
+nest(emitSchedule(sch))  →  DYN['SUB:'+nd.code]  for every header node
+```
+
+- Creates `{type:'sum', plus:[...leaf codes]}` DYN entries for tree headers.
+- **HC-N row 9 special case:** uses `hybrid_sum` with `_HCN9_A/B/C` parts (mirrors the tree-click
+  handler). Must be preserved when porting to other dashboards; check the target form's HIER first.
+- Result: 453 league measure options (Y-9C). Includes all raw codes + all tree-subtotals + all DERIV.
+- **`perFilerValues()` hybrid branch:** `hybrid_sum`/`hybrid_ratio` types use `.parts` array with
+  `{reported, components}` per segment; reported value preferred over sum of components; single grouped
+  DuckDB query per measure. Keep this branch when porting; it handles Y-9C's HC-N reporting gaps.
+
+---
+
+## `hybrid_sum` subtotals — §HCN9-HYBRID + §SUBTOTAL-AUDIT-FIX
+
+Several Y-9C sub-totals cannot be read directly from the panel (no single code exists or the
+reported code is zero/absent for some filers). These use `type:'hybrid_sum'` in DERIV:
+
+| Sub-total | DERIV key | Mechanism |
+|---|---|---|
+| HC-N row 9 (total past-due/nonaccrual) | `_HCN9_A/_HCN9_B/_HCN9_C` parts | `hybrid_sum` with 3 column-sets; reports column sums across the HC-N matrix |
+| HC-C 10.A lease-financing | `BHCK2165` | `hybrid_sum`, `preferMax:false` (false-zero fix: some filers report 0 for a non-zero lease portfolio; use sum of components instead of reported value for those filers) |
+| HC-F row 3 | `BHCKHT80` | `hybrid_sum` |
+| HC-L row 1.e.2 | `BHCKJ458` | `hybrid_sum` |
+
+**`preferMax:false` fix (HC-C 10.A):** Without this, filers who report `BHCK2165=0` (a false zero
+meaning "not separately disclosed") would show $0 lease financing when their component codes sum to
+a non-zero value. `preferMax:false` means the sum of components wins over the reported value when
+the reported value is lower. Do not remove this flag for lease-financing.
+
+---
+
+## Mis-nest override mechanism (`item=""`, `depth=1`) — §MISNEST-FIX-YC + §HCD-MEMO-FIX
+
+Several Y-9C codes appear mis-nested in `fry9c_hierarchy_overrides.json` using the override:
+```json
+{ "code": "BHCKXXXX", "item": "", "depth": 1 }
+```
+This sets the item number to empty and depth to 1, making the code a standalone (un-indented) entry
+rather than a child of a preceding header. Use this pattern for surgical de-parenting.
+
+Known mis-nests fixed and committed in `fry9c_hierarchy_overrides.json`:
+
+| Codes | Schedule | Problem | Fix |
+|---|---|---|---|
+| ~24 HC-D Memo codes | HC-D Memo | Incorrectly nested under wrong header | `item=""` `depth=1` overrides |
+| `BHCKS489`, `BHCKS484` | HC-R Part II | Mis-nested under wrong HC-R Part II header | `item=""` `depth=1` |
+| `BHCKG387`, `BHCKG388` | HC-D Memo item 4 | Mis-nested under different memo section | `item=""` `depth=1` |
+
+**Workflow:** apply surgical `force_rows` / `caption_fixes` / `item=""`+`depth=1` overrides in
+`fry9c_hierarchy_overrides.json`; always run `build_hierarchy_fry9c.py` → `validate_build.py` after
+any change. Never edit `fry9c_hierarchy.json` directly; it is rebuilt from the PDF + matrix + overrides.
+
+---
+
+## Export Builder fidelity — §EXPORT-FIX-YC
+
+The Export Builder (JS module) was redesigned to route all codes correctly:
+
+- **`ebRawCodes()`:** simplified to `out.add(c)` for all measure types. DERIV/DYN now count as
+  one code each (not silently dropped). `hybrid_sum` no longer dropped.
+- **`runExport()`:** partitions measure codes into `derivKeys` (DERIV/DYN/COMB — routed through
+  `seriesFor()`) and `rawOnly` (pure MDRM — goes to raw SQL). Applied to BOTH the "codes" scope
+  and the "schedules" scope.
+- **Schedules scope:** RCFD/RCON codes in the schedules scope are converted to COMB before DERIV
+  lookup. This is a Y-9C/Call pattern — always check the schedule-scope path when porting.
+
+Before this fix, `hybrid_sum` measures and COMB codes exported null. After the fix, all measure
+types produce correct exported values.
 
 ---
 
@@ -189,7 +297,7 @@ No paid data sources. No WRDS. No Bloomberg. Everything comes from public filing
 | DERIV codes resolve | `validate_build.py` | All DERIV num/den codes present in panel |
 | Bidirectional completeness | `_completeness_gate.py` | 0 missing, 0 unexpected codes |
 | Rendered-vs-PDF | Manual + `_validate_hierarchy_vs_pdf.py` | 39/39 schedules match form |
-| Engine smoke test | `_qa_final.py` | 23/23 QA checks pass |
+| Engine smoke test | `_qa_final.py` | 32/32 QA checks pass (includes normden/league checks) |
 | Full suite | `FINALIZE.ps1` | Prints "FINALIZE COMPLETE - ALL PASSED" |
 
 Run `validate_build.py` after every hierarchy rebuild. Run `FINALIZE.ps1` before any push.
@@ -202,7 +310,9 @@ Run `validate_build.py` after every hierarchy rebuild. Run `FINALIZE.ps1` before
 |---|---|
 | Add/fix a line item in a matrix schedule | `fry9c_matrix.csv` |
 | Fix a caption, force a row, drop an old code | `fry9c_hierarchy_overrides.json` |
-| Add a derived ratio (e.g., new capital metric) | `DERIVED` dict in `make_site_fry9c.py` |
+| Add a derived ratio or DERIV code | `DERIVED` dict in `make_site_fry9c.py` |
+| Fix a mis-nest (standalone an incorrectly-nested code) | `fry9c_hierarchy_overrides.json`: add `{"code":"BHCKXXXX","item":"","depth":1}` |
+| Add a denominator preset to the ÷ dropdown | `NORM_DEN_LABELS` dict in `make_site_fry9c.py` |
 | Change dashboard UI or query logic | `make_site_fry9c.py` (then port to 002/Call) |
 | Change what codes are excluded from the completeness gate | `fry9c_completeness_exclusions.json` |
 | Add a new expected line item | `expected_items.json` |
