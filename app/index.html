@@ -209,7 +209,7 @@ body:not(.dark) .lgon-row td{background:#e8f5e9!important}body.dark .lgon-row td
    <button id="loadhist" class="sec" style="display:none" title="Load pre-2020 historical series for active filers (~29 MB)">📅 Older data</button>
    <label class="muted" title="rebase each $ series to 100 at the start of the range"><input type="checkbox" id="idx"> index to 100</label>
    <label class="muted" title="show quarter-over-quarter absolute change instead of level"><input type="checkbox" id="qoqdelta"> QoQ Δ</label>
-   <label class="muted" title="divide each $ series by total assets (BHCK2170), producing a % ratio"><input type="checkbox" id="normbyassets"> ÷ assets</label>
+   <span style="white-space:nowrap"><label class="muted" title="Divide each $ series by the selected denominator, producing a % ratio"><input type="checkbox" id="normbyassets"> ÷</label> <select id="normden" style="font-size:12px;padding:1px 3px;border:1px solid var(--border,#ccc);border-radius:3px;background:inherit;color:inherit;max-width:90px"><option value="BHCK2170">assets</option><option value="BHCK2122">loans</option><option value="S_DEP">deposits</option><option value="BHCK3210">equity</option></select></span>
    <label class="muted" title="render $ series as stacked areas (additive measures only — disabled for % / ratio series)"><input type="checkbox" id="stackedmode"> ◫ Stacked</label>
    <label class="muted" title="show the series name at the right end of each line (turn off to rely on the hover/pinned tooltip; the chart gets more width)"><input type="checkbox" id="inlinelbls"> ⌯ Inline labels</label>
    <span class="muted" style="font-size:13px;white-space:nowrap">⟵<input id="reflineval" type="text" placeholder="ref line e.g. 8 or 5e6" style="width:100px;font-size:13px;padding:1px 4px;border:1px solid var(--border,#ccc);background:inherit;color:inherit;border-radius:3px"><input id="reflinelbl" type="text" placeholder="label" style="width:60px;font-size:13px;padding:1px 4px;border:1px solid var(--border,#ccc);background:inherit;color:inherit;border-radius:3px"><button id="reflineset" class="sec" style="padding:1px 6px;font-size:13px">Set</button><button id="reflineclr" class="sec" style="padding:1px 6px;font-size:13px">✕</button></span>
@@ -219,7 +219,7 @@ body:not(.dark) .lgon-row td{background:#e8f5e9!important}body.dark .lgon-row td
    <textarea id="sql">SELECT quarter_end, value FROM t WHERE mdrm='BHCK2170' AND id_rssd=1039502 ORDER BY quarter_end;</textarea>
    <div style="margin-top:8px"><button id="runsql" class="sec">Run</button> <button id="sqlcsv" class="sec">Export result</button></div>
    <div id="sqlout"></div></details>
-  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-07-01 00:09</div>
+  <div class="credit">Built by Austin Fahrenkopf &middot; data: public FFIEC/FRB filings &middot; Built 2026-07-01 07:02</div>
  </div>
 </div>
 <div id="formmodal" class="modal" style="display:none"><div class="modalbox">
@@ -289,6 +289,7 @@ const FORM_ORDER=['HI','HI-A','HI-B','HI-C','HC','HC-B','HC-C','HC-D','HC-E','HC
 // Y-9C total deposits has NO single MDRM code (unlike Call's RCON2200): it is the
 // sum of domestic (BHDM) + foreign (BHFN) non-interest + interest-bearing deposits.
 const DEP=['BHDM6631','BHDM6636','BHFN6631','BHFN6636'];
+const NORM_DEN_LABELS={'BHCK2170':'assets','BHCK2122':'loans','S_DEP':'deposits','BHCK3210':'equity'};
 // Derived terms may be a bare 4-char base (coalesced across BHCK/BHDM/BHFN) OR an
 // explicit full MDRM code (used directly). Deposits MUST use explicit codes so the
 // domestic+foreign components are summed, not coalesced to just one.
@@ -749,7 +750,8 @@ function exportFormulas(){const s=getFormulasJson();const b=new Blob([s],{type:'
  document.getElementById('rfrom').onchange=()=>{const q=document.getElementById('rfrom').value.trim();const i=Qall.indexOf(q);if(i>=0){rangeSel.a=Math.min(i,rangeSel.b);syncSlider();draw();}};
  document.getElementById('rto').onchange=()=>{const q=document.getElementById('rto').value.trim();const i=Qall.indexOf(q);if(i>=0){rangeSel.b=Math.max(i,rangeSel.a);syncSlider();draw();}};
  {const lhb=document.getElementById('loadhist');if(lhb){if(OLD_ACTIVE_PARTS.length)lhb.style.display='';lhb.onclick=async()=>{lhb.disabled=true;lhb.textContent='Loading…';await ensureOldActive();};}}
- document.getElementById('idx').onchange=()=>{if(_linkCharts){_applyLinkedTfm(_getLinkTfm());renderExtraChartsArea();}draw();};document.getElementById('qoqdelta').onchange=()=>{if(_linkCharts){_applyLinkedTfm(_getLinkTfm());renderExtraChartsArea();}draw();};document.getElementById('normbyassets').onchange=()=>{if(_linkCharts){_applyLinkedTfm(_getLinkTfm());renderExtraChartsArea();}draw();};document.getElementById('reflineset').onclick=()=>{const v=parseFloat(document.getElementById('reflineval').value);if(!isNaN(v)){_reflineVal=v;_reflineLbl=document.getElementById('reflinelbl').value.trim()||String(v);}draw();};document.getElementById('reflineclr').onclick=()=>{_reflineVal=null;document.getElementById('reflineval').value='';document.getElementById('reflinelbl').value='';draw();};
+ document.getElementById('idx').onchange=()=>{if(_linkCharts){_applyLinkedTfm(_getLinkTfm());renderExtraChartsArea();}draw();};document.getElementById('qoqdelta').onchange=()=>{if(_linkCharts){_applyLinkedTfm(_getLinkTfm());renderExtraChartsArea();}draw();};document.getElementById('normbyassets').onchange=()=>{try{localStorage.setItem('fry9c_normbyassets',document.getElementById('normbyassets').checked?'1':'0');}catch(_){}if(_linkCharts){_applyLinkedTfm(_getLinkTfm());renderExtraChartsArea();}if(document.getElementById('normbyassets').checked)scheduleRecompute();else draw();};
+ {const nde=document.getElementById('normden');if(nde)nde.onchange=()=>{window._normDenCd=nde.value;try{localStorage.setItem('fry9c_normden',nde.value);}catch(_){}if(_linkCharts){_applyLinkedTfm(_getLinkTfm());renderExtraChartsArea();}if(document.getElementById('normbyassets')?.checked)scheduleRecompute();};};document.getElementById('reflineset').onclick=()=>{const v=parseFloat(document.getElementById('reflineval').value);if(!isNaN(v)){_reflineVal=v;_reflineLbl=document.getElementById('reflinelbl').value.trim()||String(v);}draw();};document.getElementById('reflineclr').onclick=()=>{_reflineVal=null;document.getElementById('reflineval').value='';document.getElementById('reflinelbl').value='';draw();};
  (function(){const sp=document.getElementById('railsplit');let drag=false;
   sp.addEventListener('mousedown',e=>{drag=true;e.preventDefault();document.body.style.userSelect='none';});
   window.addEventListener('mousemove',e=>{if(!drag)return;const w=Math.min(820,Math.max(300,e.clientX));document.documentElement.style.setProperty('--railw',w+'px');});
@@ -759,6 +761,9 @@ function exportFormulas(){const s=getFormulasJson();const b=new Blob([s],{type:'
  const restored=hashToState();
  if(!restored){active=[{id:'ALL',label:'ALL'}];}
  if(!measures.length){try{const s=localStorage.getItem('fry9c_measures');if(s){const ms=JSON.parse(s);if(Array.isArray(ms)&&ms.length)measures=ms.slice(0,20);}}catch{}if(!measures.length)measures=[{code:'BHCK2170',label:'Total assets',pct:false}];}
+ // Restore normden + normbyassets from localStorage
+ try{const nd=localStorage.getItem('fry9c_normden');if(nd){const el=document.getElementById('normden');if(el&&[...el.options].some(o=>o.value===nd)){el.value=nd;window._normDenCd=nd;}}else{window._normDenCd='BHCK2170';}}catch(_){window._normDenCd='BHCK2170';}
+ try{const nb=localStorage.getItem('fry9c_normbyassets');if(nb){const el=document.getElementById('normbyassets');if(el)el.checked=nb==='1';}}catch(_){}
  renderChips();renderMeasures();renderPeerSaved();
  initWidthResize('cards','fry9c_cardsw');initWidthResize('mchips','fry9c_legendw');initWidthResize('tbl','fry9c_tblw');initWidthResize('snapshot','fry9c_snapw');initWidthResize('calcdiv','fry9c_calcdivw');initWidthResize('peerbox','fry9c_peerbuilderw');
  st(`Ready — ${ROSTER.size} holding companies. Click items on the left.`);pbar(100);recompute();autoLoadFormulas();
@@ -1115,7 +1120,7 @@ async function recompute(){if(!measures.length||!active.length){lastSeries=[];Qa
    const label=`${e.label} · ${mlbl}`+(blocked?' (n/a — % cell, not summable across entities)':'');
    out.push({label,pct:m.pct,rows,color:COLORS[ci++%COLORS.length],eid:e.id});}
  lastSeries=out;const qs=new Set();for(const s of out)for(const r of s.rows)qs.add(r[0]);
- _assetRows.clear();for(const e of active){if(mySeq!==_rcSeq)return;const ar=await seriesFor(e.id,'BHCK2170');_assetRows.set(e.id,Object.fromEntries(ar.map(r=>[r[0],r[1]])));}
+ _assetRows.clear();const _ndEl=document.getElementById('normden');const _ndCd=_ndEl?_ndEl.value:'BHCK2170';window._normDenCd=_ndCd;for(const e of active){if(mySeq!==_rcSeq)return;const ar=await seriesFor(e.id,_ndCd);_assetRows.set(e.id,Object.fromEntries(ar.map(r=>[r[0],r[1]])));}
 
  // splice markers: seam quarters where a charted entity's RSSD lineage hands off (only when linking)
  SPLICEQ=[];if(LINK){const seen=new Set();for(const e of active){if(!e.id.startsWith('BANK:'))continue;const L=LINEAGE[+e.id.slice(5)];if(!L)continue;
@@ -1178,7 +1183,8 @@ function draw(){const host=document.getElementById('panes');
  window._hybridOnChart=measures.some(m=>DERIV[m.code]?.type==='hybrid_ratio'||DERIV[m.code]?.type==='hybrid_sum'||DYN[m.code]?.type==='hybrid_ratio'||DYN[m.code]?.type==='hybrid_sum');
  const win=Qall.slice(rangeSel.a,rangeSel.b+1),ws=new Set(win);
  const normOn=document.getElementById('normbyassets')&&document.getElementById('normbyassets').checked;
- const workSeries=normOn?lastSeries.map(s=>{if(s.pct)return s;const am=_assetRows.get(s.eid)||{};const norm=s.rows.map(([q,v])=>{const a=am[q];return [q,v!=null&&a&&a!==0?100*v/a:null];});return {...s,rows:norm,pct:true,_normLabel:s.label+' / assets %'};}).map(s=>s._normLabel?{...s,label:s._normLabel}:s):lastSeries;
+ const _ndLbl=NORM_DEN_LABELS[window._normDenCd||'BHCK2170']||'assets';
+ const workSeries=normOn?lastSeries.map(s=>{if(s.pct)return s;const am=_assetRows.get(s.eid)||{};const norm=s.rows.map(([q,v])=>{const a=am[q];return [q,v!=null&&a&&a!==0?100*v/a:null];});return {...s,rows:norm,pct:true,_normLabel:s.label+' / '+_ndLbl+' %'};}).map(s=>s._normLabel?{...s,label:s._normLabel}:s):lastSeries;
  const groups=[['$ thousands',workSeries.filter(s=>!s.pct)],['percent',workSeries.filter(s=>s.pct)]];let html='';
  let dualAxis=window._dualAxis||false;
  if(!window._axisRight)window._axisRight=new Set();
@@ -1245,18 +1251,18 @@ function draw(){const host=document.getElementById('panes');
 // ---- extra charts ----
 let _extraCharts=[],_nextChartId=1;window._addToChartId=null;
 let _linkCharts=false;try{_linkCharts=localStorage.getItem('fry9c_linkcharts')==='1';}catch(_){}
-function _getLinkTfm(){return{idx:!!(document.getElementById('idx')?.checked),qoqdelta:!!(document.getElementById('qoqdelta')?.checked),normByAssets:!!(document.getElementById('normbyassets')?.checked),stacked:!!(document.getElementById('stackedmode')?.checked)};}
-function _applyLinkedTfm(tfm){['idx','qoqdelta','normbyassets','stackedmode'].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=!!(id==='normbyassets'?tfm.normByAssets:id==='stackedmode'?tfm.stacked:tfm[id]);});_extraCharts.forEach(c=>{c.transforms={...c.transforms,...tfm};});}
+function _getLinkTfm(){const _nde=document.getElementById('normden');return{idx:!!(document.getElementById('idx')?.checked),qoqdelta:!!(document.getElementById('qoqdelta')?.checked),normByAssets:!!(document.getElementById('normbyassets')?.checked),normDen:_nde?_nde.value:'BHCK2170',stacked:!!(document.getElementById('stackedmode')?.checked)};}
+function _applyLinkedTfm(tfm){['idx','qoqdelta','normbyassets','stackedmode'].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=!!(id==='normbyassets'?tfm.normByAssets:id==='stackedmode'?tfm.stacked:tfm[id]);});if(tfm.normDen){const nde=document.getElementById('normden');if(nde&&nde.value!==tfm.normDen){nde.value=tfm.normDen;window._normDenCd=tfm.normDen;try{localStorage.setItem('fry9c_normden',tfm.normDen);}catch(_){}}}  _extraCharts.forEach(c=>{c.transforms={...c.transforms,...tfm};});}
 function _applyLinkedPin(q){window._pinnedQ=q;document.querySelectorAll('#panes .qband').forEach(g=>{g.classList.remove('qband-pinned');if(q&&g.dataset.q===q)g.classList.add('qband-pinned');});_extraCharts.forEach(c=>{c._pinnedQ=q;document.querySelectorAll(`#ec-${c.id} .qband`).forEach(g=>{g.classList.remove('qband-pinned');if(q&&g.dataset.q===q)g.classList.add('qband-pinned');});});}
 function addChart(){const id=_nextChartId++;_extraCharts.push({id,measures:[],lastSeries:[],transforms:{normByAssets:false,stacked:false,idx:false,qoqdelta:false},_pinnedQ:null,_idxBase:null,_hovQ:null,_hovTx:null,_hovTy:null});renderExtraChartsArea();}
 function removeChart(id){_extraCharts=_extraCharts.filter(c=>c.id!==id);if(window._addToChartId===id)window._addToChartId=null;renderExtraChartsArea();}
 function setChartTarget(id){window._addToChartId=(window._addToChartId===id)?null:id;document.querySelectorAll('.ec-target-btn').forEach(b=>{b.style.background='';b.style.color='';});if(window._addToChartId!=null){const b=document.getElementById('ec-tgt-'+window._addToChartId);if(b){b.style.background='var(--acc,#1d4ed8)';b.style.color='#fff';}}if(window._addToChartId!=null)showToast('Click tree items to add to Chart '+(window._addToChartId+1),'warn');}
 window.addChart=addChart;window.removeChart=removeChart;window.setChartTarget=setChartTarget;
-function renderExtraChartsArea(){const area=document.getElementById('extracharts-area');if(!area)return;area.innerHTML=_extraCharts.map(chart=>`<div class="extra-chart" id="ec-${chart.id}" style="margin-top:14px;border-top:1px solid var(--head,#eef2f7);padding-top:8px"><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px"><b style="font-size:13px;color:var(--muted,#9aa3b2)">Chart ${chart.id+1}</b><button class="sec" style="font-size:12px;padding:1px 6px" onclick="removeChart(${chart.id})">✕</button><button class="sec ec-target-btn" id="ec-tgt-${chart.id}" style="font-size:12px;padding:1px 6px" onclick="setChartTarget(${chart.id})">▶ Add items</button><span id="ec-mchips-${chart.id}"></span><label style="font-size:12px;cursor:pointer;user-select:none"><input type="checkbox" data-cid="${chart.id}" data-tfm="normByAssets"${chart.transforms.normByAssets?' checked':''}> ÷ assets</label><label style="font-size:12px;cursor:pointer;user-select:none"><input type="checkbox" data-cid="${chart.id}" data-tfm="stacked"${chart.transforms.stacked?' checked':''}> ◫ stack</label><label style="font-size:12px;cursor:pointer;user-select:none"><input type="checkbox" data-cid="${chart.id}" data-tfm="idx"${chart.transforms.idx?' checked':''}> ⊡ idx</label><label style="font-size:12px;cursor:pointer;user-select:none"><input type="checkbox" data-cid="${chart.id}" data-tfm="qoqdelta"${chart.transforms.qoqdelta?' checked':''}> QoQ Δ</label></div><div id="ec-panes-${chart.id}"><p class="muted" style="font-size:13px">Click ▶ Add items, then a line item on the left.</p></div></div>`).join('');_extraCharts.forEach(c=>renderExtraChartChips(c));drawExtraCharts();}
+function renderExtraChartsArea(){const area=document.getElementById('extracharts-area');if(!area)return;area.innerHTML=_extraCharts.map(chart=>`<div class="extra-chart" id="ec-${chart.id}" style="margin-top:14px;border-top:1px solid var(--head,#eef2f7);padding-top:8px"><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px"><b style="font-size:13px;color:var(--muted,#9aa3b2)">Chart ${chart.id+1}</b><button class="sec" style="font-size:12px;padding:1px 6px" onclick="removeChart(${chart.id})">✕</button><button class="sec ec-target-btn" id="ec-tgt-${chart.id}" style="font-size:12px;padding:1px 6px" onclick="setChartTarget(${chart.id})">▶ Add items</button><span id="ec-mchips-${chart.id}"></span><label style="font-size:12px;cursor:pointer;user-select:none"><input type="checkbox" data-cid="${chart.id}" data-tfm="normByAssets"${chart.transforms.normByAssets?' checked':''}> ÷ ${NORM_DEN_LABELS[window._normDenCd||'BHCK2170']||'assets'}</label><label style="font-size:12px;cursor:pointer;user-select:none"><input type="checkbox" data-cid="${chart.id}" data-tfm="stacked"${chart.transforms.stacked?' checked':''}> ◫ stack</label><label style="font-size:12px;cursor:pointer;user-select:none"><input type="checkbox" data-cid="${chart.id}" data-tfm="idx"${chart.transforms.idx?' checked':''}> ⊡ idx</label><label style="font-size:12px;cursor:pointer;user-select:none"><input type="checkbox" data-cid="${chart.id}" data-tfm="qoqdelta"${chart.transforms.qoqdelta?' checked':''}> QoQ Δ</label></div><div id="ec-panes-${chart.id}"><p class="muted" style="font-size:13px">Click ▶ Add items, then a line item on the left.</p></div></div>`).join('');_extraCharts.forEach(c=>renderExtraChartChips(c));drawExtraCharts();}
 function renderExtraChartChips(chart){const c=document.getElementById('ec-mchips-'+chart.id);if(!c)return;c.innerHTML=chart.measures.map((m,i)=>`<span class="chip" style="font-size:12px"><b>${m.label}</b> <span class="muted">${m.pct?'%':'$'}</span><span class="x" data-ci="${chart.id}" data-i="${i}">✕</span></span>`).join('');c.querySelectorAll('.x').forEach(x=>x.onclick=()=>{const ch=_extraCharts.find(c=>c.id===+x.dataset.ci);if(ch){ch.measures.splice(+x.dataset.i,1);renderExtraChartChips(ch);recomputeExtraCharts().then(()=>drawExtraCharts());}});}
 async function recomputeExtraCharts(){for(const chart of _extraCharts){if(!chart.measures.length||!active.length){chart.lastSeries=[];continue;}const out=[];let ci=0;for(const m of chart.measures)for(const e of active){const rows=await seriesFor(e.id,m.code);const mlbl=fullCap(m.code)||m.label;const label=`${e.label} · ${mlbl}`;out.push({label,pct:m.pct,rows,color:COLORS[ci++%COLORS.length],eid:e.id});}chart.lastSeries=out;}}
 function drawExtraCharts(){if(!_extraCharts.length)return;const win=Qall.slice(rangeSel.a,rangeSel.b+1),ws=new Set(win);for(const chart of _extraCharts)drawExtraChart(chart,win,ws);applyChartSize();}
-function drawExtraChart(chart,win,ws){const host=document.getElementById('ec-panes-'+chart.id);if(!host)return;if(!chart.lastSeries.length){host.innerHTML='<p class="muted" style="font-size:13px">Click ▶ Add items, then a line item on the left.</p>';return;}const _m=measures;measures=chart.measures;const _prevHybrid=window._hybridOnChart;window._hybridOnChart=chart.measures.some(m=>DERIV[m.code]?.type==='hybrid_ratio'||DERIV[m.code]?.type==='hybrid_sum');let html='';try{const normOn=!!chart.transforms.normByAssets;const stackedOn=!!chart.transforms.stacked;const workSeries=normOn?chart.lastSeries.map(s=>{if(s.pct)return s;const am=_assetRows.get(s.eid)||{};const norm=s.rows.map(([q,v])=>{const a=am[q];return[q,v!=null&&a&&a!==0?100*v/a:null];});return{...s,rows:norm,pct:true,_normLabel:s.label+' / assets %'};}).map(s=>s._normLabel?{...s,label:s._normLabel}:s):chart.lastSeries;const hasDol=workSeries.some(s=>!s.pct),hasPct=workSeries.some(s=>s.pct);if(hasDol&&hasPct){const lF=workSeries.filter(s=>!s.pct),rF=workSeries.filter(s=>s.pct);html+=paneDual(lF.map(s=>({...s,rows:s.rows.filter(r=>ws.has(r[0]))})),rF.map(s=>({...s,rows:s.rows.filter(r=>ws.has(r[0]))})),win);}else{const groups=[['$ thousands',workSeries.filter(s=>!s.pct)],['percent',workSeries.filter(s=>s.pct)]];for(const[unit,arr]of groups){if(!arr.length)continue;html+=pane(arr.map(s=>({...s,rows:s.rows.filter(r=>ws.has(r[0]))})),unit==='percent',unit,win,stackedOn&&unit==='$ thousands');}}if(chart.transforms.idx){const dol=chart.lastSeries.filter(s=>!s.pct);if(dol.length){const w=dol.map(s=>{const rw=s.rows.filter(r=>ws.has(r[0]));let bb;if(chart._idxBase){bb=rw.find(r=>r[0]===chart._idxBase&&r[1]!=null&&r[1]!==0)||rw.find(r=>r[1]!=null&&r[1]!==0);}else{bb=rw.find(r=>r[1]!=null&&r[1]!==0);}const b=bb&&bb[1];return{...s,rows:b?rw.map(([q,v])=>[q,v==null?null:100*v/b]):[]};});const baseLbl=chart._idxBase?` (base: ${chart._idxBase})`:'';html+=`<div class="idx-pane"><div style="font-size:12px;color:var(--muted,#9aa3b2);padding:2px 14px">Index to 100${baseLbl} — click chart to rebase${chart._idxBase?` · <a href="#" id="ec-idxbasereset" style="color:var(--muted,#9aa3b2)">reset</a>`:''}`;html+=pane(w,false,'index',win);html+=`</div>`;}}if(chart.transforms.qoqdelta){const dol=chart.lastSeries.filter(s=>!s.pct);if(dol.length){const w=dol.map(s=>{const rw=s.rows.filter(r=>ws.has(r[0]));const qm=Object.fromEntries(s.rows.map(r=>[r[0],r[1]]));const dd=rw.map(r=>{const pQ=prevQtr(r[0]);const pv=pQ in qm?qm[pQ]:null;return[r[0],r[1]!=null&&pv!=null?r[1]-pv:null];}).filter(r=>r[1]!=null);return{...s,rows:dd,pct:false};});html+=pane(w,false,'$ thousands',win);}}}finally{measures=_m;window._hybridOnChart=_prevHybrid;}host.innerHTML=html;if(chart._pinnedQ){document.querySelectorAll(`#ec-${chart.id} .qband[data-q="${chart._pinnedQ}"]`).forEach(g=>g.classList.add('qband-pinned'));}}
+function drawExtraChart(chart,win,ws){const host=document.getElementById('ec-panes-'+chart.id);if(!host)return;if(!chart.lastSeries.length){host.innerHTML='<p class="muted" style="font-size:13px">Click ▶ Add items, then a line item on the left.</p>';return;}const _m=measures;measures=chart.measures;const _prevHybrid=window._hybridOnChart;window._hybridOnChart=chart.measures.some(m=>DERIV[m.code]?.type==='hybrid_ratio'||DERIV[m.code]?.type==='hybrid_sum');let html='';try{const normOn=!!chart.transforms.normByAssets;const stackedOn=!!chart.transforms.stacked;const _ecNdLbl=NORM_DEN_LABELS[window._normDenCd||'BHCK2170']||'assets';const workSeries=normOn?chart.lastSeries.map(s=>{if(s.pct)return s;const am=_assetRows.get(s.eid)||{};const norm=s.rows.map(([q,v])=>{const a=am[q];return[q,v!=null&&a&&a!==0?100*v/a:null];});return{...s,rows:norm,pct:true,_normLabel:s.label+' / '+_ecNdLbl+' %'};}).map(s=>s._normLabel?{...s,label:s._normLabel}:s):chart.lastSeries;const hasDol=workSeries.some(s=>!s.pct),hasPct=workSeries.some(s=>s.pct);if(hasDol&&hasPct){const lF=workSeries.filter(s=>!s.pct),rF=workSeries.filter(s=>s.pct);html+=paneDual(lF.map(s=>({...s,rows:s.rows.filter(r=>ws.has(r[0]))})),rF.map(s=>({...s,rows:s.rows.filter(r=>ws.has(r[0]))})),win);}else{const groups=[['$ thousands',workSeries.filter(s=>!s.pct)],['percent',workSeries.filter(s=>s.pct)]];for(const[unit,arr]of groups){if(!arr.length)continue;html+=pane(arr.map(s=>({...s,rows:s.rows.filter(r=>ws.has(r[0]))})),unit==='percent',unit,win,stackedOn&&unit==='$ thousands');}}if(chart.transforms.idx){const dol=chart.lastSeries.filter(s=>!s.pct);if(dol.length){const w=dol.map(s=>{const rw=s.rows.filter(r=>ws.has(r[0]));let bb;if(chart._idxBase){bb=rw.find(r=>r[0]===chart._idxBase&&r[1]!=null&&r[1]!==0)||rw.find(r=>r[1]!=null&&r[1]!==0);}else{bb=rw.find(r=>r[1]!=null&&r[1]!==0);}const b=bb&&bb[1];return{...s,rows:b?rw.map(([q,v])=>[q,v==null?null:100*v/b]):[]};});const baseLbl=chart._idxBase?` (base: ${chart._idxBase})`:'';html+=`<div class="idx-pane"><div style="font-size:12px;color:var(--muted,#9aa3b2);padding:2px 14px">Index to 100${baseLbl} — click chart to rebase${chart._idxBase?` · <a href="#" id="ec-idxbasereset" style="color:var(--muted,#9aa3b2)">reset</a>`:''}`;html+=pane(w,false,'index',win);html+=`</div>`;}}if(chart.transforms.qoqdelta){const dol=chart.lastSeries.filter(s=>!s.pct);if(dol.length){const w=dol.map(s=>{const rw=s.rows.filter(r=>ws.has(r[0]));const qm=Object.fromEntries(s.rows.map(r=>[r[0],r[1]]));const dd=rw.map(r=>{const pQ=prevQtr(r[0]);const pv=pQ in qm?qm[pQ]:null;return[r[0],r[1]!=null&&pv!=null?r[1]-pv:null];}).filter(r=>r[1]!=null);return{...s,rows:dd,pct:false};});html+=pane(w,false,'$ thousands',win);}}}finally{measures=_m;window._hybridOnChart=_prevHybrid;}host.innerHTML=html;if(chart._pinnedQ){document.querySelectorAll(`#ec-${chart.id} .qband[data-q="${chart._pinnedQ}"]`).forEach(g=>g.classList.add('qband-pinned'));}}
 function pane(series,pct,unit,win,stacked){const W=1080,pad=64,n=win.length;const _showL=window._inlineLbls!==false;const _gut=16;const _vbw=W+_gut;const _pinned=window._chartW>40&&window._chartH>40;let H=_pinned?Math.round(_vbw*window._chartH/window._chartW):420;H=Math.max(260,Math.min(2800,H));const _svgsty=(_pinned?'width:100%;height:100%':'width:100%;height:auto')+';display:block';const xi=Object.fromEntries(win.map((q,i)=>[q,i]));
  let mn=Infinity,mx=-Infinity;for(const s of series)for(const r of s.rows){mn=Math.min(mn,r[1]);mx=Math.max(mx,r[1]);}
  if(!isFinite(mn)){const aC=DK()?'#9aa3b2':'#5a6478';return `<div class="chartbox"><svg viewBox="0 0 ${_vbw} ${H}" preserveAspectRatio="none" style="${_svgsty}" xmlns="http://www.w3.org/2000/svg"><text x="${(_vbw/2).toFixed(0)}" y="${(H/2).toFixed(0)}" font-size="16" fill="${aC}" text-anchor="middle" dominant-baseline="middle">No data available for this entity / date range</text></svg></div>`;}
@@ -1367,23 +1373,63 @@ function buildLGMEAS(){
   {code:'BHCK4340',label:'Net income (YTD)',pct:false},
  ];
  const seen=new Set(seed.map(m=>m.code));const out=[...seed];
+ // All curated DERIV subtotals / ratios
  for(const[k,d] of Object.entries(DERIV)){if(seen.has(k))continue;seen.add(k);
   const lbl=d.lbl||k;const parts=lbl.split(' ▸ ');const shortLbl=parts.length>1?parts.slice(1).join(' ▸ '):lbl;
-  out.push({code:k,label:shortLbl,pct:d.type!=='sum'});}
+  out.push({code:k,label:shortLbl,pct:d.type==='ratio'||d.type==='hybrid_ratio'});}
+ // DYN codes created this session (user-clicked tree headers)
+ for(const[k,d] of Object.entries(DYN)){if(seen.has(k))continue;seen.add(k);
+  const lbl=d.lbl||k;const parts=lbl.split(' ▸ ');const shortLbl=parts.length>1?parts.slice(1).join(' ▸ '):lbl;
+  out.push({code:k,label:shortLbl,pct:false});}
+ // Walk HIER to pre-compute all clickable tree header subtotals (mirrors tree click handler)
+ if(HIER){(function walkScheds(){
+   for(const sch of Object.keys(HIER)){
+     const roots=nest(emitSchedule(sch));
+     (function walkH(nodes){
+       for(const nd of nodes){
+         if(nd.header){
+           const codes=descCodes(nd);const key='SUB:'+nd.code;
+           if(codes.length&&!seen.has(key)){seen.add(key);
+             if(!DYN[key]){if(nd.sch==='HC-N'&&nd.num==='9'){DYN[key]={type:'hybrid_sum',lbl:sch+' ▸ '+(nd.caption||nd.code),parts:[{reported:'BHCK1406',components:_HCN9_A},{reported:'BHCK1407',components:_HCN9_B},{reported:'BHCK1403',components:_HCN9_C}]};}else{DYN[key]={type:'sum',lbl:sch+' ▸ '+(nd.caption||nd.code),plus:codes};}}
+             out.push({code:key,label:sch+' ▸ '+(nd.caption||nd.code),pct:false});
+           }
+         }
+         walkH(nd.children||[]);
+       }
+     })(roots);}})();}
  return out;}
 let lgSortField='v',lgSortDir=-1;   // league sort: field v/qoq/yoy, dir 1=asc -1=desc
 async function perFilerValues(measCode, quarters){
- // map: quarter -> Map(rssd -> per-filer value) for a raw code OR a DERIV ratio/sum
+ // map: quarter -> Map(rssd -> per-filer value) for a raw code OR a DERIV/DYN ratio/sum/hybrid
  const out={}; for(const q of quarters) out[q]=new Map();
- const d=DERIV[measCode]||DYN[measCode];   // LOW-1: also handle dynamic SUB: subtotals
- if(d){const terms=[...d.plus,...(d.minus||[]),...(d.den||[])];
-   const codes=[...new Set(terms.flatMap(term2codes))];
-   const r=(await conn.query(`SELECT id_rssd,quarter_end,mdrm,value FROM t WHERE mdrm IN (${sqlList(codes)}) AND quarter_end IN (${sqlList(quarters)})`)).toArray();
-   const byqf={}; for(const x of r){const q=String(x.quarter_end);(byqf[q]=byqf[q]||{});(byqf[q][x.id_rssd]=byqf[q][x.id_rssd]||{})[x.mdrm]=Number(x.value);}
+ const d=DERIV[measCode]||DYN[measCode];
+ if(d){
    const acc=(mp,arr)=>{let s=0,seen=false;for(const t of arr){const v=termVal(mp,t);if(v!=null){s+=v;seen=true;}}return [s,seen];};
-   for(const q of quarters){const per=byqf[q]||{};
-     for(const id in per){const mp=per[id];const [np,ns]=acc(mp,d.plus);const [nm,ms]=acc(mp,d.minus||[]);const num=np-nm;const [dp,ds]=acc(mp,d.den||[]);
-       if(d.type==='sum'){if(ns||ms)out[q].set(+id,num);}else{if((ns||ms)&&ds&&dp>0)out[q].set(+id,100*num/dp);}}}
+   if(d.type==='hybrid_sum'||d.type==='hybrid_ratio'){
+     // Collect all raw codes: reported + components from all parts + denominator
+     const allCodes=[];
+     for(const part of(d.parts||[])){if(part.reported)allCodes.push(part.reported);for(const c of(part.components||[]))allCodes.push(c);}
+     if(d.den)for(const t of d.den)for(const c of term2codes(t))allCodes.push(c);
+     const codes=[...new Set(allCodes)];if(!codes.length)return out;
+     const r=(await conn.query(`SELECT id_rssd,quarter_end,mdrm,value FROM t WHERE mdrm IN (${sqlList(codes)}) AND quarter_end IN (${sqlList(quarters)})`)).toArray();
+     const byqf={};for(const x of r){const q=String(x.quarter_end);(byqf[q]=byqf[q]||{});(byqf[q][x.id_rssd]=byqf[q][x.id_rssd]||{})[x.mdrm]=Number(x.value);}
+     for(const q of quarters){const per=byqf[q]||{};
+       for(const id in per){const mp=per[id];
+         let total=0,anyN=false;
+         for(const part of(d.parts||[])){const rv=(part.reported&&mp[part.reported]!=null)?mp[part.reported]:null;
+           if(rv!=null){total+=rv;anyN=true;}
+           else{let s=0,found=false;for(const c of(part.components||[])){if(mp[c]!=null){s+=mp[c];found=true;}}if(found){total+=s;anyN=true;}}}
+         if(anyN){if(d.type==='hybrid_sum'){out[q].set(+id,total);}
+           else{const[dp,ds]=acc(mp,d.den||[]);if(ds&&dp>0)out[q].set(+id,100*total/dp);}}}}
+   } else {
+     const terms=[...(d.plus||[]),...(d.minus||[]),...(d.den||[])];
+     const codes=[...new Set(terms.flatMap(term2codes))];if(!codes.length)return out;
+     const r=(await conn.query(`SELECT id_rssd,quarter_end,mdrm,value FROM t WHERE mdrm IN (${sqlList(codes)}) AND quarter_end IN (${sqlList(quarters)})`)).toArray();
+     const byqf={};for(const x of r){const q=String(x.quarter_end);(byqf[q]=byqf[q]||{});(byqf[q][x.id_rssd]=byqf[q][x.id_rssd]||{})[x.mdrm]=Number(x.value);}
+     for(const q of quarters){const per=byqf[q]||{};
+       for(const id in per){const mp=per[id];const [np,ns]=acc(mp,d.plus||[]);const [nm,ms]=acc(mp,d.minus||[]);const num=np-nm;const [dp,ds]=acc(mp,d.den||[]);
+         if(d.type==='sum'){if(ns||ms)out[q].set(+id,num);}else{if((ns||ms)&&ds&&dp>0)out[q].set(+id,100*num/dp);}}}
+   }
  } else {
    const r=(await conn.query(`SELECT id_rssd,quarter_end,SUM(value) v FROM t WHERE mdrm='${measCode}' AND quarter_end IN (${sqlList(quarters)}) GROUP BY id_rssd,quarter_end`)).toArray();
    for(const x of r) out[String(x.quarter_end)].set(Number(x.id_rssd), Number(x.v));
