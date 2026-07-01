@@ -1002,14 +1002,14 @@
     {
       "key": "HC-D — Memoranda",
       "mdrm": "BHCKG387",
-      "item": "4.a",
+      "item": "",
       "depth": 1,
       "caption": "Pledged trading assets: Pledged securities"
     },
     {
       "key": "HC-D — Memoranda",
       "mdrm": "BHCKG388",
-      "item": "4.b",
+      "item": "",
       "depth": 1,
       "caption": "Pledged trading assets: Pledged loans"
     },
@@ -1815,6 +1815,20 @@
       "item": "",
       "depth": 1,
       "caption": "Third itemized amount other trading liabilities (itemize and describe amounts included in schedule rc-d; item 13.b; that is greater than $1;000;000 and exceeds 25% of the item)"
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS489",
+      "item": "",
+      "depth": 1,
+      "caption": "On-Balance Sheet Securitization Exposures Trading Assets - Gross-Up Risk Weight Exposure B"
+    },
+    {
+      "key": "HC-R — Part II (Risk-Weighted Assets)",
+      "mdrm": "BHCKS484",
+      "item": "",
+      "depth": 1,
+      "caption": "On-Balance Sheet Securitization Exposures Available-For-Sale Securities - Gross-Up Risk We"
     }
   ],
   "drop_items": [

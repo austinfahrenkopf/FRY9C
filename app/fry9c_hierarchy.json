@@ -11620,7 +11620,7 @@
 {
 "mdrm": "BHCKS484",
 "caption": "On-Balance Sheet Securitization Exposures Available-For-Sale Securities - Gross-Up Risk We",
-"item": "22",
+"item": "",
 "depth": 1,
 "header": false
 },
@@ -11686,7 +11686,7 @@
 {
 "mdrm": "BHCKS489",
 "caption": "On-Balance Sheet Securitization Exposures Trading Assets - Gross-Up Risk Weight Exposure B",
-"item": "25",
+"item": "",
 "depth": 1,
 "header": false
 },
@@ -15250,14 +15250,14 @@
 {
 "mdrm": "BHCKG387",
 "caption": "Pledged trading assets: Pledged securities",
-"item": "4.a",
+"item": "",
 "depth": 1,
 "header": false
 },
 {
 "mdrm": "BHCKG388",
 "caption": "Pledged trading assets: Pledged loans",
-"item": "4.b",
+"item": "",
 "depth": 1,
 "header": false
 },
