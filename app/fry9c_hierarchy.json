@@ -10247,6 +10247,20 @@
 ],
 "HC-R — Part II (Risk-Weighted Assets)": [
 {
+"mdrm": "BHCKS489",
+"caption": "On-Balance Sheet Securitization Exposures Trading Assets - Gross-Up Risk Weight Exposure B",
+"item": "",
+"depth": 1,
+"header": false
+},
+{
+"mdrm": "BHCKS484",
+"caption": "On-Balance Sheet Securitization Exposures Available-For-Sale Securities - Gross-Up Risk We",
+"item": "",
+"depth": 1,
+"header": false
+},
+{
 "mdrm": "",
 "caption": "Cash And Balances Due From Depository Institutions",
 "item": "1",
@@ -11618,13 +11632,6 @@
 "header": false
 },
 {
-"mdrm": "BHCKS484",
-"caption": "On-Balance Sheet Securitization Exposures Available-For-Sale Securities - Gross-Up Risk We",
-"item": "",
-"depth": 1,
-"header": false
-},
-{
 "mdrm": "BHCKS566",
 "caption": "Total assets, derivatives, off-balance-sheet, and other items subject to risk weighting (column R subtotal)",
 "item": "22.aa",
@@ -11680,13 +11687,6 @@
 "mdrm": "BHCKS488",
 "caption": "On-Balance Sheet Securitization Exposures Trading Assets - SSFA Risk Weight Exposure By Ca",
 "item": "24",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCKS489",
-"caption": "On-Balance Sheet Securitization Exposures Trading Assets - Gross-Up Risk Weight Exposure B",
-"item": "",
 "depth": 1,
 "header": false
 },
@@ -15045,6 +15045,20 @@
 ],
 "HC-D — Memoranda": [
 {
+"mdrm": "BHCKG387",
+"caption": "Pledged trading assets: Pledged securities",
+"item": "",
+"depth": 1,
+"header": false
+},
+{
+"mdrm": "BHCKG388",
+"caption": "Pledged trading assets: Pledged loans",
+"item": "",
+"depth": 1,
+"header": false
+},
+{
 "mdrm": "BHOD3187",
 "caption": "NOW; ATS and other transaction accounts in domestic offices of commercial banks",
 "item": "",
@@ -15244,20 +15258,6 @@
 "mdrm": "BHFNA245",
 "caption": "TIME DEPOSITS IN FOREIGN OFFICES WITH A REMAINING MATURITY OF ONE YEAR OR LESS",
 "item": "4",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCKG387",
-"caption": "Pledged trading assets: Pledged securities",
-"item": "",
-"depth": 1,
-"header": false
-},
-{
-"mdrm": "BHCKG388",
-"caption": "Pledged trading assets: Pledged loans",
-"item": "",
 "depth": 1,
 "header": false
 },

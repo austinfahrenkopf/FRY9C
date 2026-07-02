@@ -6,7 +6,7 @@ Run once:  python add_missing_codes.py
 Safe to re-run: de-duplicates on (key, mdrm) before writing.
 """
 
-import json, sys
+import json, os, sys
 from pathlib import Path
 
 OVERRIDES = Path(__file__).parent / "fry9c_hierarchy_overrides.json"
@@ -244,11 +244,12 @@ def main():
             seen.add(k)
         added += 1
 
-    OVERRIDES.write_text(
-        json.dumps(data, indent=2, ensure_ascii=False),
-        encoding="utf-8"
-    )
-    print(f"\nDone. Added {added} rows (total force_rows now: {len(existing)}).")
+    tmp = OVERRIDES.with_suffix(OVERRIDES.suffix + ".tmp")
+    tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    os.replace(tmp, OVERRIDES)
+    json.loads(OVERRIDES.read_text(encoding="utf-8"))  # verify readable
+    print(f"\nDone. Added {added} rows (total force_rows now: {len(existing)}); "
+          f"verified, {OVERRIDES.stat().st_size} bytes.")
 
 if __name__ == "__main__":
     main()

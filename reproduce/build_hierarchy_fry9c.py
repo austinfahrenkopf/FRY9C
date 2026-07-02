@@ -449,9 +449,14 @@ def main():
             r for r in nodes
             if not (r.get("header") and not r.get("mdrm") and not _has_children(str(r.get("item",""))))
         ]
-    json.dump(hier, open(OUT,"w",encoding="utf-8"), ensure_ascii=False, indent=0)
+    tmp = OUT + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(hier, f, ensure_ascii=False, indent=0)
+    os.replace(tmp, OUT)
+    hier_verify = json.load(open(OUT, encoding="utf-8"))
     n=sum(len(v) for v in hier.values()); nh=sum(1 for v in hier.values() for x in v if x.get("header"))
-    print(f"wrote {OUT}: {len(hier)} schedule sections, {n} items ({nh} header/parent nodes)")
+    print(f"wrote {OUT}: {len(hier)} schedule sections, {n} items ({nh} header/parent nodes); "
+          f"verified readable, {os.path.getsize(OUT)} bytes")
     completeness_report(hier)
 
 if __name__=="__main__": main()

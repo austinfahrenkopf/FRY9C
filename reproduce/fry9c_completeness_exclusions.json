@@ -289,10 +289,6 @@
       "category": "historically_discontinued_pre2020",
       "reason": "Last reported 2018-03-31; removed from form before 2020"
     },
-    "BHBC4302": {
-      "category": "bhbc_banklevel_subreport",
-      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
-    },
     "BHCKC980": {
       "category": "historically_discontinued_pre2015",
       "reason": "Last reported 2009-03-31; removed from form before 2015"
@@ -476,10 +472,6 @@
     "BHCKB718": {
       "category": "historically_discontinued_pre2020",
       "reason": "Last reported 2018-03-31; removed from form before 2020"
-    },
-    "BHBC4093": {
-      "category": "bhbc_banklevel_subreport",
-      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
     },
     "BHCKC984": {
       "category": "historically_discontinued_pre2015",
@@ -832,10 +824,6 @@
     "BHCKA124": {
       "category": "historically_discontinued_pre2015",
       "reason": "Last reported 2002-03-31; removed from form before 2015"
-    },
-    "BHBCJJ33": {
-      "category": "bhbc_banklevel_subreport",
-      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
     },
     "BHCK1733": {
       "category": "historically_discontinued_pre2015",
@@ -1284,10 +1272,6 @@
     "BHCKC403": {
       "category": "historically_discontinued_pre2020",
       "reason": "Last reported 2018-03-31; removed from form before 2020"
-    },
-    "BHBCB491": {
-      "category": "bhbc_banklevel_subreport",
-      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
     },
     "BHCK1226": {
       "category": "historically_discontinued_pre2015",
@@ -2005,10 +1989,6 @@
       "category": "historically_discontinued_pre2020",
       "reason": "Last reported 2018-03-31; removed from form before 2020"
     },
-    "BHBCA220": {
-      "category": "bhbc_banklevel_subreport",
-      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
-    },
     "BHDMF580": {
       "category": "historically_discontinued_pre2020",
       "reason": "Last reported 2018-03-31; removed from form before 2020"
@@ -2377,10 +2357,6 @@
       "category": "historically_discontinued_pre2020",
       "reason": "Last reported 2018-03-31; removed from form before 2020"
     },
-    "BHBCB493": {
-      "category": "bhbc_banklevel_subreport",
-      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
-    },
     "BHCKC780": {
       "category": "otti_discontinued",
       "reason": "Other-than-temporary impairment (OTTI) codes superseded by CECL; last panel entry 2023-12-31"
@@ -2604,10 +2580,6 @@
     "BHBC4230": {
       "category": "bhbc_banklevel_subreport",
       "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2018-12-31"
-    },
-    "BHBC4301": {
-      "category": "bhbc_banklevel_subreport",
-      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; last panel entry 2026-03-31"
     },
     "BHCKC866": {
       "category": "historically_discontinued_pre2015",
@@ -3129,10 +3101,6 @@
       "category": "historically_discontinued_pre2020",
       "reason": "Last reported 2016-06-30; removed from form before 2020"
     },
-    "BHCAP845": {
-      "category": "afs_equity_pre_asu2016_01",
-      "reason": "AFS preferred stock unrealized G/L superseded by ASU 2016-01; last panel entry 2020-09-30"
-    },
     "BHCK3534": {
       "category": "historically_discontinued_pre2015",
       "reason": "Last reported 2009-03-31; removed from form before 2015"
@@ -3200,6 +3168,22 @@
     "BHCKLG27": {
       "category": "pandemic_relief_temporary",
       "reason": "COVID-19 PPP temporary disclosure; last panel entry 2021-12-31"
+    },
+    "BHBC3516": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; removed from HC-K/HC-V per DEF-NOTESBS-01"
+    },
+    "BHBC3368": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; removed from HC-K/HC-V per DEF-NOTESBS-01"
+    },
+    "BHBC3519": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; removed from HC-K/HC-V per DEF-NOTESBS-01"
+    },
+    "BHBC3402": {
+      "category": "bhbc_banklevel_subreport",
+      "reason": "BHBC-prefix bank-level sub-report column; not in consolidated BHC hierarchy; removed from HC-K/HC-V per DEF-NOTESBS-01"
     }
   },
   "sequence_exclusions": {

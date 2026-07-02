@@ -133,8 +133,13 @@ def main():
              "_meta":{"source":"NIC CSV_RELATIONSHIPS.ZIP (ctrl_ind=1, active on quarter-end) + BHCF filer set",
                       "rule":"exclude a filer controlled (transitively) by another Y-9C filer in the same quarter",
                       "quarters_with_nesting":len(nested),"total_excluded_rows":total_excluded}}
-    json.dump(payload, open(OUT,"w"), indent=0)
-    print(f"\nwrote {OUT}: nesting in {len(nested)} quarter(s), {total_excluded} excluded filer-quarters")
+    tmp = OUT + ".tmp"
+    with open(tmp, "w") as f:
+        json.dump(payload, f, indent=0)
+    os.replace(tmp, OUT)
+    json.load(open(OUT, encoding="utf-8"))  # verify readable
+    print(f"\nwrote {OUT}: nesting in {len(nested)} quarter(s), {total_excluded} excluded filer-quarters "
+          f"(verified, {os.path.getsize(OUT)} bytes)")
     print("Next: python make_site_fry9c.py")
 
 if __name__=="__main__":
